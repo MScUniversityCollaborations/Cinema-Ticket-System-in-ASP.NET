@@ -1,0 +1,141 @@
+﻿@using System.Web.Optimization
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - MovieTickets</title>
+
+    <link href="~/Images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    @Styles.Render("~/Styles/bootstrap")
+    @Styles.Render("~/Styles/site")
+    @Styles.Render("~/Styles/fontawesome")
+    @Styles.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>*@
+
+    <section class="ftco-section">
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+            <div class="container">
+                <a href="#" class="d-flex center align-items-center m-lg-3 m-4 col-md-3 mb-2 mb-md-0">
+                    <img src="~/Images/Logo_MovieTickets.png" class="bi me-2" role="img" aria-label="Logo" />
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="fa fa-bars"></span> MENU
+                </button>
+
+                <div class="collapse navbar-collapse" id="ftco-nav">
+                    <ul class="navbar-nav m-auto">
+                        <li class="nav-item"><a href="/home/index" class="nav-link"><i class="fa fa-home"></i> Home</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-film"></i> Movies</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown04">
+                                <a class="dropdown-item" href="/movies/nowshowing"><i class="fas fa-video"></i> Now Showing</a>
+                                <a class="dropdown-item" href="/home/comingsoon"><i class="fas fa-photo-video"></i> Coming Soon</a>
+                            </div>
+                        </li>
+                    </ul>
+
+                    @Html.Partial("_LoginPartial")
+
+                    @*@if (Session["CurrentUserName"] == null)
+                    {
+                        <ul class="navbar-nav col-md-3 text-end">
+                            <li class="nav-item"><a href="/account/login" class="nav-link">Login</a></li>
+                            <li class="nav-item"><a href="/account/signup" class="nav-link">Sign Up</a></li>
+                        </ul>
+                    }
+
+                    @if (Session["CurrentUserName"] != null)
+                    {
+                        <ul class="navbar-nav col-md-3 text-end">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                                    <a class="dropdown-item" href="/account/profile"><i class="fa fa-address-card"></i> Profile</a>
+                                    <a class="dropdown-item" href="/account/profile"><i class="fa fa-sign-out-alt"></i> Logout</a>
+                                </div>
+                            </li>
+                        </ul>
+                    }*@
+                </div>
+            </div>
+        </nav>
+    </section>
+
+    <div class="d-flex flex-column h-100">
+        @RenderBody()
+
+        <!-- FOOTER -->
+        <footer class="w-100 py-5 flex-shrink-0">
+            <div class="container py-5">
+                <div class="row gy-4 gx-5">
+                    <div class="col-lg-4 col-md-6">
+                        <h5 class="h1 text-white">FB.</h5>
+                        <p class="small text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+                        <p class="small text-muted mb-0">&copy; @DateTime.Now.Year Copyrights. All rights reserved. <a class="text-primary" href="#">Bootstrapious.com</a></p>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <h5 class="text-white mb-3">Quick links</h5>
+                        <ul class="list-unstyled text-muted">
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Get started</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <h5 class="text-white mb-3">Quick links</h5>
+                        <ul class="list-unstyled text-muted">
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Get started</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <h5 class="text-white mb-3">Newsletter</h5>
+                        <p class="small text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+                        <form action="#">
+                            <div class="input-group mb-3">
+                                <input class="form-control" type="text" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                <button class="btn btn-primary" id="button-addon2" type="button"><i class="fa fa-paper-plane"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/Scripts/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/bootstrap")
+    @Scripts.Render("~/Scripts/custom_js")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

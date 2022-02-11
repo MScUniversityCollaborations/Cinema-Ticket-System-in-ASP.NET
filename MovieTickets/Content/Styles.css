@@ -23,6 +23,14 @@
     font-family: Helvetica
 }
 
+html,
+body,
+#background {
+    width: 100vw;
+    min-height: 100vh;
+    background-color: var(--main-dark-purple);
+}
+
 html {
     height: 100%;
 }

@@ -28,15 +28,8 @@ body,
 #background {
     width: 100vw;
     min-height: 100vh;
+    height: 100%;
     background-color: var(--main-dark-purple);
-}
-
-html {
-    height: 100%;
-}
-
-#background {
-    height: 100%;
 }
 
 .wrapper {
@@ -49,6 +42,7 @@ html {
     height: 155px; /* .push must be the same height as .footer */
 
 }
+
 body {
     background-color: var(--main-dark-purple);
     height: 100%;

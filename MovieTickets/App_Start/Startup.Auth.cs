@@ -60,8 +60,8 @@ namespace MovieTickets
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "355975447495-lrrkr8ohibvind80vc820r5aeejp16ej.apps.googleusercontent.com",
-                ClientSecret = "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"
+                ClientId = "355975447495-hu3q6ap1h2hp3h20cvu415t8dhg9ivs2.apps.googleusercontent.com",
+                ClientSecret = "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"
             });
         }
     }

@@ -363,3 +363,11 @@ body {
 .py-5 {
     background: var(--main-light-purple)
 }
+
+.style1 {
+    border-top: 3px double #8c8b8b;
+}
+
+.rounded-4 {
+    border-radius: 0.5rem !important;
+}

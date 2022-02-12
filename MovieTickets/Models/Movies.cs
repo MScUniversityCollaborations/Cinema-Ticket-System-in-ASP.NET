@@ -13,5 +13,6 @@ namespace MovieTickets.Models
         public string Cast { get; set; }
         public int DurationMin  { get; set; }
         public string Description  { get; set; }
+        public string ImagePoster  { get; set; }
     }
 }

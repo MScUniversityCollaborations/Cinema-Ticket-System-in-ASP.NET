@@ -4,7 +4,13 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using MovieTickets.Models;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 using System;
+using System.Configuration;
+using System.Diagnostics;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -12,10 +18,27 @@ namespace MovieTickets
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            await configSendGridasync(message);
+        }
+
+        private async Task configSendGridasync(IdentityMessage message)
+        {
+            var apiKey = ConfigurationManager.AppSettings["SENDGRID_API_KEY"];
+            var client = new SendGridClient(apiKey);
+
+            var from = new EmailAddress(
+                ConfigurationManager.AppSettings["EMAIL_ADDRESS"],
+                ConfigurationManager.AppSettings["APP_NAME"]);
+
+            var subject = message.Subject;
+            var to = new EmailAddress(message.Destination);
+            var plainTextContent = message.Body;
+            var htmlContent = message.Body;
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+
+            await client.SendEmailAsync(msg);
         }
     }
 

@@ -382,3 +382,7 @@ body {
 .card {
     background-color: var(--main-light-purple)
 }
+
+.checkmark {
+    background-color: var(--main-light-purple);
+}

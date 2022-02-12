@@ -22,5 +22,10 @@ namespace MovieTickets.Controllers
         { 
             return View();
         }
+
+        public ActionResult BuyTicket()
+        {
+            return View();
+        }
     }
 }

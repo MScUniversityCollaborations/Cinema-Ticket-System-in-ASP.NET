@@ -1,10 +1,21 @@
 ﻿@{
-    ViewBag.Title = "Confirm Email";
+    ViewBag.Title = "Email Confirmation";
 }
 
-<h2>@ViewBag.Title.</h2>
-<div>
-    <p>
-        Thank you for confirming your email. Please @Html.ActionLink("Click here to Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
-    </p>
+<section class="hero text-white py-4 flex-grow-1">
+    <div class="container py-4">
+        <div class="row">
+            <h2 class="display-4 mb-5"><i class="fa-solid fa-circle-check text-success"></i> @ViewBag.Title.</h2>
+
+            <div class="col-lg-6">
+                <div class="alert alert-success" role="alert">
+                    Thank you for confirming your email. Please @Html.ActionLink("Click here to Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="wrapper">
+    <div class="push"></div>
 </div>

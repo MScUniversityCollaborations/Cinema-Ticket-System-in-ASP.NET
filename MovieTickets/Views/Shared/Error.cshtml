@@ -4,14 +4,30 @@
     ViewBag.Title = "Error";
 }
 
-<h1 class="text-danger">Error.</h1>
-@{
-    if (String.IsNullOrEmpty(ViewBag.errorMessage))
-    {
-        <h2 class="text-danger">An error occurred while processing your request.</h2>
-    }
-    else
-    {
-        <h2 class="text-danger">@ViewBag.errorMessage</h2>
-    }
-}
+<section class="hero text-white py-4 flex-grow-1">
+    <div class="container py-4">
+        <div class="row">
+            <h1 class="display-4 mb-5"><i class="fa-solid fa-circle-exclamation text-danger"></i> Notice!</h1>
+
+            <div class="col-lg-6">
+                <div class="alert alert-danger" role="alert">
+                    @{
+                        if (String.IsNullOrEmpty(ViewBag.errorMessage))
+                        {
+                            <p>An error occurred while processing your request.</p>
+                        }
+                        else
+                        {
+                            <p>@ViewBag.errorMessage</p>
+                        }
+                    }
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="wrapper">
+    <div class="push"></div>
+</div>

@@ -15,29 +15,30 @@
     @Styles.Render("~/bundles/modernizr")
 
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
-
+    
 </head>
 <body>
+
     @*<div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>*@
+        </div>*@
 
     <section class="ftco-section">
         <nav class="navbar navbar-expand-lg fixed-top navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
@@ -64,30 +65,13 @@
 
                     @Html.Partial("_LoginPartial")
 
-                    @*@if (Session["CurrentUserName"] == null)
-                    {
-                        <ul class="navbar-nav col-md-3 text-end">
-                            <li class="nav-item"><a href="/account/login" class="nav-link">Login</a></li>
-                            <li class="nav-item"><a href="/account/signup" class="nav-link">Sign Up</a></li>
-                        </ul>
-                    }
-
-                    @if (Session["CurrentUserName"] != null)
-                    {
-                        <ul class="navbar-nav col-md-3 text-end">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-                                <div class="dropdown-menu" aria-labelledby="dropdown04">
-                                    <a class="dropdown-item" href="/account/profile"><i class="fa fa-address-card"></i> Profile</a>
-                                    <a class="dropdown-item" href="/account/profile"><i class="fa fa-sign-out-alt"></i> Logout</a>
-                                </div>
-                            </li>
-                        </ul>
-                    }*@
                 </div>
             </div>
         </nav>
     </section>
+
+    <!-- Back to top button -->
+    <a id="button-back-top"></a>
 
     <div class="d-flex flex-column h-100">
         @RenderBody()

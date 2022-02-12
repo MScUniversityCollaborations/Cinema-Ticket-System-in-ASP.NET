@@ -71,18 +71,19 @@ namespace MovieTickets.Controllers
             }
 
             // Require the user to have a confirmed email before they can log on.
-            // var user = await UserManager.FindByNameAsync(model.Email);
-            var user = UserManager.Find(model.Email, model.Password);
+            var user = await UserManager.FindByNameAsync(model.Email);
             if (user != null)
             {
-                string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account-Resend");
+                if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+                {
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account-Resend");
 
-                // Uncomment to debug locally  
-                // ViewBag.Link = callbackUrl;
-                ViewBag.errorMessage = "You must have a confirmed email to log on. "
-                                     + "The confirmation token has been resent to your email account.";
-                return View("Error");
-
+                    // Uncomment to debug locally  
+                    // ViewBag.Link = callbackUrl;
+                    ViewBag.errorMessage = "You must have a confirmed email to log on. "
+                                         + "The confirmation token has been resent to your email account.";
+                    return View("Error");
+                }
             }
 
             // This doesn't count login failures towards account lockout
@@ -216,19 +217,18 @@ namespace MovieTickets.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
+                var user = UserManager.FindByEmail(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
                 }
 
-                // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                
                 await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-               
+                
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
@@ -506,6 +506,19 @@ namespace MovieTickets.Controllers
             
             await UserManager.SendEmailAsync(userID, subject,
                "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+            return callbackUrl;
+        }
+
+        private async Task<string> SendPasswordResetTokenAsync(string userID, string subject)
+        {
+            string code = await UserManager.GeneratePasswordResetTokenAsync(userID);
+
+            var callbackUrl = Url.Action("ResetPassword", "Account",
+                new { userId = userID, code = code }, protocol: Request.Url.Scheme);
+
+            await UserManager.SendEmailAsync(userID, subject,
+                "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
             return callbackUrl;
         }

@@ -242,6 +242,7 @@
     <Content Include="Content\Styles.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\cinqueterre.jpg" />
     <Content Include="Images\favicon.ico" />
     <Content Include="Images\Logo_MovieTickets.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -398,9 +399,13 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Movies\NowShowing.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
+    <Content Include="Views\Movies\ComingSoon.cshtml" />
+    <Content Include="Views\Movies\Details.cshtml" />
+    <Content Include="Views\Movies\BuyTicket.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ComingSoon\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

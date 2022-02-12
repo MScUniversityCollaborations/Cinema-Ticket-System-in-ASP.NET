@@ -371,3 +371,14 @@ body {
 .rounded-4 {
     border-radius: 0.5rem !important;
 }
+
+.btn-bottom {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    margin-left: -104.5px; 
+}
+
+.card {
+    background-color: var(--main-light-purple)
+}

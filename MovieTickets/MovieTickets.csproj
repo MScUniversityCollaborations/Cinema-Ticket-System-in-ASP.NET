@@ -388,6 +388,8 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Movies\NowShowing.cshtml" />
     <Content Include="Views\Movies\ComingSoon.cshtml" />
+    <Content Include="Views\Movies\Details.cshtml" />
+    <Content Include="Views\Movies\BuyTicket.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -85,7 +85,7 @@ body {
 
 @font-face {
     font-family: "Helvetica Bold";
-    font-weight: 550;
+    font-weight: 600;
     src: url("../fonts/Helvetica-Bold.ttf");
 }
 
@@ -381,4 +381,8 @@ body {
 
 .card {
     background-color: var(--main-light-purple)
+}
+
+.ml-2 {
+    margin-left: .5rem !important;
 }

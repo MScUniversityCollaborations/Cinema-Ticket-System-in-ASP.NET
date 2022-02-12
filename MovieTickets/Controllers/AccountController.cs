@@ -218,7 +218,7 @@ namespace MovieTickets.Controllers
             if (ModelState.IsValid)
             {
                 var user = UserManager.FindByEmail(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                if (user == null /*|| !(await UserManager.IsEmailConfirmedAsync(user.Id))*/)
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");

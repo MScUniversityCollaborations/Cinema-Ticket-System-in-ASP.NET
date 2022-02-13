@@ -383,6 +383,10 @@ body {
     background-color: var(--main-light-purple)
 }
 
+.checkmark {
+    background-color: var(--main-light-purple);
+}
+
 .ml-2 {
     margin-left: .5rem !important;
 }

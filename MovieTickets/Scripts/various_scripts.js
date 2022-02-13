@@ -13,3 +13,8 @@ btn.on('click', function (e) {
     $('html, body').animate({ scrollTop: 0 }, '300');
 });
 
+
+{
+    //clear all checkbox
+    $(':checkbox:checked').prop('checked', false);
+}

@@ -80,7 +80,7 @@ body {
 }
 
     .selectedSeat > span {
-        color: #34495E;
+        color: var(--main-light-gray);
         padding: 0.5rem 0.25rem;
     }
 
@@ -130,7 +130,7 @@ body {
     position: relative;
 }
     .selectedSeatPreviewChecked > span {
-        color: #34495E;
+        color: var(--main-light-gray);
         padding: 0.5rem 0.25rem;
     }
 

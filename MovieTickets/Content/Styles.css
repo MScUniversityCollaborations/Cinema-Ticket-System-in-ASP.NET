@@ -6,6 +6,7 @@
     --main-purple: #8265A5;
     --main-gray: #A4B3B6;
     --main-white: #FFF;
+    --main-red: #E0474C;
 }
 
 .navbar {
@@ -390,3 +391,9 @@ body {
 .ml-2 {
     margin-left: .5rem !important;
 }
+
+.btn:disabled {
+    cursor: not-allowed;
+    pointer-events: all !important;
+}
+

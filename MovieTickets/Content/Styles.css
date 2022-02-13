@@ -397,3 +397,7 @@ body {
     pointer-events: all !important;
 }
 
+.disabledContent {
+    pointer-events: none;
+}
+

@@ -122,4 +122,30 @@ body {
             background-color: var(--main-red);
             cursor: not-allowed;
         }
+
+.selectedSeatPreviewChecked {
+    display: inline-flex;
+    cursor: pointer;
+    position: relative;
+}
+    .selectedSeatPreviewChecked > span {
+        color: #34495E;
+        padding: 0.5rem 0.25rem;
+    }
+
+    .selectedSeatPreviewChecked > input {
+        height: 50px;
+        width: 50px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -o-appearance: none;
+        appearance: none;
+        border: 1px solid var(--main-gray);
+        border-radius: 4px;
+        outline: none;
+        transition-duration: 0.3s;
+        background-color: var(--main-light-green);
+        cursor: pointer;
+    }
+
  

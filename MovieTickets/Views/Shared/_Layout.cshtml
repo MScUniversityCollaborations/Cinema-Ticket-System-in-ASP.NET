@@ -1,4 +1,5 @@
-﻿@using System.Web.Optimization
+﻿@using System.Web.Optimization;
+@using MovieTickets.Models;
 
 <!DOCTYPE html>
 <html>
@@ -15,7 +16,7 @@
     @Styles.Render("~/bundles/modernizr")
 
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
-    
+
 </head>
 <body>
 
@@ -64,6 +65,8 @@
                     </ul>
 
                     @Html.Partial("_LoginPartial")
+
+                    @Html.Partial("_RolePartial")
 
                 </div>
             </div>

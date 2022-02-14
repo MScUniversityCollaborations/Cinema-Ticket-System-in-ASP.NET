@@ -6,7 +6,7 @@ using System.Web;
 
 namespace MovieTickets.Models
 {
-    public class Movies
+    public class Movie
     {
         public int Id { get; set; }
         [Required]

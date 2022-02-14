@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNet.Identity
+@using MovieTickets.Models;
+
+@if (Request.IsAuthenticated)
+{
+    if (User.IsInRole(RoleName.AdminRole))
+    {
+        <ul class="navbar-nav col-md-1 text-end">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-sliders"></i> Admin</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                    <a class="dropdown-item" href="@Url.Action("Index", "Manage")"><i class="fa fa-address-card"></i> Profile</a>
+                    <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </li>
+        </ul>
+    }
+}

@@ -28,7 +28,8 @@ namespace MovieTickets
 
             bundles.Add(new Bundle("~/Styles/site").Include(
                                 "~/Content/Styles.css",
-                                "~/Content/back-to-top-button.css"));
+                                "~/Content/back-to-top-button.css",
+                                "~/Content/error_404.css"));
 
             bundles.Add(new Bundle("~/Styles/fontawesome").Include(
                                 "~/Content/font-awesome.css",

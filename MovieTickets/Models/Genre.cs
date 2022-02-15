@@ -7,7 +7,7 @@ namespace MovieTickets.Models
         public byte Id { get; set; }
 
         [Required]
-        [StringLength(255)]
+        [StringLength(256)]
         public string Name { get; set; }
     }
 }

@@ -471,3 +471,10 @@ input[type="checkbox"]:checked + .slider:before {
         border-radius: 50%;
     }
 
+.color-red {
+    color: var(--main-red);
+}
+
+.font-helvetica-bold {
+    font-family: 'Helvetica Bold'
+}

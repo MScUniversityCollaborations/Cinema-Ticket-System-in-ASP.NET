@@ -27,5 +27,15 @@ namespace MovieTickets.Controllers
         {
             return View();
         }
+
+        public ActionResult SelectDateTime()
+        {
+            return View();
+        }
+
+        public ActionResult SelectSeat()
+        {
+            return View();
+        }
     }
 }

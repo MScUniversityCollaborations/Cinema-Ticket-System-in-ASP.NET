@@ -46,8 +46,8 @@ namespace MovieTickets.Controllers.Api
         }
 
         // POST /api/movies/1
-        [HttpPost]
-        public Movie UpdateMovie(int id, Movie movie)
+        [HttpPut]
+        public void UpdateMovie(int id, Movie movie)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -64,7 +64,20 @@ namespace MovieTickets.Controllers.Api
             movieInDb.DurationMin = movie.DurationMin;
             movieInDb.ImagePoster = movie.ImagePoster;
 
-            return movie;
+            _context.SaveChanges();
+        }
+
+        // DELETE /api/movies/1
+        [HttpDelete]
+        public void DeleteMovie(int id)
+        {
+            var movieInDb = _context.Movies.SingleOrDefault(m => m.Id == id);
+
+            if (movieInDb == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            _context.Movies.Remove(movieInDb);
+            _context.SaveChanges();
         }
     }
 }

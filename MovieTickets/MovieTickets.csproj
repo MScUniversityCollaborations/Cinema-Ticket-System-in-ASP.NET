@@ -210,6 +210,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\MoviesController.cs" />
+    <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
@@ -236,6 +237,10 @@
     <Compile Include="Migrations\202202141321533_AddedGenres.designer.cs">
       <DependentUpon>202202141321533_AddedGenres.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202202150721250_MultipleFixes.cs" />
+    <Compile Include="Migrations\202202150721250_MultipleFixes.designer.cs">
+      <DependentUpon>202202150721250_MultipleFixes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Genre.cs" />
@@ -245,6 +250,7 @@
     <Compile Include="Models\RoleName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\MovieFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\animate.css" />
@@ -273,6 +279,7 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\cinqueterre.jpg" />
+    <Content Include="Images\error_404.png" />
     <Content Include="Images\favicon.ico" />
     <Content Include="Images\Logo_MovieTickets.png" />
     <Content Include="lib\font-awesome\css\all.css" />
@@ -476,10 +483,12 @@
     <Content Include="Views\Movies\Details.cshtml" />
     <Content Include="Views\Movies\BuyTicket.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Movies\MovieForm.cshtml" />
+    <Content Include="Views\Errors\404.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Sms\" />
+    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -529,6 +538,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202202141321533_AddedGenres.resx">
       <DependentUpon>202202141321533_AddedGenres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202150721250_MultipleFixes.resx">
+      <DependentUpon>202202150721250_MultipleFixes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

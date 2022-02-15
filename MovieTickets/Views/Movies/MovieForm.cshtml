@@ -1,0 +1,59 @@
+﻿@model MovieTickets.ViewModels.MovieFormViewModel
+
+@{
+    ViewBag.Title = Model.PageTitle;
+}
+
+<h2>@Model.Title</h2>
+
+@using (Html.BeginForm("Save", "Movies", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true, "Please fix the following errors.")
+    <div class="form-group">
+        @Html.LabelFor(m => m.Title)
+        @Html.TextBoxFor(m => m.Title, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Title)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Director)
+        @Html.TextBoxFor(m => m.Director, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Director)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Cast)
+        @Html.TextBoxFor(m => m.Cast, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Cast)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.DurationMin)
+        @Html.TextBoxFor(m => m.DurationMin, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.DurationMin)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ImagePoster)
+        @Html.TextBoxFor(m => m.ImagePoster, new { @type = "file", @class = "form-control-file"})
+        @Html.ValidationMessageFor(m => m.ImagePoster)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Title)
+        @Html.TextBoxFor(m => m.Title, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Title)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Title)
+        @Html.TextBoxFor(m => m.Title, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Title)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.GenreId)
+        @Html.DropDownListFor(m => m.GenreId, new SelectList(Model.Genres, "Id", "Name"), "", new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.GenreId)
+    </div>
+    @Html.HiddenFor(m => m.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">@Model.State</button>
+}
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

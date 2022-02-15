@@ -80,7 +80,7 @@ namespace MovieTickets.Controllers
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
                 {
-                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account-Resend");
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, user.FirstName, user.LastName, "Welcome to MovieTickets! Confirm Your Εmail (Resent)");
 
                     // Assign default role to users
                     await UserManager.AddToRoleAsync(user.Id, RoleName.AdminRole);
@@ -194,7 +194,7 @@ namespace MovieTickets.Controllers
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, user.FirstName, user.LastName, "Welcome to MovieTickets! Confirm Your Εmail");
 
                     ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
                          + "before you can log in.";
@@ -524,7 +524,7 @@ namespace MovieTickets.Controllers
         }
         #endregion
 
-        private async Task<string> SendEmailConfirmationTokenAsync(string userID, string subject)
+        private async Task<string> SendEmailConfirmationTokenAsync(string userID, string userFirstName, string userLastName, string subject)
         {
             string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
 
@@ -532,7 +532,7 @@ namespace MovieTickets.Controllers
                new { userId = userID, code = code }, protocol: Request.Url.Scheme);
             
             await UserManager.SendEmailAsync(userID, subject,
-               "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+               "<h1>Welcome to MovieTickets!</h1><br>Hello, " + userFirstName + " " + userLastName + " please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
             return callbackUrl;
         }

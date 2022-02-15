@@ -32,10 +32,18 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-offset-2 mt-3 col-md-10">
-                            <div class="checkbox">
+                            @*<label class="switch">
                                 @Html.CheckBoxFor(m => m.RememberMe)
-                                @Html.LabelFor(m => m.RememberMe)
-                            </div>
+                                <span class="slider round"></span>
+                                <span class="label">@Html.LabelFor(m => m.RememberMe)</span>
+                            </label>*@
+
+                            <label class="switch">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                <span class="slider round" />
+                                <span class="label">@Html.LabelFor(m => m.RememberMe)</span>
+                            </label>
+
                         </div>
                     </div>
                     <div class="form-group">

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MovieTickets.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -23,6 +24,7 @@ namespace MovieTickets.Controllers
             return View();
         }
 
+        [Authorize(Roles = RoleName.CanBuyTickets)]
         public ActionResult BuyTicket()
         {
             return View();

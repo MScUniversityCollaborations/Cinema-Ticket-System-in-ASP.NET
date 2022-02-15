@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MovieTickets.Models;
@@ -12,11 +13,14 @@ namespace MovieTickets.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext _context;
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
         public AccountController()
         {
+            _context = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -77,6 +81,9 @@ namespace MovieTickets.Controllers
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
                 {
                     string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account-Resend");
+
+                    // Assign default role to users
+                    await UserManager.AddToRoleAsync(user.Id, RoleName.AdminRole);
 
                     // Uncomment to debug locally  
                     // ViewBag.Link = callbackUrl;
@@ -174,6 +181,14 @@ namespace MovieTickets.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+
+                    var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    await roleManager.CreateAsync(new IdentityRole(RoleName.CanBuyTickets));
+
+                    // Assign default role to users
+                    await UserManager.AddToRoleAsync(user.Id, RoleName.CanBuyTickets);
+
                     // Comment the following line to prevent log in until the user is confirmed.
                     // await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
@@ -438,6 +453,12 @@ namespace MovieTickets.Controllers
                 {
                     _signInManager.Dispose();
                     _signInManager = null;
+                }
+
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    _context = null;
                 }
             }
 

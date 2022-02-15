@@ -20,3 +20,4 @@ btn.on('click', function (e) {
     document.getElementById("btnCheckOut").disabled = true;
    
 }
+

@@ -134,5 +134,17 @@ namespace MovieTickets.Controllers
 
             return RedirectToAction("Index", "Admin");
         }*/
+
+        public ActionResult SelectDateTime()
+        {
+            return View();
+        }
+
+        public ActionResult SelectSeat()
+        {
+            return View();
+        }
+
+
     }
 }

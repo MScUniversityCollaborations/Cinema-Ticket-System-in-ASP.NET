@@ -17,5 +17,7 @@ btn.on('click', function (e) {
 {
     //clear all checkbox
     $(':checkbox:checked').prop('checked', false);
+    document.getElementById("btnCheckOut").disabled = true;
+   
 }
 

@@ -6,7 +6,7 @@
 
   
 
-    function onClickbtnCheckOut() {
+    function onClickbtnContinue() {
 
        @*  location.href = 'https://code.tutsplus.com';*@
          location.href = '/movies/BuyTicket'
@@ -34,7 +34,7 @@
                     let seatID = item.id;
                     const seat = seatID.split(".");
                     document.getElementById('seat').innerHTML = "Row: " + seat[0] + " Seat: " + seat[1];
-                    document.getElementById("btnCheckOut").disabled = false;
+                    document.getElementById("btnSelectSeat").disabled = false;
                    @* document.getElementById('nullSeat').hidden = true; *@
                     document.getElementById("nullSeat").style.visibility = "hidden";
                 } 
@@ -45,7 +45,7 @@
             if (item == checkbox) {
                 document.getElementById('seat').innerHTML = "NONE"
                 document.getElementById('nullSeat').innerHTML = ''
-                document.getElementById("btnCheckOut").disabled = true;
+                document.getElementById("btnSelectSeat").disabled = true;
              
             }
 
@@ -93,25 +93,55 @@
         </div>
 
         <div class="col-md-5 col-lg-4 pull-right" style="margin-left:40px ">
-            <h1 class="display-6 d-flex justify-content-between " style="font-family: 'Helvetica Bold'; text-align: center">Select your seat</h1>
+            <h1 class="display-6 d-flex justify-content-between " style="font-family: 'Helvetica Bold'; text-align: center">Details</h1>
             <ul class="list-group mb-3">
 
-                <li class="list-group-item d-flex justify-content-between lh-sm p-3" style="background-color: #44318D; ">
+
+                <li class="list-group-item d-flex justify-content-between lh-sm p-2" style="background-color: #44318D; ">
+
                     <div>
-                        <h6 class="my-0 mt-2 mb-3" style="color:white">Your seat: </h6>
-                        <small class="text fst-italic" style="color:white">Select a seat and click next</small>
-                        <br />
-                        <h5 class="rounded-pill mt-2 text-danger" id="nullSeat" style="font-family: 'Helvetica Bold'; "> <i class="fa-solid fa-triangle-exclamation"></i> You have not selected a seat!!</h5>
+                        <h6 class="my-0 mt-2 mb-1" style="color:white">Movie </h6>
                     </div>
-                    <span class="rounded-pill mt-2" id="seat" style="font-family: 'Helvetica Bold'; color: #D83F87 ">NONE</span>
+                    <span class="rounded-pill mt-2" id="moveName" style="font-family: 'Helvetica Bold'; color: #D83F87 ">Spiderman 4</span>
+
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-sm p-2" style="background-color: #44318D; ">
+
+                    <div>
+                        <h6 class="my-0 mt-1" style="color:white">Screening Date </h6>
+                    </div>
+                    <span class="rounded-pill mt-2" id="moveDate" style="font-family: 'Helvetica Bold'; color: #D83F87 ">11/2/2022</span>
+
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-sm p-2" style="background-color: #44318D; ">
+
+                    <div>
+                        <h6 class="my-0 mt-1" style="color:white">Screening Time</h6>
+                    </div>
+                    <span class="rounded-pill mt-2" id="moveTime" style="font-family: 'Helvetica Bold'; color: #D83F87 ">00:00</span>
+
+                </li>
+
+
+                <li class="list-group-item d-flex justify-content-between lh-sm p-2" style="background-color: #44318D; ">
+                    <div>
+                        <h6 class="my-0 mt-1" style="color:white">Your seat </h6>
+                        <h5 class="rounded-pill mt-1 text-danger" id="nullSeat" style="font-family: 'Helvetica Bold'; "> <i class="fa-solid fa-triangle-exclamation"></i> You have not selected a seat!!</h5>
+                    </div>
+                    <span class="rounded-pill mt-1" id="seat" style="font-family: 'Helvetica Bold'; color: #D83F87 ">NONE</span>
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between lh-sm " style="background-color: #44318D;">
+                    <h6 class="my-0 mt-1" style="color:white">Total (EU) </h6>
+                    <span class="rounded-pill mt-1 " id="seat" style="font-family: 'Helvetica Bold'; color: #D83F87 "> &euro; 20</span>
+
                 </li>
 
 
 
             </ul>
-            <button id="btnCheckOut" href='/movies/BuyTicket' disabled class="btn btn-primary btn-lg w-100" onclick="onClickbtnCheckOut()"> Check out </button>
-        @*    <a href="/movies/BuyTicket" class="btn btn-primary btn-lg w-100 " onclick="onClickbtnCheckOut()">   Check out</a>
-*@
+            <button id="btnSelectSeat" href='/movies/BuyTicket' disabled class="btn btn-primary btn-lg w-100" onclick="onClickbtnContinue()">Continue </button>
+  
         </div>
 
         <div class="row-md-6">

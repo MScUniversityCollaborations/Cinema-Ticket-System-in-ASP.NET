@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace MovieTickets.Controllers
 {
@@ -25,6 +26,7 @@ namespace MovieTickets.Controllers
         public ActionResult NowShowing()
         {
             var moviesQuery = _context.Movies
+                .Include(m => m.Genre)
                 .Where(m => m.NowShowing == true);
 
             if (moviesQuery == null)
@@ -38,9 +40,16 @@ namespace MovieTickets.Controllers
             return View();
         }
 
-        public ActionResult Details() 
-        { 
-            return View();
+        public ActionResult Details(int id)
+        {
+            var movie = _context.Movies
+                .Include(m => m.Genre)
+                .SingleOrDefault(m => m.Id == id);
+
+            if (movie == null)
+                return HttpNotFound();
+
+            return View(movie);
         }
 
         [Authorize(Roles = RoleName.CanBuyTickets)]

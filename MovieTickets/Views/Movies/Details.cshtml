@@ -1,4 +1,6 @@
-﻿@{
+﻿@model MovieTickets.Models.Movie
+
+@{
     ViewBag.Title = "Details";
 }
 
@@ -9,35 +11,54 @@
         <h1 class="display-4 text-uppercase" style="font-family: 'Helvetica Bold'; text-align: center">Details</h1>
         <hr class="style1 mb-5">
 
-        <div class="container p-0  my-4">
-           <div class="row p-3 py-5 rounded-4">
+        <div class="container p-0 my-4">
+            <div class="row p-3 py-5 rounded-4">
 
-               <div class="col-lg-3 p-2 text-center mb-3">
-                   <img src="~/Images/cinqueterre.jpg" class="rounded-4" width="220" height="300">
-               </div>
+                <div class="col-sm p-2 text-center mb-3">
+                    <img src="data:image;base64,@Model.ImagePoster" class="rounded-4 card-img-bottom" onerror="this.src='~/Images/no_image_found.jpg'">
+                </div>
 
-               <div class="col-6 p-1">
-                   <div class="information">
+                <div class="ms-5 col-sm p-1">
+                    <div class="information">
 
-                       <h1 class="display-6 text-uppercase mb-4" style="font-family: 'Helvetica Bold';"> Spiderman 3</h1>
-                       <p>Storyline:</p>
-                       <p>Genre:</p>
-                       <p>Director:</p>
-                       <p>Cast:</p>
-                       <p>Duration:</p>
-                       <p class="mb-3">Language: English</p>
+                        <h1 class="display-6 text-uppercase mb-4" style="font-family: 'Helvetica Bold';"> @Model.Title</h1>
 
-                   </div>
+                        <p>Genre: @Model.Genre.Name.</p>
 
-               </div>
 
-               <div class="col-3">
-                   <button type="button" class="btn-lg btn-primary" style="margin-top: 259px; margin-left: 100px;"> <i class="fa-solid fa-ticket"></i> Buy Ticket</button>
-               </div>
+                        @if (!Model.Director.IsEmpty())
+                        {
+                            <p>Director: @Model.Director.</p>}
 
-           </div>
+                        @if (!Model.Cast.IsEmpty())
+                        {
+                             <p>Cast: @Model.Cast</p>}
 
-           </div>
+                        <p>Duration: @Model.DurationMin Minutes.</p>
+
+                        @if (!Model.Description.IsEmpty())
+                        {
+                            <p>Storyline:</p>
+                            <p class="mb-3">@Model.Description</p>}
+
+                    </div>
+
+                </div>
+
+                @*DO NOT TOUCH*@
+                <div class="ms-5 col-sm p-1">
+                    <button type="button" hidden class="btn-lg btn-primary align-self-end"> <i class="fa-solid fa-ticket"></i></button>
+                </div>
+
+                
+                <div class="col-md-offset-2 mt-5 col-md-10">
+                    <a href="@Url.Action("SelectDateTime", "Movies", new { id = Model.Id })" class="btn btn-lg btn-primary"><i class="fa-solid fa-ticket"></i> Buy Ticket</a>
+                </div>
+                
+
+            </div>
+
+        </div>
 
     </div>
 </section>

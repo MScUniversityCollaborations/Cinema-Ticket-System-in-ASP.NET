@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using System.Data.Entity;
 
 namespace MovieTickets.Controllers.Api
 {
@@ -22,6 +23,7 @@ namespace MovieTickets.Controllers.Api
         public IEnumerable<MovieDto> GetMovies(string query = null)
         {
             var moviesQuery = _context.Movies
+                .Include(m => m.Genre.Name)
                 .Where(m => m.NowShowing == true);
 
             if (!String.IsNullOrWhiteSpace(query))

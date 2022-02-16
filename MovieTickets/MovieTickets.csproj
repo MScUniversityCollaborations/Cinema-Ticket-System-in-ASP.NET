@@ -299,7 +299,8 @@
     <Content Include="Images\error_404.png" />
     <Content Include="Images\favicon.ico" />
     <Content Include="Images\loading.gif" />
-    <Content Include="Images\Logo_MovieTickets.png" />
+    <Content Include="Images\logo_movie_tickets.png" />
+    <Content Include="Images\no_image_found.png" />
     <Content Include="lib\font-awesome\css\all.css" />
     <Content Include="lib\font-awesome\css\all.min.css" />
     <Content Include="lib\font-awesome\css\brands.css" />

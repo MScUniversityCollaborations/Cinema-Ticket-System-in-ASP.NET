@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.1.0\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=3.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -205,6 +208,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\FontAwesomeBundleConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\MappingProfile.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -215,6 +219,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Dtos\GenreDto.cs" />
+    <Compile Include="Dtos\MovieDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -241,6 +247,14 @@
     <Compile Include="Migrations\202202150721250_MultipleFixes.cs" />
     <Compile Include="Migrations\202202150721250_MultipleFixes.designer.cs">
       <DependentUpon>202202150721250_MultipleFixes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202202160013219_MultipleFixesOnMovies.cs" />
+    <Compile Include="Migrations\202202160013219_MultipleFixesOnMovies.designer.cs">
+      <DependentUpon>202202160013219_MultipleFixesOnMovies.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202202160504277_Fixes.cs" />
+    <Compile Include="Migrations\202202160504277_Fixes.designer.cs">
+      <DependentUpon>202202160504277_Fixes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -277,12 +291,16 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\SelectSeats.css" />
     <Content Include="Content\Styles.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\cinqueterre.jpg" />
     <Content Include="Images\error_404.png" />
     <Content Include="Images\favicon.ico" />
-    <Content Include="Images\Logo_MovieTickets.png" />
+    <Content Include="Images\loading.gif" />
+    <Content Include="Images\logo_movie_tickets.png" />
+    <Content Include="Images\no_image_found.png" />
     <Content Include="lib\font-awesome\css\all.css" />
     <Content Include="lib\font-awesome\css\all.min.css" />
     <Content Include="lib\font-awesome\css\brands.css" />
@@ -352,6 +370,8 @@
     <Content Include="lib\font-awesome\webfonts\fa-solid-900.woff2" />
     <Content Include="lib\font-awesome\webfonts\fa-v4compatibility.ttf" />
     <Content Include="lib\font-awesome\webfonts\fa-v4compatibility.woff2" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
@@ -431,6 +451,8 @@
     <Content Include="Scripts\src\utils\setAttributes.js" />
     <Content Include="Scripts\src\utils\setStyles.js" />
     <Content Include="Scripts\src\utils\setupEventListeners.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -546,6 +568,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202202150721250_MultipleFixes.resx">
       <DependentUpon>202202150721250_MultipleFixes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202160013219_MultipleFixesOnMovies.resx">
+      <DependentUpon>202202160013219_MultipleFixesOnMovies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202160504277_Fixes.resx">
+      <DependentUpon>202202160504277_Fixes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

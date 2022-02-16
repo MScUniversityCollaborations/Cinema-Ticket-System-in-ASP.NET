@@ -6,53 +6,95 @@
 
 <h2>@Model.Title</h2>
 
-@using (Html.BeginForm("Save", "Movies", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.ValidationSummary(true, "Please fix the following errors.")
-    <div class="form-group">
-        @Html.LabelFor(m => m.Title)
-        @Html.TextBoxFor(m => m.Title, new {@class = "form-control"})
-        @Html.ValidationMessageFor(m => m.Title)
+<section class="hero text-white py-4 flex-grow-1">
+    <div class="container py-4">
+        <div class="row">
+            <h2 class="display-4 mb-5">@ViewBag.Title</h2>
+
+            <div class="col-lg-6">
+                @using (Html.BeginForm("Save", "Movies", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h4>@Model.PageDesc</h4>
+                    <hr />
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Title, new { @class = "form-control", @placeholder = "Please add the movie's title (Ex: Lord of The Rings)" })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.Director, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Director, new { @class = "form-control", @placeholder = "Please add the movie's director (Ex: Steven Spielberg)" })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.Cast, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Cast, new { @class = "form-control", @placeholder = "Please add the movie's cast (Ex: Margot Robbie)." })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.DurationMin, new { @class = "col-md-2 text-no-wrap control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.DurationMin, new { @type = "number", min = "0", @class = "form-control", @placeholder = "Please add the movie duration time in minutes (E.x: 120)." })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.ImagePoster, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.ImagePoster, new { @type = "file", @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.GenreId, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(m => m.GenreId, new SelectList(Model.Genres, "Id", "Name"), "", new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @rows="5", @placeholder = "Please add the movie description here or add a storyline." })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <label class="switch">
+                            @Html.CheckBoxFor(m => m.NowShowing)
+                            <span class="slider round" />
+                            <span class="label">@Html.LabelFor(m => m.NowShowing)</span>
+                        </label>
+                    </div>
+
+
+                    @Html.HiddenFor(m => m.Id)
+                    <div class="form-group">
+                        <div class="col-md-offset-2 mt-5 mb-5 col-md-10">
+                            @if (Model.Id == 0)
+                            {
+                                <button type="submit" class="btn btn-primary btn-lg w-100"><i class="fa-solid fa-plus"></i> @Model.State</button>
+                            }   
+                            else { 
+                                <button type="submit" class="btn btn-primary btn-lg w-100"><i class="fa-solid fa-floppy-disk"></i> @Model.State</button>
+                            }
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Director)
-        @Html.TextBoxFor(m => m.Director, new {@class = "form-control"})
-        @Html.ValidationMessageFor(m => m.Director)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Cast)
-        @Html.TextBoxFor(m => m.Cast, new {@class = "form-control"})
-        @Html.ValidationMessageFor(m => m.Cast)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.DurationMin)
-        @Html.TextBoxFor(m => m.DurationMin, new {@class = "form-control"})
-        @Html.ValidationMessageFor(m => m.DurationMin)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ImagePoster)
-        @Html.TextBoxFor(m => m.ImagePoster, new { @type = "file", @class = "form-control-file"})
-        @Html.ValidationMessageFor(m => m.ImagePoster)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Title)
-        @Html.TextBoxFor(m => m.Title, new {@class = "form-control"})
-        @Html.ValidationMessageFor(m => m.Title)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Title)
-        @Html.TextBoxFor(m => m.Title, new {@class = "form-control"})
-        @Html.ValidationMessageFor(m => m.Title)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.GenreId)
-        @Html.DropDownListFor(m => m.GenreId, new SelectList(Model.Genres, "Id", "Name"), "", new {@class = "form-control"})
-        @Html.ValidationMessageFor(m => m.GenreId)
-    </div>
-    @Html.HiddenFor(m => m.Id)
-    @Html.AntiForgeryToken()
-    <button type="submit" class="btn btn-primary">@Model.State</button>
-}
+</section>
+
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")

@@ -1,73 +1,40 @@
-﻿@{
+﻿@model IEnumerable<MovieTickets.Models.Movie>
+
+@{
     ViewBag.Title = "More Info";
 }
 
-<section class="hero text-white py-4 flex-grow-1">
+@if (!Model.Any()) {
+    
+}
+else { 
+    <section class="hero text-white py-4 flex-grow-1">
 
-        <div class="container" py-4">
+    <div class="container" py-4">
 
+        <h1 class="display-4 text-uppercase" style="font-family: 'Helvetica Bold'; text-align: center">Now Showing Movies </h1>
+        <hr class="style1 mb-5">
 
-            <h1 class="display-4 text-uppercase" style="font-family: 'Helvetica Bold'; text-align: center">Now Showing Movies </h1>
-            <hr class="style1 mb-5">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
 
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-
+            @foreach(var movie in Model)
+            {
                 <div class="col mb-5">
                     <div class="card h-100">
-                        <img src="~/Images/cinqueterre.jpg" class="card-img-top mb-5">
+                        <img src="data:image;base64,@movie.ImagePoster" class="card-img-top mb-5" onerror="this.src='~/Images/no_image_found.jpg'">
                         <div class="card-body">
-                            <h4 class="card-title" style="font-family: 'Helvetica Bold';">Spiderman 3</h4>
-                            <p class="card-text mb-5">Some example text some example text. John Doe is an architect and engineer</p>
-                            <a href="/movies/details" class="btn btn-primary"><i class="fa-solid fa-circle-plus"></i> Details</a>
+                            <h4 class="card-title" style="font-family: 'Helvetica Bold';">@movie.Title</h4>
+                            <p class="card-text mb-5">@movie.Genre.Name</p>
+                            <a href="@Url.Action("Details", "Movies", new { id = movie.Id })" class="btn btn-primary"> Details</a>
                             <a href="/movies/SelectDateTime" class="btn btn-primary pull-right"><i class="fa-solid fa-ticket"></i> Buy Ticket</a>
                         </div>
                     </div>
                 </div>
-
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <img src="~/Images/cinqueterre.jpg" class="card-img-top mb-5">
-                        <div class="card-body">
-                            <h4 class="card-title" style="font-family: 'Helvetica Bold';">Spiderman 2</h4>
-                            <p class="card-text mb-5">Some example text some example text. John Doe is an architect and engineer</p>
-                            <a href="#" class="btn btn-primary"><i class="fa-duotone fa-memo-circle-info"></i> Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <img src="~/Images/cinqueterre.jpg" class="card-img-top mb-5">
-                        <div class="card-body">
-                            <h4 class="card-title" style="font-family: 'Helvetica Bold';">Spiderman 1</h4>
-                            <p class="card-text mb-5">Some example text some example text. John Doe is an architect and engineer</p>
-                            <a href="#" class="btn btn-primary"><i class="fa-duotone fa-memo-circle-info"></i> Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <img src="~/Images/cinqueterre.jpg" class="card-img-top mb-5">
-                        <div class="card-body">
-                            <h4 class="card-title" style="font-family: 'Helvetica Bold';">Spiderman 5</h4>
-                            <p class="card-text mb-5">Some example text some example text. John Doe is an architect and engineer</p>
-                            <a href="#" class="btn btn-primary"><i class="fa-duotone fa-memo-circle-info"></i> Details</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <img src="~/Images/cinqueterre.jpg" class="card-img-top mb-5">
-                        <div class="card-body">
-                            <h4 class="card-title" style="font-family: 'Helvetica Bold';">Spiderman 5</h4>
-                            <p class="card-text mb-5">Some example text some example text. John Doe is an architect and engineer</p>
-                            <a href="#" class="btn btn-primary"><i class="fa-duotone fa-memo-circle-info"></i> Details</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>  
+            }
+        </div>
+    </div>
 </section>
+}
 
 <div class="wrapper">
     <div class="push"></div>

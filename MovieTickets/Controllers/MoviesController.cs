@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace MovieTickets.Controllers
 {
@@ -24,7 +25,14 @@ namespace MovieTickets.Controllers
 
         public ActionResult NowShowing()
         {
-            return View();
+            var moviesQuery = _context.Movies
+                .Include(m => m.Genre)
+                .Where(m => m.NowShowing == true);
+
+            if (moviesQuery == null)
+                return HttpNotFound();
+
+            return View(moviesQuery);
         }
 
         public ActionResult ComingSoon()
@@ -32,15 +40,35 @@ namespace MovieTickets.Controllers
             return View();
         }
 
-        public ActionResult Details() 
-        { 
-            return View();
+        public ActionResult Details(int id)
+        {
+            var movie = _context.Movies
+                .Include(m => m.Genre)
+                .SingleOrDefault(m => m.Id == id);
+
+            if (movie == null)
+                return HttpNotFound();
+
+            return View(movie);
         }
 
         [Authorize(Roles = RoleName.CanBuyTickets)]
         public ActionResult BuyTicket()
         {
             return View();
+        }
+
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ViewResult New()
+        {
+            var genres = _context.Genres.ToList();
+
+            var viewModel = new MovieFormViewModel
+            {
+                Genres = genres
+            };
+
+            return View("MovieForm", viewModel);
         }
 
         [HttpPost]
@@ -97,6 +125,10 @@ namespace MovieTickets.Controllers
             }
 
             _context.SaveChanges();
+
+            ViewBag.Message = "Movie has been added successfully!";
+
+            return View("Info");
 
             return RedirectToAction("Index", "Admin");
 

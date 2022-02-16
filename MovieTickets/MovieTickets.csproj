@@ -295,12 +295,17 @@
     <Content Include="Content\toastr.min.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Images\cinqueterre.jpg" />
     <Content Include="Images\error_404.png" />
     <Content Include="Images\favicon.ico" />
     <Content Include="Images\loading.gif" />
     <Content Include="Images\logo_movie_tickets.png" />
     <Content Include="Images\no_image_found.png" />
+    <Content Include="Images\slide1.jpg" />
+    <Content Include="Images\slide2.jpg" />
+    <Content Include="Images\slide3.jpg" />
+    <Content Include="Images\slide4.jpg" />
+    <Content Include="Images\slide5.jpg" />
+    <Content Include="Images\slide6.jpg" />
     <Content Include="lib\font-awesome\css\all.css" />
     <Content Include="lib\font-awesome\css\all.min.css" />
     <Content Include="lib\font-awesome\css\brands.css" />
@@ -514,7 +519,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Screenings\" />
     <Folder Include="Views\Sms\" />
   </ItemGroup>
   <ItemGroup>

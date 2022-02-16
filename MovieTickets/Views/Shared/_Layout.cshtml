@@ -32,6 +32,7 @@
                     <span class="fa fa-bars"></span> MENU
                 </button>
 
+              
                 <div class="collapse navbar-collapse" id="ftco-nav">
                     <ul class="navbar-nav m-auto">
                         <li class="nav-item"><a href="/home/index" class="nav-link"><i class="fa fa-home"></i> Home</a></li>
@@ -40,15 +41,21 @@
                             <div class="dropdown-menu" aria-labelledby="dropdown04">
                                 <a class="dropdown-item" href="/movies/nowshowing"><i class="fas fa-video"></i> Now Showing</a>
                                 <a class="dropdown-item" href="/movies/comingsoon"><i class="fas fa-photo-video"></i> Coming Soon</a>
+
                             </div>
                         </li>
+                        <li class="nav-item"><a href="/findbooking/Find" class="nav-link"><i class="fa fa-search"></i> FIND BOOKING</a></li>
                     </ul>
+
+
 
                     @Html.Partial("_LoginPartial")
 
                     @Html.Partial("_RolePartial")
 
                 </div>
+
+
             </div>
         </nav>
     </section>
@@ -86,7 +93,7 @@
             <div class="container py-5 ">
                 <div class="row gy-4 gx-5">
                     <div class="col-lg-4 col-md-6">
-                        <h5 class="text-white mb-3">About</h5>
+                        <h5 class="text-white mb-3">About MovieTickets</h5>
                         <ul class="list-unstyled color-light-gray">
                             <li class="mb-2"><i class="fa-solid fa-location-pin"></i> 80, M. Karaoli & A. Dimitriou St., 18534 Piraeus</li>
                             <li class="mb-2"><i class="fa-solid fa-phone"></i> (+30) 210 414200</li>

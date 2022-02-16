@@ -177,6 +177,9 @@ namespace MovieTickets.Controllers
             return View();
         }
 
-
+        public ActionResult SearchBooking()
+        {
+            return View();
+        }
     }
 }

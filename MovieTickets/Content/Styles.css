@@ -5,6 +5,7 @@
     --main-dark-pink: #a43067;
     --main-purple: #8265A5;
     --main-gray: #A4B3B6;
+    --main-light-gray: #D3D3D3;
     --main-white: #FFF;
     --main-red: #E0474C;
 }
@@ -471,8 +472,13 @@ input[type="checkbox"]:checked + .slider:before {
         border-radius: 50%;
     }
 
+/* COLORS */
 .color-red {
     color: var(--main-red);
+}
+
+.color-light-gray {
+    color: var(--main-light-gray);
 }
 
 .font-helvetica-bold {
@@ -502,3 +508,5 @@ input[type="checkbox"]:checked + .slider:before {
 .special .btn {
     flex: 1
 }
+
+

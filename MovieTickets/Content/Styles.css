@@ -478,3 +478,7 @@ input[type="checkbox"]:checked + .slider:before {
 .font-helvetica-bold {
     font-family: 'Helvetica Bold'
 }
+
+.text-no-wrap {
+    white-space: nowrap;
+}

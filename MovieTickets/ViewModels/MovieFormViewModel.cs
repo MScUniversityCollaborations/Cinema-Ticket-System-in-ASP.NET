@@ -17,16 +17,13 @@ namespace MovieTickets.ViewModels
         [StringLength(256, ErrorMessage = "The {0} can have a max of {1} characters.")]
         public string Title { get; set; }
 
-        [Required]
         [StringLength(128, ErrorMessage = "The {0} can have a max of {1} characters.")]
         public string Director { get; set; }
 
-        [Required]
         [StringLength(256, ErrorMessage = "The {0} can have a max of {1} characters.")]
         public string Cast { get; set; }
 
         [StringLength(500, ErrorMessage = "The {0} can have a max of {1} characters.")]
-        [Required]
         public string Description { get; set; }
 
         [Display(Name = "Poster")]
@@ -54,11 +51,19 @@ namespace MovieTickets.ViewModels
             }
         }
 
+        public string PageDesc
+        {
+            get
+            {
+                return Id != 0 ? "Update an existing movie." : "Create a new movie.";
+            }
+        }
+
         public string State
         {
             get
             {
-                return Id != 0 ? "Update" : "Add";
+                return Id != 0 ? "Update" : "Create";
             }
         }
 
@@ -77,7 +82,6 @@ namespace MovieTickets.ViewModels
             ImagePoster = movie.ImagePoster;
             GenreId = movie.GenreId;
             DurationMin = movie.DurationMin;
-
         }
     }
 }

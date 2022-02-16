@@ -1,4 +1,7 @@
-﻿using MovieTickets.Models;
+﻿using AutoMapper;
+using MovieTickets.Dtos;
+using MovieTickets.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -16,38 +19,54 @@ namespace MovieTickets.Controllers.Api
         }
 
         // GET /api/movies
-        public IEnumerable<Movie> GetMovies()
+        public IEnumerable<MovieDto> GetMovies(string query = null)
         {
-            return _context.Movies.ToList();
+            var moviesQuery = _context.Movies
+                .Where(m => m.NowShowing == true);
+
+            if (!String.IsNullOrWhiteSpace(query))
+                moviesQuery = moviesQuery.Where(m => m.Title.Contains(query));
+
+            return moviesQuery
+                .ToList()
+                .Select(Mapper.Map<Movie, MovieDto>);
         }
 
+        /*public IEnumerable<MovieDto> GetMovies()
+        {
+            return _context.Movies.ToList().Select(Mapper.Map<Movie, MovieDto>);
+        }*/
+
         // GET /api/movies/1
-        public Movie GetMovie(int id)
+        public MovieDto GetMovie(int id)
         {
             var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
 
             if (movie == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);    
             
-            return movie;
+            return Mapper.Map<Movie, MovieDto>(movie);
         }
 
         // POST /api/movies
         [HttpPost]
-        public Movie CreateMovie(Movie movie)
+        public MovieDto CreateMovie(MovieDto movieDto)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
+            var movie = Mapper.Map<MovieDto, Movie>(movieDto);
             _context.Movies.Add(movie);
             _context.SaveChanges();
 
-            return movie;
+            movieDto.Id = movie.Id;
+
+            return movieDto;
         }
 
         // POST /api/movies/1
         [HttpPut]
-        public void UpdateMovie(int id, Movie movie)
+        public void UpdateMovie(int id, MovieDto movieDto)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -57,12 +76,7 @@ namespace MovieTickets.Controllers.Api
             if (movieInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            movieInDb.Title = movie.Title;
-            movieInDb.Cast = movie.Cast;
-            movieInDb.Director = movie.Director;
-            movieInDb.Description = movie.Description;
-            movieInDb.DurationMin = movie.DurationMin;
-            movieInDb.ImagePoster = movie.ImagePoster;
+            Mapper.Map(movieDto, movieInDb);
 
             _context.SaveChanges();
         }

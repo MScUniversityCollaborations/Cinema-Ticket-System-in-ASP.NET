@@ -24,7 +24,13 @@ namespace MovieTickets.Controllers
 
         public ActionResult NowShowing()
         {
-            return View();
+            var moviesQuery = _context.Movies
+                .Where(m => m.NowShowing == true);
+
+            if (moviesQuery == null)
+                return HttpNotFound();
+
+            return View(moviesQuery);
         }
 
         public ActionResult ComingSoon()
@@ -41,6 +47,19 @@ namespace MovieTickets.Controllers
         public ActionResult BuyTicket()
         {
             return View();
+        }
+
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ViewResult New()
+        {
+            var genres = _context.Genres.ToList();
+
+            var viewModel = new MovieFormViewModel
+            {
+                Genres = genres
+            };
+
+            return View("MovieForm", viewModel);
         }
 
         [HttpPost]
@@ -97,6 +116,10 @@ namespace MovieTickets.Controllers
             }
 
             _context.SaveChanges();
+
+            ViewBag.Message = "Movie has been added successfully!";
+
+            return View("Info");
 
             return RedirectToAction("Index", "Admin");
 

@@ -1,39 +1,50 @@
 ﻿@model IEnumerable<MovieTickets.Models.Movie>
 
 @{
-    ViewBag.Title = "More Info";
+    ViewBag.Title = "Now Showing";
 }
 
-@if (!Model.Any()) {
-    
-}
-else { 
-    <section class="hero text-white py-4 flex-grow-1">
-
-    <div class="container" py-4">
-
-        <h1 class="display-4 text-uppercase" style="font-family: 'Helvetica Bold'; text-align: center">Now Showing Movies </h1>
-        <hr class="style1 mb-5">
-
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-
-            @foreach(var movie in Model)
-            {
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <img src="data:image;base64,@movie.ImagePoster" class="card-img-top mb-5" onerror="this.src='~/Images/no_image_found.jpg'">
-                        <div class="card-body">
-                            <h4 class="card-title" style="font-family: 'Helvetica Bold';">@movie.Title</h4>
-                            <p class="card-text mb-5">@movie.Genre.Name</p>
-                            <a href="@Url.Action("Details", "Movies", new { id = movie.Id })" class="btn btn-primary"> Details</a>
-                            <a href="/movies/SelectDateTime" class="btn btn-primary pull-right"><i class="fa-solid fa-ticket"></i> Buy Ticket</a>
-                        </div>
-                    </div>
+@if (!Model.Any())
+{
+    <div class="page-wrap d-flex mt-5 flex-row align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12 text-center">
+                    <img src="~/Images/empty_state.png" class="img-fluid" alt="Empty State Image">
+                    <h1 class="display-4 text-uppercase text-white mt-4" style="font-family: 'Helvetica Bold'; text-align: center">No movies found 🥲</h1>
                 </div>
-            }
+            </div>
         </div>
     </div>
-</section>
+}
+else
+{
+    <section class="hero text-white py-4 flex-grow-1">
+
+        <div class="container" py-4">
+
+            <h1 class="display-4 text-uppercase" style="font-family: 'Helvetica Bold'; text-align: center">Now Showing Movies </h1>
+            <hr class="style1 mb-5">
+
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+
+                @foreach (var movie in Model)
+                {
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <img src="data:image;base64,@movie.ImagePoster" class="card-img-top mb-5" onerror="this.src='~/Images/no_image_found.jpg'">
+                            <div class="card-body">
+                                <h4 class="card-title" style="font-family: 'Helvetica Bold';">@movie.Title</h4>
+                                <p class="card-text mb-5">@movie.Genre.Name</p>
+                                <a href="@Url.Action("Details", "Movies", new { id = movie.Id })" class="btn btn-primary"> Details</a>
+                                <a href="/movies/SelectDateTime" class="btn btn-primary pull-right"><i class="fa-solid fa-ticket"></i> Buy Ticket</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
 }
 
 <div class="wrapper">

@@ -37,7 +37,14 @@ namespace MovieTickets.Controllers
 
         public ActionResult ComingSoon()
         {
-            return View();
+            var moviesQuery = _context.Movies
+               .Include(m => m.Genre)
+               .Where(m => m.NowShowing == false);
+
+            if (moviesQuery == null)
+                return HttpNotFound();
+
+            return View(moviesQuery);
         }
 
         public ActionResult Details(int id)
@@ -130,7 +137,7 @@ namespace MovieTickets.Controllers
 
             return View("Info");
 
-            return RedirectToAction("Index", "Admin");
+            // return RedirectToAction("Index", "Admin");
 
         }
 

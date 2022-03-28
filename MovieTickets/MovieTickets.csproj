@@ -213,6 +213,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\Api\MoviesController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\Api\ScreeningsController.cs" />
@@ -257,11 +258,30 @@
     <Compile Include="Migrations\202202160504277_Fixes.designer.cs">
       <DependentUpon>202202160504277_Fixes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203261144579_InitAuditoriumAndScreenings.cs" />
+    <Compile Include="Migrations\202203261144579_InitAuditoriumAndScreenings.designer.cs">
+      <DependentUpon>202203261144579_InitAuditoriumAndScreenings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203262300502_RemoveTotalSeatsFromScreenings.cs" />
+    <Compile Include="Migrations\202203262300502_RemoveTotalSeatsFromScreenings.designer.cs">
+      <DependentUpon>202203262300502_RemoveTotalSeatsFromScreenings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203270040283_AddSeatsAndReservedSeatsTables.cs" />
+    <Compile Include="Migrations\202203270040283_AddSeatsAndReservedSeatsTables.designer.cs">
+      <DependentUpon>202203270040283_AddSeatsAndReservedSeatsTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203281157360_FixDb.cs" />
+    <Compile Include="Migrations\202203281157360_FixDb.designer.cs">
+      <DependentUpon>202203281157360_FixDb.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Auditorium.cs" />
+    <Compile Include="Models\Screening.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\RoleName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -296,6 +316,7 @@
     <Content Include="Content\toastr.min.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\empty_state.png" />
     <Content Include="Images\error_404.png" />
     <Content Include="Images\favicon.ico" />
     <Content Include="Images\loading.gif" />
@@ -517,11 +538,10 @@
     <Content Include="Views\Errors\404.cshtml" />
     <Content Include="Views\Movies\SelectDateTime.cshtml" />
     <Content Include="Views\FindBooking\Find.cshtml" />
+    <Content Include="Views\Admin\Users.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Sms\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -580,6 +600,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202202160504277_Fixes.resx">
       <DependentUpon>202202160504277_Fixes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203261144579_InitAuditoriumAndScreenings.resx">
+      <DependentUpon>202203261144579_InitAuditoriumAndScreenings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203262300502_RemoveTotalSeatsFromScreenings.resx">
+      <DependentUpon>202203262300502_RemoveTotalSeatsFromScreenings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203270040283_AddSeatsAndReservedSeatsTables.resx">
+      <DependentUpon>202203270040283_AddSeatsAndReservedSeatsTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203281157360_FixDb.resx">
+      <DependentUpon>202203281157360_FixDb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

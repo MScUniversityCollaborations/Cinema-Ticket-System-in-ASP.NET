@@ -12,10 +12,12 @@ namespace MovieTickets.Models
     {
         [Required]
         [StringLength(256)]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Required]
         [StringLength(256)]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -32,6 +34,10 @@ namespace MovieTickets.Models
         public DbSet<Movie> Movies { get; set; }
 
         public DbSet<Genre> Genres { get; set; }
+
+        public DbSet<Auditorium> Auditoriums { get; set; }
+
+        public DbSet<Screening> Screenings { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

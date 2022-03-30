@@ -23,5 +23,9 @@ namespace MovieTickets.Models
         [Display(Name = "Screening Start")]
         [Required]
         public DateTime ScreeningStart { get; set; }
+        
+        [Display(Name = "Screening End")]
+        [Required]
+        public DateTime ScreeningEnd { get; set; }
     }
 }

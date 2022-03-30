@@ -23,6 +23,7 @@ namespace MovieTickets.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = RoleName.AdminRole)]
         public ActionResult Users()
         {
             var users = _context.Users;
@@ -31,14 +32,28 @@ namespace MovieTickets.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult Movies()
+        {
+            var movies = _context.Movies
+                .Include(m => m.Genre);
+
+            return View(movies);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = RoleName.AdminRole)]
         public ActionResult Screenings()
         {
-            var screenings = _context.Screenings;
+            var screenings = _context.Screenings
+                .Include(m => m.Auditorium)
+                .Include(m => m.Movie);
 
             return View(screenings);
         }
 
         [HttpGet]
+        [Authorize(Roles = RoleName.AdminRole)]
         public ActionResult Auditoriums()
         {
             var auditoriums = _context.Auditoriums;

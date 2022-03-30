@@ -1,7 +1,7 @@
-﻿@model IEnumerable<MovieTickets.Models.ApplicationUser>
+﻿@model IEnumerable<MovieTickets.Models.Screening>
 
 @{
-    ViewBag.Title = "User Management";
+    ViewBag.Title = "Screenings Management";
 }
 
 @if (!Model.Any())
@@ -11,7 +11,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-12 text-center">
                     <img src="~/Images/empty_state.png" class="img-fluid" alt="Empty State Image">
-                    <h1 class="display-4 text-uppercase text-white mt-4" style="font-family: 'Helvetica Bold'; text-align: center">No users found 🥲</h1>
+                    <h1 class="display-4 text-uppercase text-white mt-4" style="font-family: 'Helvetica Bold'; text-align: center">No screenings found 🥲</h1>
                 </div>
             </div>
         </div>
@@ -23,17 +23,17 @@ else
 
         <div class="container" py-4">
 
-            <h1 class="display-4 text-uppercase" style="font-family: 'Helvetica Bold'; text-align: center">User Management</h1>
+            <h1 class="display-4 text-uppercase" style="font-family: 'Helvetica Bold'; text-align: center">Screenings Management</h1>
             <hr class="style1 mb-5">
 
             <div class="row row-cols-1 row-cols-md-3 g-4">
-                <table class="table table-striped rounded-4 table-bordered table-dark table-responsive" id="TableUsers" style="border-radius: 5px">
+                <table class="table table-striped rounded-4 table-bordered table-dark table-responsive" id="TableScreenings" style="border-radius: 5px">
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.FirstName)
+                            @Html.DisplayNameFor(model => model.AuditoriumId)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.LastName)
+                            @Html.DisplayNameFor(model => model.Auditorium.Name)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Email)
@@ -108,7 +108,7 @@ else
 @section scripts{
     <script>
         $(function () {
-            $('#TableUsers').DataTable({
+            $('#TableScreenings').DataTable({
                 "paging": true,
                 "lengthChange": true,
                 "searching": true,

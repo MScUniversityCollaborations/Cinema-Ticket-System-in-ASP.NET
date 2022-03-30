@@ -3,10 +3,10 @@ using MovieTickets.Dtos;
 using MovieTickets.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
-using System.Data.Entity;
 
 namespace MovieTickets.Controllers.Api
 {
@@ -45,8 +45,8 @@ namespace MovieTickets.Controllers.Api
             var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
 
             if (movie == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);    
-            
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
             return Mapper.Map<Movie, MovieDto>(movie);
         }
 

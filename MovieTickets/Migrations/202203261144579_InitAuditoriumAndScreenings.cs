@@ -1,8 +1,7 @@
 ﻿namespace MovieTickets.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class InitAuditoriumAndScreenings : DbMigration
     {
         public override void Up()
@@ -32,7 +31,7 @@
                 .ForeignKey("dbo.Movies", t => t.MovieId, cascadeDelete: true)
                 .ForeignKey("dbo.Auditoriums", t => t.AuditoriumId, cascadeDelete: true);
         }
-        
+
         public override void Down()
         {
         }

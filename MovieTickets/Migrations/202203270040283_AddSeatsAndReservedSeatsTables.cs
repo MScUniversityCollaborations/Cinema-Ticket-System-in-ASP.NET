@@ -1,8 +1,7 @@
 ﻿namespace MovieTickets.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class AddSeatsAndReservedSeatsTables : DbMigration
     {
         public override void Up()
@@ -42,18 +41,18 @@
             AddForeignKey("dbo.Reservations", "UserId", "dbo.AspNetUsers", "Id", cascadeDelete: true);
             AddForeignKey("dbo.Reservations", "ScreeningId", "dbo.Screenings", "Id", cascadeDelete: true);
 
-           /* CreateTable(
-                "dbo.ReservedSeats",
-                c => new
-                {
-                    Id = c.Int(nullable: false),
-                    ReservationId = c.Int(nullable: false),
-                })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Reservations", t => t.ReservationId, cascadeDelete: true)
-                .Index(t => t.ReservationId);*/
+            /* CreateTable(
+                 "dbo.ReservedSeats",
+                 c => new
+                 {
+                     Id = c.Int(nullable: false),
+                     ReservationId = c.Int(nullable: false),
+                 })
+                 .PrimaryKey(t => t.Id)
+                 .ForeignKey("dbo.Reservations", t => t.ReservationId, cascadeDelete: true)
+                 .Index(t => t.ReservationId);*/
         }
-        
+
         public override void Down()
         {
         }

@@ -8,9 +8,6 @@ using SendGrid;
 using SendGrid.Helpers.Mail;
 using System;
 using System.Configuration;
-using System.Diagnostics;
-using System.Net;
-using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
 

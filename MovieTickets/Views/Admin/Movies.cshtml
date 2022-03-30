@@ -27,7 +27,7 @@ else
             <hr class="style1 mb-5">
 
             <div class="row row-cols-1 row-cols-md-3 g-4">
-                <table class="table table-striped rounded-4 table-bordered table-dark table-responsive" id="TableUsers" style="border-radius: 5px">
+                <table class="table table-striped rounded-4 table-bordered table-dark table-responsive" id="TableMovies" style="border-radius: 5px">
                     <tr>
                         <th>
                             @Html.DisplayNameFor(model => model.Title)
@@ -134,7 +134,7 @@ else
 @section scripts{
     <script>
         $(function () {
-            $('#TableUsers').DataTable({
+            $('#TableMovies').DataTable({
                 "paging": true,
                 "lengthChange": true,
                 "searching": true,

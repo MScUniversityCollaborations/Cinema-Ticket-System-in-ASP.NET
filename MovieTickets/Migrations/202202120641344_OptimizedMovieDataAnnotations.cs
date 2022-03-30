@@ -1,8 +1,7 @@
 ﻿namespace MovieTickets.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class OptimizedMovieDataAnnotations : DbMigration
     {
         public override void Up()
@@ -13,7 +12,7 @@
             AlterColumn("dbo.Movies", "Description", c => c.String(nullable: false, maxLength: 500));
             AlterColumn("dbo.Movies", "ImagePoster", c => c.String(nullable: false));
         }
-        
+
         public override void Down()
         {
             AlterColumn("dbo.Movies", "ImagePoster", c => c.String());

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace MovieTickets.Models
 {
@@ -11,6 +8,7 @@ namespace MovieTickets.Models
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Auditorium Id")]
         public byte AuditoriumId { get; set; }
 
         [Required]
@@ -23,7 +21,7 @@ namespace MovieTickets.Models
         [Display(Name = "Screening Start")]
         [Required]
         public DateTime ScreeningStart { get; set; }
-        
+
         [Display(Name = "Screening End")]
         [Required]
         public DateTime ScreeningEnd { get; set; }

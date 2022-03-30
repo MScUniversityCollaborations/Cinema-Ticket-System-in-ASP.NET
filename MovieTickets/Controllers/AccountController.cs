@@ -171,11 +171,12 @@ namespace MovieTickets.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { 
+                var user = new ApplicationUser
+                {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     UserName = model.Email,
-                    Email = model.Email 
+                    Email = model.Email
                 };
 
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -247,9 +248,9 @@ namespace MovieTickets.Controllers
 
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                
+
                 await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                
+
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
@@ -530,7 +531,7 @@ namespace MovieTickets.Controllers
 
             var callbackUrl = Url.Action("ConfirmEmail", "Account",
                new { userId = userID, code = code }, protocol: Request.Url.Scheme);
-            
+
             await UserManager.SendEmailAsync(userID, subject,
                "<h1>Welcome to MovieTickets!</h1><br>Hello, " + userFirstName + " " + userLastName + " please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 

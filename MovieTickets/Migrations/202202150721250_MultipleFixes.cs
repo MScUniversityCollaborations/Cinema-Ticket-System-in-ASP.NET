@@ -1,8 +1,7 @@
 ﻿namespace MovieTickets.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class MultipleFixes : DbMigration
     {
         public override void Up()
@@ -28,7 +27,7 @@
             Sql("INSERT INTO Genres (Id, Name) VALUES(12, 'Western')");
             Sql("INSERT INTO Genres (Id, Name) VALUES(13, 'Other')");
         }
-        
+
         public override void Down()
         {
             AlterColumn("dbo.Movies", "DurationMin", c => c.Int(nullable: false));

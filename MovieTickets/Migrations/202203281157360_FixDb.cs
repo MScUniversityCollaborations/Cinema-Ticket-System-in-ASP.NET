@@ -1,8 +1,7 @@
 ﻿namespace MovieTickets.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class FixDb : DbMigration
     {
         public override void Up()
@@ -10,23 +9,23 @@
             CreateTable(
                 "dbo.Auditoriums",
                 c => new
-                    {
-                        Id = c.Byte(nullable: false),
-                        Name = c.String(nullable: false, maxLength: 32),
-                        TotalSeats = c.Int(nullable: false),
-                    })
+                {
+                    Id = c.Byte(nullable: false),
+                    Name = c.String(nullable: false, maxLength: 32),
+                    TotalSeats = c.Int(nullable: false),
+                })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
                 "dbo.Screenings",
                 c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        AuditoriumId = c.Byte(nullable: false),
-                        MovieId = c.Byte(nullable: false),
-                        ScreeningStart = c.DateTime(nullable: false),
-                        Movie_Id = c.Int(),
-                    })
+                {
+                    Id = c.Int(nullable: false, identity: true),
+                    AuditoriumId = c.Byte(nullable: false),
+                    MovieId = c.Byte(nullable: false),
+                    ScreeningStart = c.DateTime(nullable: false),
+                    Movie_Id = c.Int(),
+                })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Auditoriums", t => t.AuditoriumId, cascadeDelete: true)
                 .ForeignKey("dbo.Movies", t => t.Movie_Id)
@@ -54,7 +53,7 @@
             AddForeignKey("dbo.Reservations", "UserId", "dbo.AspNetUsers", "Id", cascadeDelete: true);
             AddForeignKey("dbo.Reservations", "ScreeningId", "dbo.Screenings", "Id", cascadeDelete: true);
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.Screenings", "Movie_Id", "dbo.Movies");

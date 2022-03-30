@@ -278,12 +278,21 @@
     <Compile Include="Migrations\202203301743141_AddSomeMovies.designer.cs">
       <DependentUpon>202203301743141_AddSomeMovies.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203302024378_changes1.cs" />
+    <Compile Include="Migrations\202203302024378_changes1.designer.cs">
+      <DependentUpon>202203302024378_changes1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203302039049_changes2.cs" />
+    <Compile Include="Migrations\202203302039049_changes2.designer.cs">
+      <DependentUpon>202203302039049_changes2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Auditorium.cs" />
+    <Compile Include="Models\Reservation.cs" />
     <Compile Include="Models\Screening.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="Models\Movie.cs" />
@@ -623,6 +632,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202203301743141_AddSomeMovies.resx">
       <DependentUpon>202203301743141_AddSomeMovies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203302024378_changes1.resx">
+      <DependentUpon>202203302024378_changes1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203302039049_changes2.resx">
+      <DependentUpon>202203302039049_changes2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

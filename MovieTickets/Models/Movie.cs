@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace MovieTickets.Models
 {
@@ -25,15 +22,15 @@ namespace MovieTickets.Models
 
         [Display(Name = "Duration Time (Minutes)")]
         [Required]
-        public byte DurationMin  { get; set; }
+        public byte DurationMin { get; set; }
 
         [Display(Name = "Description")]
         [StringLength(500)]
-        public string Description  { get; set; }
+        public string Description { get; set; }
 
         [Display(Name = "Poster")]
         [Required]
-        public string ImagePoster  { get; set; }
+        public string ImagePoster { get; set; }
 
         public Genre Genre { get; set; }
 

@@ -39,6 +39,8 @@ namespace MovieTickets.Models
 
         public DbSet<Screening> Screenings { get; set; }
 
+        public DbSet<Reservation> Reservations { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

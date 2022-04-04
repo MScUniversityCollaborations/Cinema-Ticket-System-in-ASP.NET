@@ -185,10 +185,10 @@ namespace MovieTickets.Controllers
 
                     var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
                     var roleManager = new RoleManager<IdentityRole>(roleStore);
-                    await roleManager.CreateAsync(new IdentityRole(RoleName.CanBuyTickets));
+                    // await roleManager.CreateAsync(new IdentityRole(RoleName.CanBuyTickets));
 
                     // Assign default role to users
-                    await UserManager.AddToRoleAsync(user.Id, RoleName.CanBuyTickets);
+                    // await UserManager.AddToRoleAsync(user.Id, RoleName.CanBuyTickets);
 
                     // Comment the following line to prevent log in until the user is confirmed.
                     // await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);

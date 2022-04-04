@@ -26,7 +26,7 @@ namespace MovieTickets.Controllers.Api
                 .Include(m => m.Genre.Name)
                 .Where(m => m.NowShowing == true);
 
-            if (!String.IsNullOrWhiteSpace(query))
+            if (!string.IsNullOrWhiteSpace(query))
                 moviesQuery = moviesQuery.Where(m => m.Title.Contains(query));
 
             return moviesQuery

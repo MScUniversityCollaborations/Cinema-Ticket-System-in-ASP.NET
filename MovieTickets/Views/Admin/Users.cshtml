@@ -12,6 +12,7 @@
                 <div class="col-md-12 text-center">
                     <img src="~/Images/empty_state.png" class="img-fluid" alt="Empty State Image">
                     <h1 class="display-4 text-uppercase text-white mt-4" style="font-family: 'Helvetica Bold'; text-align: center">No users found 🥲</h1>
+                    <a href="@Url.Action("AddUser", "Admin")" class="btn btn-primary btn-lg mb-5 mt-5"><i class="fa-solid fa-plus"></i> Add New User</a>
                 </div>
             </div>
         </div>
@@ -25,6 +26,8 @@ else
 
             <h1 class="display-4 text-uppercase" style="font-family: 'Helvetica Bold'; text-align: center">User Management</h1>
             <hr class="style1 mb-5">
+
+            <a href="@Url.Action("AddUser", "Admin")" class="btn btn-primary mb-5"><i class="fa-solid fa-plus"></i> Add New User</a>
 
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <table class="table table-striped rounded-4 table-bordered table-dark table-responsive" id="TableUsers" style="border-radius: 5px">

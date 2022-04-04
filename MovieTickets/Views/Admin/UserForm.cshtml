@@ -1,0 +1,131 @@
+﻿@model MovieTickets.ViewModels.UserFormViewModel
+
+@{
+    ViewBag.Title = Model.PageTitle;
+}
+
+<section class="hero text-white py-4 flex-grow-1">
+    <div class="container py-4">
+        <div class="row">
+            <h2 class="display-4 mb-5">@ViewBag.Title</h2>
+
+            <div class="col-lg-6 mb-4">
+                @using (Html.BeginForm("Save", "Movies", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h4>@Model.PageDesc</h4>
+                    <hr />
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "Please add the user's first name (Ex: Peter)" })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "Please add the user's last name (Ex: Parker)" })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Please add the user's email (Ex: peterparker@gmail.com)." })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label text-no-wrap" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @placeholder = "Please add the user's phone number (Ex: +306999999999)." })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Please add the user's username (Ex: PeterP)." })
+                        </div>
+                    </div>
+
+                    @Html.HiddenFor(m => m.Id)
+                    <div class="form-group">
+                        <div class="col-md-offset-2 mt-5 mb-5 col-md-10">
+                            @if (Model.Id == null)
+                            {
+                                <button type="submit" class="btn btn-primary btn-lg w-100"><i class="fa-solid fa-plus"></i> @Model.State</button>
+                            }
+                            else
+                            {
+                                <button type="submit" class="btn btn-primary btn-lg w-100"><i class="fa-solid fa-floppy-disk"></i> @Model.State</button>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="col-lg-6 mb-4">
+                @if (Model.State == "Update")
+                {
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>User Roles</h3>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.Roles.Any())
+                            {
+                                foreach (var role in Model.Roles)
+                                {
+                                    <h5 class="card-title">• @role</h5>
+                                }
+                            }
+                            else
+                            {
+                                <h5 class="card-title">None at the moment</h5>
+                            }
+                        </div>
+                        <div class="card-footer">
+                            <a href="@Url.Action("UserRoleUpdate", "Admin", new { Id = Model.Id })" style="width:auto" class="btn btn-primary">
+                                Manage Roles
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @*<div class="card mt-3">
+            <div class="card-header">
+                <h3>User Claims</h3>
+            </div>
+            <div class="card-body">
+                @if (Model.Claims.Any())
+                {
+                    foreach (var claim in Model.Claims)
+                    {
+                        <h5 class="card-title">@claim</h5>
+                    }
+                }
+                else
+                {
+                    <h5 class="card-title">None at the moment</h5>
+                }
+            </div>
+            <div class="card-footer">
+                <a href="#" style="width:auto" class="btn btn-primary">
+                    Manage Claims
+                </a>
+            </div>
+        </div>*@
+
+        </div>
+    </div>
+</section>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

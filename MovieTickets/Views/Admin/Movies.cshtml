@@ -12,6 +12,7 @@
                 <div class="col-md-12 text-center">
                     <img src="~/Images/empty_state.png" class="img-fluid" alt="Empty State Image">
                     <h1 class="display-4 text-uppercase text-white mt-4" style="font-family: 'Helvetica Bold'; text-align: center">No movies found 🥲</h1>
+                    <a href="@Url.Action("AddMovie", "Admin")" class="btn btn-primary btn-lg mb-5 mt-5"><i class="fa-solid fa-plus"></i> Add New Movie</a>
                 </div>
             </div>
         </div>
@@ -25,6 +26,8 @@ else
 
             <h1 class="display-4 text-uppercase" style="font-family: 'Helvetica Bold'; text-align: center">Movie Management</h1>
             <hr class="style1 mb-5">
+
+            <a href="@Url.Action("AddMovie", "Admin")" class="btn btn-primary mb-5"><i class="fa-solid fa-plus"></i> Add New Movie</a>
 
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <table class="table table-striped rounded-4 table-bordered table-dark table-responsive" id="TableMovies" style="border-radius: 5px">
@@ -58,71 +61,71 @@ else
 
                     @foreach (var item in Model)
                     {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td>
-                        @if (item.Director == null)
-                        {
-                            <p>-</p>
-                        }
-                        else
-                        {
-                            <p class="cut-text">@item.Director</p>
-                        }
-                    </td>
-                    <td>
-                        @if (item.Cast == null)
-                        {
-                            <p>-</p>
-                        }
-                        else
-                        {
-                            <p class="cut-text">@item.Cast</p>
-                        }
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DurationMin)
-                    </td>
-                    <td>
-                        @if (item.Description == null)
-                        {
-                            <p>-</p>
-                        }
-                        else
-                        {
-                            <p class="cut-text">@item.Description</p>
-                        }
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Genre.Name)
-                    </td>
-                    <td>
-                        @if (item.NowShowing)
-                        {
-                            <p>Yes</p>
-                        }
-                        else
-                        {
-                            <p>No</p>
-                        }
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateAdded)
-                    </td>
-                    <td>
-                        <a href="@Url.Action("MovieUpdate", "Admin", new { Id = item.Id })" class="btn btn-primary">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
-                        <a href="@Url.Action("MovieDetails", "Admin", new { Id = item.Id })" class="btn btn-primary ml-2">
-                            <i class="fa-solid fa-circle-info"></i>
-                        </a>
-                        <a href="@Url.Action("MovieDelete", "Admin", new { Id = item.Id })" class="btn btn-danger ml-2">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </a>
-                    </td>
-                </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @if (item.Director == null)
+                                {
+                                    <p>-</p>
+                                }
+                                else
+                                {
+                                    <p class="cut-text">@item.Director</p>
+                                }
+                            </td>
+                            <td>
+                                @if (item.Cast == null)
+                                {
+                                    <p>-</p>
+                                }
+                                else
+                                {
+                                    <p class="cut-text">@item.Cast</p>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DurationMin)
+                            </td>
+                            <td>
+                                @if (item.Description == null)
+                                {
+                                    <p>-</p>
+                                }
+                                else
+                                {
+                                    <p class="cut-text">@item.Description</p>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Genre.Name)
+                            </td>
+                            <td>
+                                @if (item.NowShowing)
+                                {
+                                    <p>Yes</p>
+                                }
+                                else
+                                {
+                                    <p>No</p>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateAdded)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("MovieUpdate", "Admin", new { Id = item.Id })" class="btn btn-primary">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                                <a href="@Url.Action("MovieDetails", "Admin", new { Id = item.Id })" class="btn btn-primary ml-2">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </a>
+                                <a href="@Url.Action("MovieDelete", "Admin", new { Id = item.Id })" class="btn btn-danger ml-2">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+                            </td>
+                        </tr>
                     }
 
                 </table>
@@ -130,6 +133,10 @@ else
         </div>
     </section>
 }
+
+<div class="wrapper">
+    <div class="push"></div>
+</div>
 
 @section scripts{
     <script>

@@ -1,0 +1,45 @@
+﻿@model MovieTickets.ViewModels.UserRolesFormViewModel
+
+@{
+    ViewBag.Title = "Manage user role";
+}
+
+<section class="hero text-white py-4 flex-grow-1">
+    <div class="container py-4">
+        <div class="row">
+            <h2 class="display-4 mb-5">@ViewBag.Title</h2>
+
+            <div class="col-lg-6 mb-4">
+                @using (Html.BeginForm("SaveUserRoles", "Admin", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <h4>Edit User Role</h4>
+                    <hr />
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.User.UserName, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.User.UserName, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.Roles, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(m => m.Roles, new SelectList(Model.Roles, "Id", "Name"), "", new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    @Html.HiddenFor(m => m.Id)
+                    <button type="submit" class="btn btn-primary btn-lg w-100"><i class="fa-solid fa-floppy-disk"></i> Update</button>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

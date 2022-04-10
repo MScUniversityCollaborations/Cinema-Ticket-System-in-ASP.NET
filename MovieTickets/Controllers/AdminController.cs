@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.Owin;
 using MovieTickets.Models;
 using MovieTickets.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -107,6 +108,7 @@ namespace MovieTickets.Controllers
 
         // Details
         [HttpGet]
+        [Authorize(Roles = RoleName.AdminRole)]
         public ActionResult AuditoriumDetails(byte? id)
         {
             if (id == null)
@@ -150,98 +152,96 @@ namespace MovieTickets.Controllers
             return View("UserForm", viewModel);
         }
 
-        public async Task<ActionResult> UserRolesUpdateAsync(string id)
+        [HttpGet]
+        [Authorize(Roles = RoleName.AdminRole)]
+        public async Task<ActionResult> ManageUserRoles(string Id)
         {
-            var user = await UserManager.FindByIdAsync(id);
+            ViewBag.userId = Id;
 
-            var userManager = new UserManager<IdentityUser, string>(new UserStore<IdentityUser>(_context));
+            var user = await UserManager.FindByIdAsync(Id);
 
             if (user == null)
             {
-                ViewBag.ErrorMessage = $"User with Id = {id} cannot be found";
+                ViewBag.ErrorMessage = $"User with Id = {Id} cannot be found";
                 return View("Error");
             }
 
-            var viewModel = new UserRolesFormViewModel(user)
+            var model = new List<UserRolesFormViewModel>();
+
+            foreach (var role in RoleManager.Roles.ToList())
             {
-                Roles = userRoles
-            };
+                var userRolesViewModel = new UserRolesFormViewModel
+                {
+                    RoleId = role.Id,
+                    RoleName = role.Name
+                };
 
-            return View("UserForm", viewModel);
-        }
-
-        // Role ID is passed from the URL to the action
-        /*[HttpGet]
-        [Authorize(Roles = RoleName.AdminRole)]
-        public async Task<ActionResult> UserRoleUpdate(string id)
-        {
-            var roleManager = new Microsoft.AspNet.Identity.RoleManager<IdentityRole>(new RoleStore<IdentityRole>(_context));
-
-            // Find the role by Role ID
-            var role = await roleManager.FindByIdAsync(id);
-
-            if (role == null)
-            {
-                ViewBag.ErrorMessage = $"Role with Id = {id} cannot be found";
-                return View("NotFound");
-            }
-
-            var model = new UserRolesFormViewModel
-            {
-                Id = role.Id,
-                RoleName = role.Name
-            };
-
-            // Retrieve all the Users
-            foreach (var user in UserManager.Users)
-            {
-                // If the user is in this role, add the username to
-                // Users property of EditRoleViewModel. This model
-                // object is then passed to the view for display
                 if (await UserManager.IsInRoleAsync(user.Id, role.Name))
                 {
-                    model.Users.Add(user.UserName);
+                    userRolesViewModel.IsSelected = true;
                 }
+                else
+                {
+                    userRolesViewModel.IsSelected = false;
+                }
+
+                model.Add(userRolesViewModel);
             }
 
-            return View(model);
-        }*/
+            return View("UserRolesForm", model);
+        }
 
-        // This action responds to HttpPost and receives EditRoleViewModel
-        /*[HttpPost]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = RoleName.AdminRole)]
-        public async Task<ActionResult> UserRoleUpdate(UserRolesFormViewModel model)
+        public ActionResult ManageUserRoles(List<UserRolesFormViewModel> model, string userId)
         {
-            var roleManager = new Microsoft.AspNet.Identity.RoleManager<IdentityRole>(new RoleStore<IdentityRole>(_context));
+            var user = UserManager.FindById(userId);
 
-            var role = await roleManager.FindByIdAsync(model.Id);
-
-            if (role == null)
+            if (user == null)
             {
-                ViewBag.ErrorMessage = $"Role with Id = {model.Id} cannot be found";
-                return View("NotFound");
+                ViewBag.ErrorMessage = $"User with Id = '{userId}' cannot be found";
+                return View("Error");
             }
+
+            var roles = UserManager.GetRoles(user.Id);
+            /*var result = await UserManager.RemoveFromRolesAsync(user.Id, roles.ToArray());
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("", "Cannot remove user existing roles");
+                ViewBag.ErrorMessage = $"User with Id = {userId} cannot be found";
+                return View("Error", m);
+            }*/
+
+            if (ModelState.IsValid)
+            {
+                foreach (var role in model.Where(m => m.IsSelected))
+                {
+                    var result = UserManager.AddToRoles(user.Id,
+                                role.RoleName);
+
+                    if (!result.Succeeded)
+                    {
+                        ModelState.AddModelError("", "Cannot add selected roles to user");
+                        ViewBag.ErrorMessage = $"User with Id = {userId} cannot be found";
+                        return View("Error", model);
+                    }
+                }
+
+                ViewBag.Message = "User roles have been updated successfully!";
+
+                return View("Info");
+            } 
             else
             {
-                role.Name = model.RoleName;
+                ViewBag.ErrorMessage = "Model is invalid";
 
-                // Update the Role using UpdateAsync
-                var result = await roleManager.UpdateAsync(role);
-
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("ListRoles");
-                }
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error);
-                }
-
-                return View(model);
+                return View("Error");
             }
-        }*/
+
+            //return RedirectToAction("UserUpdate", new { Id = userId });
+        }
 
         [Authorize(Roles = RoleName.AdminRole)]
         public ViewResult AddMovie()
@@ -314,6 +314,37 @@ namespace MovieTickets.Controllers
             ViewBag.Message = "Movie has been added successfully!";
 
             return View("Info");
+
+            // return RedirectToAction("Index", "Admin");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult SaveUser(UserFormViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = UserManager.FindById(model.Id);
+
+                user.UserName = model.UserName;
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.Email = model.Email;
+                user.PhoneNumber = model.PhoneNumber;
+
+                UserManager.Update(user);
+
+                ViewBag.Message = "User {" + model.Id + "} has been updated successfully!";
+
+                return View("Info");
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "Model is invalid";
+
+                return View("Error");
+            }
 
             // return RedirectToAction("Index", "Admin");
 

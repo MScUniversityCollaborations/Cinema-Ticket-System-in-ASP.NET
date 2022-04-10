@@ -12,7 +12,7 @@ namespace MovieTickets.Models
         public byte AuditoriumId { get; set; }
 
         [Required]
-        public byte MovieId { get; set; }
+        public int MovieId { get; set; }
 
         public Auditorium Auditorium { get; set; }
 

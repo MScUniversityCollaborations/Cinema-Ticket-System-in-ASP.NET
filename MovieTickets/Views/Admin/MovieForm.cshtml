@@ -12,7 +12,7 @@
             <h2 class="display-4 mb-5">@ViewBag.Title</h2>
 
             <div class="col-lg-6">
-                @using (Html.BeginForm("Save", "Movies", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("SaveMovie", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
                     <h4>@Model.PageDesc</h4>

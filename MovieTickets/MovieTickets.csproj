@@ -345,6 +345,18 @@
     <Compile Include="Migrations\202204011419178_test.designer.cs">
       <DependentUpon>202204011419178_test.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204101613148_change3.cs" />
+    <Compile Include="Migrations\202204101613148_change3.designer.cs">
+      <DependentUpon>202204101613148_change3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204101620096_changes4.cs" />
+    <Compile Include="Migrations\202204101620096_changes4.designer.cs">
+      <DependentUpon>202204101620096_changes4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204101645296_changes.cs" />
+    <Compile Include="Migrations\202204101645296_changes.designer.cs">
+      <DependentUpon>202204101645296_changes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Genre.cs" />
@@ -358,6 +370,7 @@
     <Compile Include="Models\RoleName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\AuditoriumFormViewModel.cs" />
     <Compile Include="ViewModels\UserRolesFormViewModel.cs" />
     <Compile Include="ViewModels\UserFormViewModel.cs" />
     <Compile Include="ViewModels\MovieFormViewModel.cs" />
@@ -619,6 +632,7 @@
     <Content Include="Views\Admin\Reservations.cshtml" />
     <Content Include="Views\Admin\UserRolesForm.cshtml" />
     <Content Include="Views\Admin\UserForm.cshtml" />
+    <Content Include="Views\Admin\AuditoriumsForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -705,6 +719,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204011419178_test.resx">
       <DependentUpon>202204011419178_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204101613148_change3.resx">
+      <DependentUpon>202204101613148_change3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204101620096_changes4.resx">
+      <DependentUpon>202204101620096_changes4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204101645296_changes.resx">
+      <DependentUpon>202204101645296_changes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

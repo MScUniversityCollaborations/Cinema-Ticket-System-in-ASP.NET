@@ -8,15 +8,11 @@ namespace MovieTickets.ViewModels
 {
     public class UserRolesFormViewModel
     {
-        public UserRolesFormViewModel(ApplicationUser user)
-        {
-            User = user;
-        }
+        public string RoleId { get; set; }
 
-        public string Id { get; set; }
+        public string RoleName { get; set; }
 
-        public IdentityUser User { get; set; }
-
-        public SelectList Roles { get; set; }
+        public bool IsSelected { get; set; }
+   
     }
 }

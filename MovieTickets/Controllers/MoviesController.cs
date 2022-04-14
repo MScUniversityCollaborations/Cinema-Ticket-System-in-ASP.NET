@@ -62,39 +62,6 @@ namespace MovieTickets.Controllers
             return View();
         }
 
-        /*[HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = RoleName.AdminRole)]
-        public ActionResult Save(Movie movie)
-        {
-            if (!ModelState.IsValid)
-            {
-                var viewModel = new MovieFormViewModel(movie)
-                {
-                    Genres = _context.Genres.ToList()
-                };
-
-                return View("MovieForm", viewModel);
-            }
-
-            if (movie.Id == 0)
-            {
-                movie.DateAdded = DateTime.Now;
-                _context.Movies.Add(movie);
-            }
-            else
-            {
-                var movieInDb = _context.Movies.Single(m => m.Id == movie.Id);
-                movieInDb.Title = movie.Title;
-                movieInDb.GenreId = movie.GenreId;
-
-            }
-
-            _context.SaveChanges();
-
-            return RedirectToAction("Index", "Admin");
-        }*/
-
         public ActionResult SelectDateTime()
         {
             return View();

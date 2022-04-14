@@ -124,6 +124,8 @@ namespace MovieTickets.Controllers
             return View(auditorium);
         }
 
+
+
         // Edits/Updates
 
         [Authorize(Roles = RoleName.AdminRole)]
@@ -244,6 +246,15 @@ namespace MovieTickets.Controllers
         }
 
         [Authorize(Roles = RoleName.AdminRole)]
+        public ViewResult AddUser()
+        {
+
+            var viewModel = new UserFormViewModel();
+
+            return View("UserForm", viewModel);
+        }
+
+        [Authorize(Roles = RoleName.AdminRole)]
         public ViewResult AddMovie()
         {
             var genres = _context.Genres.ToList();
@@ -254,6 +265,16 @@ namespace MovieTickets.Controllers
             };
 
             return View("MovieForm", viewModel);
+        }
+
+        public ActionResult UserDetails(string id)
+        {
+            ApplicationUser user = UserManager.FindById(id);
+
+            if (user == null)
+                return HttpNotFound();
+
+            return View(user);
         }
 
         [HttpPost]

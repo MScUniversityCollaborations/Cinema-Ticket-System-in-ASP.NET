@@ -263,99 +263,18 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\FontAwesomeBundleConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
-    <Compile Include="App_Start\MappingProfile.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\Api\MoviesController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
-    <Compile Include="Controllers\Api\ScreeningsController.cs" />
     <Compile Include="Controllers\FindBookingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
-    <Compile Include="Dtos\GenreDto.cs" />
-    <Compile Include="Dtos\MovieDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202202112241101_InitialModel.cs" />
-    <Compile Include="Migrations\202202112241101_InitialModel.designer.cs">
-      <DependentUpon>202202112241101_InitialModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202202120055508_AddImagePosterToMovie.cs" />
-    <Compile Include="Migrations\202202120055508_AddImagePosterToMovie.designer.cs">
-      <DependentUpon>202202120055508_AddImagePosterToMovie.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202202120641344_OptimizedMovieDataAnnotations.cs" />
-    <Compile Include="Migrations\202202120641344_OptimizedMovieDataAnnotations.designer.cs">
-      <DependentUpon>202202120641344_OptimizedMovieDataAnnotations.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202202130344388_AddFirstAndLastNameToApplicationUser.cs" />
-    <Compile Include="Migrations\202202130344388_AddFirstAndLastNameToApplicationUser.designer.cs">
-      <DependentUpon>202202130344388_AddFirstAndLastNameToApplicationUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202202141321533_AddedGenres.cs" />
-    <Compile Include="Migrations\202202141321533_AddedGenres.designer.cs">
-      <DependentUpon>202202141321533_AddedGenres.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202202150721250_MultipleFixes.cs" />
-    <Compile Include="Migrations\202202150721250_MultipleFixes.designer.cs">
-      <DependentUpon>202202150721250_MultipleFixes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202202160013219_MultipleFixesOnMovies.cs" />
-    <Compile Include="Migrations\202202160013219_MultipleFixesOnMovies.designer.cs">
-      <DependentUpon>202202160013219_MultipleFixesOnMovies.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202202160504277_Fixes.cs" />
-    <Compile Include="Migrations\202202160504277_Fixes.designer.cs">
-      <DependentUpon>202202160504277_Fixes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203261144579_InitAuditoriumAndScreenings.cs" />
-    <Compile Include="Migrations\202203261144579_InitAuditoriumAndScreenings.designer.cs">
-      <DependentUpon>202203261144579_InitAuditoriumAndScreenings.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203262300502_RemoveTotalSeatsFromScreenings.cs" />
-    <Compile Include="Migrations\202203262300502_RemoveTotalSeatsFromScreenings.designer.cs">
-      <DependentUpon>202203262300502_RemoveTotalSeatsFromScreenings.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203270040283_AddSeatsAndReservedSeatsTables.cs" />
-    <Compile Include="Migrations\202203270040283_AddSeatsAndReservedSeatsTables.designer.cs">
-      <DependentUpon>202203270040283_AddSeatsAndReservedSeatsTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203281157360_FixDb.cs" />
-    <Compile Include="Migrations\202203281157360_FixDb.designer.cs">
-      <DependentUpon>202203281157360_FixDb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203301743141_AddSomeMovies.cs" />
-    <Compile Include="Migrations\202203301743141_AddSomeMovies.designer.cs">
-      <DependentUpon>202203301743141_AddSomeMovies.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203302024378_changes1.cs" />
-    <Compile Include="Migrations\202203302024378_changes1.designer.cs">
-      <DependentUpon>202203302024378_changes1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203302039049_changes2.cs" />
-    <Compile Include="Migrations\202203302039049_changes2.designer.cs">
-      <DependentUpon>202203302039049_changes2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204011419178_test.cs" />
-    <Compile Include="Migrations\202204011419178_test.designer.cs">
-      <DependentUpon>202204011419178_test.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204101613148_change3.cs" />
-    <Compile Include="Migrations\202204101613148_change3.designer.cs">
-      <DependentUpon>202204101613148_change3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204101620096_changes4.cs" />
-    <Compile Include="Migrations\202204101620096_changes4.designer.cs">
-      <DependentUpon>202204101620096_changes4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204101645296_changes.cs" />
-    <Compile Include="Migrations\202204101645296_changes.designer.cs">
-      <DependentUpon>202204101645296_changes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -633,6 +552,7 @@
     <Content Include="Views\Admin\UserRolesForm.cshtml" />
     <Content Include="Views\Admin\UserForm.cshtml" />
     <Content Include="Views\Admin\AuditoriumsForm.cshtml" />
+    <Content Include="Views\Admin\UserDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -670,65 +590,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202202112241101_InitialModel.resx">
-      <DependentUpon>202202112241101_InitialModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202120055508_AddImagePosterToMovie.resx">
-      <DependentUpon>202202120055508_AddImagePosterToMovie.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202120641344_OptimizedMovieDataAnnotations.resx">
-      <DependentUpon>202202120641344_OptimizedMovieDataAnnotations.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202130344388_AddFirstAndLastNameToApplicationUser.resx">
-      <DependentUpon>202202130344388_AddFirstAndLastNameToApplicationUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202141321533_AddedGenres.resx">
-      <DependentUpon>202202141321533_AddedGenres.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202150721250_MultipleFixes.resx">
-      <DependentUpon>202202150721250_MultipleFixes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202160013219_MultipleFixesOnMovies.resx">
-      <DependentUpon>202202160013219_MultipleFixesOnMovies.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202160504277_Fixes.resx">
-      <DependentUpon>202202160504277_Fixes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203261144579_InitAuditoriumAndScreenings.resx">
-      <DependentUpon>202203261144579_InitAuditoriumAndScreenings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203262300502_RemoveTotalSeatsFromScreenings.resx">
-      <DependentUpon>202203262300502_RemoveTotalSeatsFromScreenings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203270040283_AddSeatsAndReservedSeatsTables.resx">
-      <DependentUpon>202203270040283_AddSeatsAndReservedSeatsTables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203281157360_FixDb.resx">
-      <DependentUpon>202203281157360_FixDb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203301743141_AddSomeMovies.resx">
-      <DependentUpon>202203301743141_AddSomeMovies.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203302024378_changes1.resx">
-      <DependentUpon>202203302024378_changes1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203302039049_changes2.resx">
-      <DependentUpon>202203302039049_changes2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204011419178_test.resx">
-      <DependentUpon>202204011419178_test.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204101613148_change3.resx">
-      <DependentUpon>202204101613148_change3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204101620096_changes4.resx">
-      <DependentUpon>202204101620096_changes4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204101645296_changes.resx">
-      <DependentUpon>202204101645296_changes.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -17,19 +17,40 @@
                 <div class="ms-5 col-sm p-1">
                     <div class="information">
 
-                        @*<h1 class="display-6 text-uppercase mb-4" style="font-family: 'Helvetica Bold';"> @Model.Title</h1>
+                        <h1 class="display-6 text-uppercase mb-4" style="font-family: 'Helvetica Bold';"> @Model.UserName</h1>
 
-                        <p>Genre: @Model.Genre.Name.</p>*@
+                        <div class="row">
+                            <div class="col-lg-6 mb-4">
+                                <p><b>First Name:</b> @Model.FirstName</p>
+                                <p><b>Last Name:</b> @Model.LastName</p>
+                                <p><b>Email:</b> @Model.FirstName</p>
+                                <p><b>Phone Number:</b> @Model.FirstName</p>
+                            </div>
 
+                            <div class="col-lg-6 mb-4">
 
+                                <p><b>Roles:</b></p>
+                                @if (Model.Roles.Any())
+                                {
+                                    foreach (var role in Model.Roles)
+                                    {
+                                        <p>• @role</p>
+                                    }
+                                }
+                                else
+                                {
+                                    <p>None at the moment</p>
+                                }
+                            </div>
+
+                            <a href="@Url.Action("UserReservations", "Admin", new { Id = Model.Id })" style="width:auto" class="btn btn-primary">
+                                <i class="fa-solid fa-ticket"></i> View Reservations
+                            </a>
+                        </div>
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
 </section>
 

@@ -86,6 +86,24 @@ namespace MovieTickets.Controllers
             return View(movies);
         }
 
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult MovieUpdate(int id)
+        {
+            var movie = _context.Movies.SingleOrDefault(c => c.Id == id);
+
+            if (movie == null)
+                return HttpNotFound();
+
+            var viewModel = new MovieFormViewModel(movie)
+            {
+                Genres = _context.Genres.ToList()
+            };
+
+            return View("MovieForm", viewModel);
+        }
+
+
+
         [HttpGet]
         [Authorize(Roles = RoleName.AdminRole)]
         public ActionResult Screenings()
@@ -106,28 +124,7 @@ namespace MovieTickets.Controllers
             return View(auditoriums);
         }
 
-        // Details
-        [HttpGet]
-        [Authorize(Roles = RoleName.AdminRole)]
-        public ActionResult AuditoriumDetails(byte? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var auditorium = _context.Auditoriums.Find(id);
-
-            if (auditorium == null)
-                return HttpNotFound();
-
-            return View(auditorium);
-        }
-
-
-
         // Edits/Updates
-
         [Authorize(Roles = RoleName.AdminRole)]
         public async Task<ActionResult> UserUpdate(string id)
         {
@@ -254,6 +251,15 @@ namespace MovieTickets.Controllers
             return View("UserForm", viewModel);
         }
 
+        [HttpGet]
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ViewResult AddAuditorium()
+        {
+            var viewModel = new AuditoriumFormViewModel();
+
+            return View("AuditoriumsForm", viewModel);
+        }
+
         [Authorize(Roles = RoleName.AdminRole)]
         public ViewResult AddMovie()
         {
@@ -267,6 +273,8 @@ namespace MovieTickets.Controllers
             return View("MovieForm", viewModel);
         }
 
+        [HttpGet]
+        [Authorize(Roles = RoleName.AdminRole)]
         public ActionResult UserDetails(string id)
         {
             ApplicationUser user = UserManager.FindById(id);
@@ -275,6 +283,106 @@ namespace MovieTickets.Controllers
                 return HttpNotFound();
 
             return View(user);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult AuditoriumDetails(byte id)
+        {
+            var auditorium = _context.Auditoriums
+                .SingleOrDefault(m => m.Id == id);
+
+            if (auditorium == null)
+                return HttpNotFound();
+
+            return View(auditorium);
+        }
+
+        // GET: Auditoriums/Delete/5
+        [HttpGet]
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult AuditoriumDelete(byte? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Auditorium auditorium = _context.Auditoriums
+                                            .SingleOrDefault(m => m.Id == id);
+            if (auditorium == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View("AuditoriumDelete", auditorium);
+        }
+
+        // POST: Auditoriums/Delete/5
+        [HttpPost, ActionName("AuditoriumDelete")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult AuditoriumDelete(byte id)
+        {
+            Auditorium auditorium = _context.Auditoriums
+                                            .SingleOrDefault(m => m.Id == id);
+
+            _context.Auditoriums.Remove(auditorium);
+            _context.SaveChanges();
+
+            ViewBag.Message = "Auditorium has been removed successfully!";
+
+            return View("Info");
+        }
+
+        /*[HttpDelete]
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult AuditoriumDelete(byte id)
+        {
+            Auditorium auditorium = _context.Auditoriums
+                                            .SingleOrDefault(m => m.Id == id);
+
+            if (auditorium == null)
+            {
+                return HttpNotFound();
+            }
+
+            _context.Auditoriums.Remove(auditorium);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }*/
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult SaveAuditorium(Auditorium auditorium)
+        {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new AuditoriumFormViewModel(auditorium);
+
+                return View("AuditoriumForm", viewModel);
+            }
+
+            if (auditorium.Id == 0)
+            {
+                // Add the auditorium
+                _context.Auditoriums.Add(auditorium);
+            }
+            else
+            {
+                var auditoriumInDb = _context.Auditoriums.Single(m => m.Id == auditorium.Id);
+
+                auditoriumInDb.Name = auditorium.Name;
+                auditoriumInDb.TotalSeats = auditorium.TotalSeats;
+            }
+
+            _context.SaveChanges();
+
+            ViewBag.Message = "Auditorium has been added successfully!";
+
+            return View("Info");
         }
 
         [HttpPost]

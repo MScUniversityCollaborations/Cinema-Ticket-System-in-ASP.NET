@@ -554,6 +554,7 @@
     <Content Include="Views\Admin\AuditoriumsForm.cshtml" />
     <Content Include="Views\Admin\UserDetails.cshtml" />
     <Content Include="Views\Admin\AuditoriumDelete.cshtml" />
+    <Content Include="Views\Admin\AuditoriumDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -86,6 +86,17 @@ namespace MovieTickets.Controllers
             return View(movies);
         }
 
+        [HttpGet]
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult Reservations()
+        {
+            var reservations = _context.Reservations
+                .Include(m => m.Screening)
+                .Include(m => m.User);
+
+            return View(reservations);
+        }
+
         [Authorize(Roles = RoleName.AdminRole)]
         public ActionResult MovieUpdate(int id)
         {
@@ -103,6 +114,19 @@ namespace MovieTickets.Controllers
         }
 
 
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult AuditoriumUpdate(byte id)
+        {
+            var auditorium = _context.Auditoriums
+                                    .SingleOrDefault(c => c.Id == id);
+
+            if (auditorium == null)
+                return HttpNotFound();
+
+            var viewModel = new AuditoriumFormViewModel(auditorium);
+
+            return View("AuditoriumsForm", viewModel);
+        }
 
         [HttpGet]
         [Authorize(Roles = RoleName.AdminRole)]
@@ -335,24 +359,6 @@ namespace MovieTickets.Controllers
             return View("Info");
         }
 
-        /*[HttpDelete]
-        [Authorize(Roles = RoleName.AdminRole)]
-        public ActionResult AuditoriumDelete(byte id)
-        {
-            Auditorium auditorium = _context.Auditoriums
-                                            .SingleOrDefault(m => m.Id == id);
-
-            if (auditorium == null)
-            {
-                return HttpNotFound();
-            }
-
-            _context.Auditoriums.Remove(auditorium);
-            _context.SaveChanges();
-
-            return RedirectToAction("Index");
-        }*/
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = RoleName.AdminRole)]
@@ -365,7 +371,7 @@ namespace MovieTickets.Controllers
                 return View("AuditoriumForm", viewModel);
             }
 
-            if (auditorium.Id == 0)
+            if (auditorium.Id.Equals(null))
             {
                 // Add the auditorium
                 _context.Auditoriums.Add(auditorium);

@@ -18,7 +18,7 @@ namespace MovieTickets.ViewModels
         {
             get
             {
-                return Id != 0 ? "Edit Auditorium" : "New Auditorium";
+                return Id != null ? "Edit Auditorium" : "New Auditorium";
             }
         }
 
@@ -26,7 +26,7 @@ namespace MovieTickets.ViewModels
         {
             get
             {
-                return Id != 0 ? "Update an existing Auditorium." : "Create a new Auditorium.";
+                return Id != null ? "Update an existing Auditorium." : "Create a new Auditorium.";
             }
         }
 
@@ -34,13 +34,13 @@ namespace MovieTickets.ViewModels
         {
             get
             {
-                return Id != 0 ? "Update" : "Create";
+                return Id != null ? "Update" : "Create";
             }
         }
 
         public AuditoriumFormViewModel()
         {
-            Id = 0;
+            Id = null;
         }
 
         public AuditoriumFormViewModel(Auditorium auditorium)

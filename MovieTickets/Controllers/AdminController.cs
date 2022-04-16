@@ -299,6 +299,22 @@ namespace MovieTickets.Controllers
 
         [HttpGet]
         [Authorize(Roles = RoleName.AdminRole)]
+        public ViewResult AddScreening()
+        {
+            var auditoriums = _context.Auditoriums.ToList();
+            var movies = _context.Movies.ToList();
+
+            var viewModel = new ScreeningFormViewModel
+            {
+                Movies = movies,
+                Auditoriums = auditoriums
+            };
+
+            return View("ScreeningForm", viewModel);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = RoleName.AdminRole)]
         public ActionResult UserDetails(string id)
         {
             ApplicationUser user = UserManager.FindById(id);

@@ -20,10 +20,14 @@ namespace MovieTickets.Models
 
         [Display(Name = "Screening Start")]
         [Required]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy HH:mm}")]
         public DateTime ScreeningStart { get; set; }
 
         [Display(Name = "Screening End")]
         [Required]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy HH:mm}")]
         public DateTime ScreeningEnd { get; set; }
     }
 }

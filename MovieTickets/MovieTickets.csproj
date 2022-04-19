@@ -276,6 +276,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204191758283_screeningsChangeDateTimeType.cs" />
+    <Compile Include="Migrations\202204191758283_screeningsChangeDateTimeType.designer.cs">
+      <DependentUpon>202204191758283_screeningsChangeDateTimeType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Genre.cs" />
@@ -600,6 +604,8 @@
     <Content Include="Views\Admin\AuditoriumDelete.cshtml" />
     <Content Include="Views\Admin\AuditoriumDetails.cshtml" />
     <Content Include="Views\Admin\ScreeningForm.cshtml" />
+    <Content Include="Views\Admin\ScreeningDelete.cshtml" />
+    <Content Include="Views\Admin\ScreeningDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -637,6 +643,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202204191758283_screeningsChangeDateTimeType.resx">
+      <DependentUpon>202204191758283_screeningsChangeDateTimeType.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -301,13 +301,10 @@ namespace MovieTickets.Controllers
         [Authorize(Roles = RoleName.AdminRole)]
         public ViewResult AddScreening()
         {
-            var auditoriums = _context.Auditoriums.ToList();
-            var movies = _context.Movies.ToList();
-
             var viewModel = new ScreeningFormViewModel
             {
-                Movies = movies,
-                Auditoriums = auditoriums
+                Movies = _context.Movies.ToList(),
+                Auditoriums = _context.Auditoriums.ToList()
             };
 
             return View("ScreeningForm", viewModel);
@@ -336,6 +333,19 @@ namespace MovieTickets.Controllers
                 return HttpNotFound();
 
             return View(auditorium);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult ScreeningDetails(int id)
+        {
+            var screening = _context.Screenings
+                .SingleOrDefault(m => m.Id == id);
+
+            if (screening == null)
+                return HttpNotFound();
+
+            return View(screening);
         }
 
         // GET: Auditoriums/Delete/5
@@ -375,6 +385,43 @@ namespace MovieTickets.Controllers
             return View("Info");
         }
 
+        // GET: Screenings/Delete/5
+        [HttpGet]
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult ScreeningDelete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Screening screening = _context.Screenings
+                                          .SingleOrDefault(m => m.Id == id);
+            if (screening == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View("ScreeningDelete", screening);
+        }
+
+        // POST: Screenings/Delete/5
+        [HttpPost, ActionName("ScreeningDelete")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult ScreeningDelete(int id)
+        {
+            Screening screening = _context.Screenings
+                                           .SingleOrDefault(m => m.Id == id);
+
+            _context.Screenings.Remove(screening);
+            _context.SaveChanges();
+
+            ViewBag.Message = "Screening has been removed successfully!";
+
+            return View("Info");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = RoleName.AdminRole)]
@@ -403,6 +450,44 @@ namespace MovieTickets.Controllers
             _context.SaveChanges();
 
             ViewBag.Message = "Auditorium has been added successfully!";
+
+            return View("Info");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult SaveScreening(Screening screening)
+        {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new ScreeningFormViewModel(screening)
+                {
+                    Movies = _context.Movies.ToList(),
+                    Auditoriums = _context.Auditoriums.ToList()
+                };
+
+                return View("ScreeningForm", viewModel);
+            }
+
+            if (screening.Id == 0)
+            {
+                // Add the screening
+                _context.Screenings.Add(screening);
+            }
+            else
+            {
+                var screeningInDb = _context.Screenings.Single(m => m.Id == screening.Id);
+
+                screeningInDb.MovieId = screening.MovieId;
+                screeningInDb.AuditoriumId = screening.AuditoriumId;
+                screeningInDb.ScreeningStart = screening.ScreeningStart;
+                screeningInDb.ScreeningEnd = screening.ScreeningEnd;
+            }
+
+            _context.SaveChanges();
+
+            ViewBag.Message = "Screening has been added successfully!";
 
             return View("Info");
         }

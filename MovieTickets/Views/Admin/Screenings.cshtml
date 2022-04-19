@@ -27,17 +27,16 @@ else
             <h1 class="display-4 text-uppercase" style="font-family: 'Helvetica Bold'; text-align: center">Screenings Management</h1>
             <hr class="style1 mb-5">
 
+            <a href="@Url.Action("AddScreening", "Admin")" class="btn btn-primary mb-5"><i class="fa-solid fa-plus"></i> Add New Screening</a>
+
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <table class="table table-striped rounded-4 table-bordered table-dark table-responsive" id="TableScreenings" style="border-radius: 5px">
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.AuditoriumId)
+                            Auditorium
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Auditorium.Name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Movie.Title)
+                            Movie Title
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.ScreeningStart)
@@ -52,14 +51,14 @@ else
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.AuditoriumId)
-                            </td>
-                            <td>
                                 @Html.DisplayFor(modelItem => item.Auditorium.Name)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Movie.Title)
                             </td>
+                            @*<td>
+                            @item.ScreeningStart.ToString().Split(' ')[1] - @item.ScreeningEnd.ToString().Split(' ')[1]
+                        </td>*@
                             <td>
                                 @Html.DisplayFor(modelItem => item.ScreeningStart)
                             </td>

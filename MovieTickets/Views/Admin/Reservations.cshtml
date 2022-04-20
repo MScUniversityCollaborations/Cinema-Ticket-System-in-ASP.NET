@@ -1,7 +1,7 @@
-﻿@model IEnumerable<MovieTickets.Models.ApplicationUser>
+﻿@model IEnumerable<MovieTickets.Models.Reservation>
 
 @{
-    ViewBag.Title = "Users";
+    ViewBag.Title = "Reservations";
 }
 
 @if (!Model.Any())
@@ -11,7 +11,8 @@
             <div class="row justify-content-center">
                 <div class="col-md-12 text-center">
                     <img src="~/Images/empty_state.png" class="img-fluid" alt="Empty State Image">
-                    <h1 class="display-4 text-uppercase text-white mt-4" style="font-family: 'Helvetica Bold'; text-align: center">No users found 🥲</h1>
+                    <h1 class="display-4 text-uppercase text-white mt-4" style="font-family: 'Helvetica Bold'; text-align: center">No reservations found 🥲</h1>
+                    <a href="@Url.Action("AddReservation", "Admin")" class="btn btn-primary btn-lg mb-5 mt-5"><i class="fa-solid fa-plus"></i> Add New Reservation</a>
                 </div>
             </div>
         </div>
@@ -30,22 +31,31 @@ else
                 <table class="table table-striped rounded-4 table-bordered table-dark table-responsive" id="TableUsers" style="border-radius: 5px">
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.FirstName)
+                            User Email
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.LastName)
+                            Movie
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Email)
+                            Auditorium
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.EmailConfirmed)
+                            @Html.DisplayNameFor(model => model.Screening.ScreeningStart)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.UserName)
+                            @Html.DisplayNameFor(model => model.Screening.ScreeningEnd)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.PhoneNumber)
+                            @Html.DisplayNameFor(model => model.Reserved)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Paid)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PaymentType)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Active)
                         </th>
                         <th></th>
                     </tr>
@@ -54,16 +64,22 @@ else
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.FirstName)
+                                @Html.DisplayFor(modelItem => item.User.Email)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.LastName)
+                                @Html.DisplayFor(modelItem => item.Screening.Movie)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Email)
+                                @Html.DisplayFor(modelItem => item.Screening.Auditorium.Name)
                             </td>
                             <td>
-                                @if (item.EmailConfirmed)
+                                @Html.DisplayFor(modelItem => item.Screening.ScreeningStart)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Screening.ScreeningEnd)
+                            </td>
+                            <td>
+                                @if (item.Reserved)
                                 {
                                     <p>Yes</p>
                                 }
@@ -73,26 +89,37 @@ else
                                 }
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.UserName)
-                            </td>
-                            <td>
-                                @if (item.PhoneNumber == null)
+                                @if (item.Paid)
                                 {
-                                    <p>-</p>
+                                    <p>Yes</p>
                                 }
                                 else
                                 {
-                                    Html.DisplayFor(modelItem => item.PhoneNumber);
+                                    <p>No</p>
                                 }
                             </td>
                             <td>
-                                <a href="@Url.Action("UserUpdate", "Admin", new { Id = item.Id })" class="btn btn-primary">
+                                @Html.DisplayFor(modelItem => item.PaymentType)
+                            </td>
+                            <td>
+                                @if (item.Active)
+                                {
+                                    <p>Yes</p>
+                                }
+                                else
+                                {
+                                    <p>No</p>
+                                }
+                            </td>
+
+                            <td>
+                                <a href="@Url.Action("ReservationUpdate", "Admin", new { Id = item.Id })" class="btn btn-primary">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
-                                <a href="@Url.Action("UserDetails", "Admin", new { Id = item.Id })" class="btn btn-primary ml-2">
+                                <a href="@Url.Action("ReservationDetails", "Admin", new { Id = item.Id })" class="btn btn-primary ml-2">
                                     <i class="fa-solid fa-circle-info"></i>
                                 </a>
-                                <a href="@Url.Action("UserDelete", "Admin", new { Id = item.Id })" class="btn btn-danger ml-2">
+                                <a href="@Url.Action("ReservationDelete", "Admin", new { Id = item.Id })" class="btn btn-danger ml-2">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </a>
                             </td>
@@ -104,6 +131,10 @@ else
         </div>
     </section>
 }
+
+<div class="wrapper">
+    <div class="push"></div>
+</div>
 
 @section scripts{
     <script>

@@ -276,9 +276,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202204191758283_screeningsChangeDateTimeType.cs" />
-    <Compile Include="Migrations\202204191758283_screeningsChangeDateTimeType.designer.cs">
-      <DependentUpon>202204191758283_screeningsChangeDateTimeType.cs</DependentUpon>
+    <Compile Include="Migrations\202204201854384_Initial.cs" />
+    <Compile Include="Migrations\202204201854384_Initial.designer.cs">
+      <DependentUpon>202204201854384_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204201859045_fix.cs" />
+    <Compile Include="Migrations\202204201859045_fix.designer.cs">
+      <DependentUpon>202204201859045_fix.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -294,7 +298,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AuditoriumFormViewModel.cs" />
+    <Compile Include="ViewModels\ReservationFormViewModel.cs" />
     <Compile Include="ViewModels\ScreeningFormViewModel.cs" />
+    <Compile Include="ViewModels\RoleFormViewModel.cs" />
     <Compile Include="ViewModels\UserRolesFormViewModel.cs" />
     <Compile Include="ViewModels\UserFormViewModel.cs" />
     <Compile Include="ViewModels\MovieFormViewModel.cs" />
@@ -606,6 +612,10 @@
     <Content Include="Views\Admin\ScreeningForm.cshtml" />
     <Content Include="Views\Admin\ScreeningDelete.cshtml" />
     <Content Include="Views\Admin\ScreeningDetails.cshtml" />
+    <Content Include="Views\Admin\ReservationDetails.cshtml" />
+    <Content Include="Views\Admin\ReservationDelete.cshtml" />
+    <Content Include="Views\Admin\ReservationForm.cshtml" />
+    <Content Include="Views\Admin\RoleForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -645,8 +655,11 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202204191758283_screeningsChangeDateTimeType.resx">
-      <DependentUpon>202204191758283_screeningsChangeDateTimeType.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202204201854384_Initial.resx">
+      <DependentUpon>202204201854384_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204201859045_fix.resx">
+      <DependentUpon>202204201859045_fix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

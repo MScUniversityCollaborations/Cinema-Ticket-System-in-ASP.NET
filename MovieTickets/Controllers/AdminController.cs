@@ -92,11 +92,13 @@ namespace MovieTickets.Controllers
         {
             var reservations = _context.Reservations
                 .Include(m => m.Screening)
-                .Include(m => m.User);
+                .Include(m => m.User)
+                .OrderBy(m => m.Screening.ScreeningStart);
 
             return View(reservations);
         }
 
+        [HttpGet]
         [Authorize(Roles = RoleName.AdminRole)]
         public ActionResult MovieUpdate(int id)
         {
@@ -113,7 +115,7 @@ namespace MovieTickets.Controllers
             return View("MovieForm", viewModel);
         }
 
-
+        // GET: Auditoriums/Update/:id
         [Authorize(Roles = RoleName.AdminRole)]
         public ActionResult AuditoriumUpdate(byte id)
         {
@@ -128,6 +130,7 @@ namespace MovieTickets.Controllers
             return View("AuditoriumsForm", viewModel);
         }
 
+        // GET: Screenings/
         [HttpGet]
         [Authorize(Roles = RoleName.AdminRole)]
         public ActionResult Screenings()
@@ -139,6 +142,7 @@ namespace MovieTickets.Controllers
             return View(screenings);
         }
 
+        // GET: Auditoriums/
         [HttpGet]
         [Authorize(Roles = RoleName.AdminRole)]
         public ActionResult Auditoriums()
@@ -148,7 +152,8 @@ namespace MovieTickets.Controllers
             return View(auditoriums);
         }
 
-        // Edits/Updates
+        // GET: Users/Update/:id
+        [HttpGet]
         [Authorize(Roles = RoleName.AdminRole)]
         public async Task<ActionResult> UserUpdate(string id)
         {
@@ -175,6 +180,7 @@ namespace MovieTickets.Controllers
             return View("UserForm", viewModel);
         }
 
+        // GET: Users/Roles/:id
         [HttpGet]
         [Authorize(Roles = RoleName.AdminRole)]
         public async Task<ActionResult> ManageUserRoles(string Id)
@@ -214,6 +220,7 @@ namespace MovieTickets.Controllers
             return View("UserRolesForm", model);
         }
 
+        // POST: Users/Roles/:id
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = RoleName.AdminRole)]
@@ -228,14 +235,6 @@ namespace MovieTickets.Controllers
             }
 
             var roles = UserManager.GetRoles(user.Id);
-            /*var result = await UserManager.RemoveFromRolesAsync(user.Id, roles.ToArray());
-
-            if (!result.Succeeded)
-            {
-                ModelState.AddModelError("", "Cannot remove user existing roles");
-                ViewBag.ErrorMessage = $"User with Id = {userId} cannot be found";
-                return View("Error", m);
-            }*/
 
             if (ModelState.IsValid)
             {
@@ -262,19 +261,29 @@ namespace MovieTickets.Controllers
 
                 return View("Error");
             }
-
-            //return RedirectToAction("UserUpdate", new { Id = userId });
         }
 
+        // GET: Roles/Create/
+        [HttpGet]
+        // [Authorize(Roles = RoleName.AdminRole)]
+        public ViewResult AddRole()
+        {
+            var viewModel = new RoleFormViewModel();
+
+            return View("RoleForm", viewModel);
+        }
+
+        // GET: Screenings/Create/
+        [HttpGet]
         [Authorize(Roles = RoleName.AdminRole)]
         public ViewResult AddUser()
         {
-
             var viewModel = new UserFormViewModel();
 
             return View("UserForm", viewModel);
         }
 
+        // GET: Auditoriums/Create/
         [HttpGet]
         [Authorize(Roles = RoleName.AdminRole)]
         public ViewResult AddAuditorium()
@@ -284,6 +293,8 @@ namespace MovieTickets.Controllers
             return View("AuditoriumsForm", viewModel);
         }
 
+        // GET: Movies/Create/
+        [HttpGet]
         [Authorize(Roles = RoleName.AdminRole)]
         public ViewResult AddMovie()
         {
@@ -297,6 +308,24 @@ namespace MovieTickets.Controllers
             return View("MovieForm", viewModel);
         }
 
+        // GET: Reservations/Create/
+        [HttpGet]
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ViewResult AddReservation()
+        {
+            var users = _context.Users.ToList();
+            var screenings = _context.Screenings.ToList();
+
+            var viewModel = new ReservationFormViewModel
+            {
+                User = users,
+                Screening = screenings
+            };
+
+            return View("ReservationForm", viewModel);
+        }
+
+        // GET: Screenings/Create/
         [HttpGet]
         [Authorize(Roles = RoleName.AdminRole)]
         public ViewResult AddScreening()
@@ -310,6 +339,7 @@ namespace MovieTickets.Controllers
             return View("ScreeningForm", viewModel);
         }
 
+        // GET: Users/:id
         [HttpGet]
         [Authorize(Roles = RoleName.AdminRole)]
         public ActionResult UserDetails(string id)
@@ -322,6 +352,7 @@ namespace MovieTickets.Controllers
             return View(user);
         }
 
+        // GET: Auditoriums/:id
         [HttpGet]
         [Authorize(Roles = RoleName.AdminRole)]
         public ActionResult AuditoriumDetails(byte id)
@@ -335,6 +366,7 @@ namespace MovieTickets.Controllers
             return View(auditorium);
         }
 
+        // GET: Screenings/:id
         [HttpGet]
         [Authorize(Roles = RoleName.AdminRole)]
         public ActionResult ScreeningDetails(int id)
@@ -348,7 +380,21 @@ namespace MovieTickets.Controllers
             return View(screening);
         }
 
-        // GET: Auditoriums/Delete/5
+        // GET: Reservations/:id
+        [HttpGet]
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult ReservationDetails(int id)
+        {
+            var reservation = _context.Reservations
+                .SingleOrDefault(m => m.Id == id);
+
+            if (reservation == null)
+                return HttpNotFound();
+
+            return View(reservation);
+        }
+
+        // GET: Auditoriums/Delete/:id
         [HttpGet]
         [Authorize(Roles = RoleName.AdminRole)]
         public ActionResult AuditoriumDelete(byte? id)
@@ -368,7 +414,7 @@ namespace MovieTickets.Controllers
             return View("AuditoriumDelete", auditorium);
         }
 
-        // POST: Auditoriums/Delete/5
+        // POST: Auditoriums/Delete/:id
         [HttpPost, ActionName("AuditoriumDelete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = RoleName.AdminRole)]
@@ -385,7 +431,44 @@ namespace MovieTickets.Controllers
             return View("Info");
         }
 
-        // GET: Screenings/Delete/5
+        // GET: Reservations/Delete/:id
+        [HttpGet]
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult ReservationDelete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Reservation reservation = _context.Reservations
+                                              .SingleOrDefault(m => m.Id == id);
+            if (reservation == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View("ReservationDelete", reservation);
+        }
+
+        // POST: Reservations/Delete/:id
+        [HttpPost, ActionName("ReservationDelete")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult ReservationDelete(byte id)
+        {
+            Reservation reservation = _context.Reservations
+                                              .SingleOrDefault(m => m.Id == id);
+
+            _context.Reservations.Remove(reservation);
+            _context.SaveChanges();
+
+            ViewBag.Message = "Reservation has been removed successfully!";
+
+            return View("Info");
+        }
+
+        // GET: Screenings/Delete/:id
         [HttpGet]
         [Authorize(Roles = RoleName.AdminRole)]
         public ActionResult ScreeningDelete(int? id)
@@ -405,7 +488,7 @@ namespace MovieTickets.Controllers
             return View("ScreeningDelete", screening);
         }
 
-        // POST: Screenings/Delete/5
+        // POST: Screenings/Delete/:id
         [HttpPost, ActionName("ScreeningDelete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = RoleName.AdminRole)]
@@ -488,6 +571,61 @@ namespace MovieTickets.Controllers
             _context.SaveChanges();
 
             ViewBag.Message = "Screening has been added successfully!";
+
+            return View("Info");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult SaveReservation(Reservation reservation)
+        {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new ReservationFormViewModel(reservation)
+                {
+                    User = _context.Users.ToList(),
+                    Screening = _context.Screenings.ToList()
+                };
+
+                return View("ReservationForm", viewModel);
+            }
+
+            if (reservation.Id == 0)
+            {
+                // Add the reservation
+                _context.Reservations.Add(reservation);
+            }
+            else
+            {
+                var reservationWithSameSeat = _context.Reservations
+                                                      .Where(s => s.Id == reservation.ScreeningId)
+                                                      .Where(c => c.Id == reservation.Seat)
+                                                      .FirstOrDefault();
+
+                if (reservationWithSameSeat.Id != 0)
+                {
+                    ViewBag.ErrorMessage = "The seat with number " + reservation.Seat + " is taken! Please try another seat.";
+
+                    return View("Error");
+                }
+                else
+                {
+                    var reservationInDb = _context.Reservations.Single(m => m.Id == reservation.Id);
+
+                    reservationInDb.UserId = reservation.UserId;
+                    reservationInDb.ScreeningId = reservation.ScreeningId;
+                    reservationInDb.Active = reservation.Active;
+                    reservationInDb.Paid = reservation.Paid;
+                    reservationInDb.PaymentType = reservation.PaymentType;
+                    reservationInDb.Reserved = reservation.Reserved;
+                    reservationInDb.Seat = reservation.Seat;
+                }
+            }
+
+            _context.SaveChanges();
+
+            ViewBag.Message = "Reservation has been added successfully!";
 
             return View("Info");
         }
@@ -581,9 +719,36 @@ namespace MovieTickets.Controllers
 
                 return View("Error");
             }
+        }
 
-            // return RedirectToAction("Index", "Admin");
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult SaveRole(RoleFormViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (RoleManager.RoleExists(model.Name))
+                {
+                    ViewBag.ErrorMessage = "The role " + model.Name + " already exists.";
 
+                    return View("Error");
+                }
+
+                var role = new IdentityRole();
+                role.Name = model.Name;
+                RoleManager.Create(role);
+
+                ViewBag.Message = "Role " + role.Name + " has been added successfully!";
+
+                return View("Info");
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "Model is invalid";
+
+                return View("Error");
+            }
         }
     }
 }

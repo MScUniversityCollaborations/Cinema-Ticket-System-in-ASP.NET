@@ -28,6 +28,7 @@ else
             <hr class="style1 mb-5">
 
             <a href="@Url.Action("AddUser", "Admin")" class="btn btn-primary mb-5"><i class="fa-solid fa-plus"></i> Add New User</a>
+            <a href="@Url.Action("AddRole", "Admin")" class="ml-2 btn btn-primary mb-5"><i class="fa-solid fa-plus"></i> Add New Role</a>
 
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <table class="table table-striped rounded-4 table-bordered table-dark table-responsive" id="TableUsers" style="border-radius: 5px">
@@ -107,6 +108,10 @@ else
         </div>
     </section>
 }
+
+<div class="wrapper">
+    <div class="push"></div>
+</div>
 
 @section scripts{
     <script>

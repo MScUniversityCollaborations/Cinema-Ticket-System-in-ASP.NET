@@ -9,11 +9,11 @@ namespace MovieTickets.Models
 
         [Required]
         [Display(Name = "Screening ID")]
-        public byte ScreeningId { get; set; }
+        public int ScreeningId { get; set; }
 
         [Required]
         [Display(Name = "User ID")]
-        public byte UserId { get; set; }
+        public string UserId { get; set; }
 
         public Screening Screening { get; set; }
 
@@ -34,6 +34,10 @@ namespace MovieTickets.Models
         [Display(Name = "Active")]
         [Required]
         public bool Active { get; set; }
+
+        [Display(Name = "Reserved")]
+        [Required]
+        public bool Reserved { get; set; }
 
         [Display(Name = "Seat No.")]
         [Required]

@@ -265,7 +265,7 @@ namespace MovieTickets.Controllers
 
         // GET: Roles/Create/
         [HttpGet]
-        // [Authorize(Roles = RoleName.AdminRole)]
+        [Authorize(Roles = RoleName.AdminRole)]
         public ViewResult AddRole()
         {
             var viewModel = new RoleFormViewModel();
@@ -723,7 +723,7 @@ namespace MovieTickets.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        // [Authorize(Roles = RoleName.AdminRole)]
+        [Authorize(Roles = RoleName.AdminRole)]
         public ActionResult SaveRole(RoleFormViewModel model)
         {
             if (ModelState.IsValid)

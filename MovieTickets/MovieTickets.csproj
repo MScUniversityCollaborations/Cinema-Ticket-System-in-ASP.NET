@@ -273,6 +273,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -283,6 +284,10 @@
     <Compile Include="Migrations\202204201859045_fix.cs" />
     <Compile Include="Migrations\202204201859045_fix.designer.cs">
       <DependentUpon>202204201859045_fix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204202044403_AddGenres.cs" />
+    <Compile Include="Migrations\202204202044403_AddGenres.designer.cs">
+      <DependentUpon>202204202044403_AddGenres.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -616,6 +621,8 @@
     <Content Include="Views\Admin\ReservationDelete.cshtml" />
     <Content Include="Views\Admin\ReservationForm.cshtml" />
     <Content Include="Views\Admin\RoleForm.cshtml" />
+    <Content Include="Views\Profile\UserReservations.cshtml" />
+    <Content Include="Views\Profile\ReservationDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -660,6 +667,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204201859045_fix.resx">
       <DependentUpon>202204201859045_fix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204202044403_AddGenres.resx">
+      <DependentUpon>202204202044403_AddGenres.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

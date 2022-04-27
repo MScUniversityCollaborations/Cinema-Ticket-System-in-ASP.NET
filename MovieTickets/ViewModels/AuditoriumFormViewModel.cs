@@ -5,20 +5,23 @@ namespace MovieTickets.ViewModels
 {
     public class AuditoriumFormViewModel
     {
-        public byte? Id { get; set; }
+        public int? Id { get; set; }
 
         [Required]
         [StringLength(32, ErrorMessage = "The {0} can have a max of {1} characters.")]
         public string Name { get; set; }
 
         [Required]
-        public int TotalSeats { get; set; }
+        public byte Rows { get; set; }
+
+        [Required]
+        public byte SeatsPerRows { get; set; }
 
         public string PageTitle
         {
             get
             {
-                return Id != null ? "Edit Auditorium" : "New Auditorium";
+                return Id != 0 ? "Edit Auditorium" : "New Auditorium";
             }
         }
 
@@ -26,7 +29,7 @@ namespace MovieTickets.ViewModels
         {
             get
             {
-                return Id != null ? "Update an existing Auditorium." : "Create a new Auditorium.";
+                return Id != 0 ? "Update an existing Auditorium." : "Create a new Auditorium.";
             }
         }
 
@@ -34,20 +37,20 @@ namespace MovieTickets.ViewModels
         {
             get
             {
-                return Id != null ? "Update" : "Create";
+                return Id != 0 ? "Update" : "Create";
             }
         }
 
-        public AuditoriumFormViewModel()
-        {
-            Id = null;
+        public AuditoriumFormViewModel() {
+            Id = 0;
         }
 
         public AuditoriumFormViewModel(Auditorium auditorium)
         {
             Id = auditorium.Id;
             Name = auditorium.Name;
-            TotalSeats = auditorium.TotalSeats;
+            Rows = auditorium.Rows;
+            SeatsPerRows = auditorium.SeatsPerRows;
         }
     }
 }

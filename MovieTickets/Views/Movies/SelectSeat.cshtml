@@ -1,68 +1,11 @@
-﻿@{
+﻿@model MovieTickets.ViewModels.SelectSeatViewModel
+@using Microsoft.AspNet.Identity;
+
+@{
     ViewBag.Title = "Select Seat";
 }
 
-<script type="text/javascript">
-
-  
-
-    function onClickbtnContinue() {
-
-       @*  location.href = 'https://code.tutsplus.com';*@
-         location.href = '/movies/BuyTicket'
-@*        if (document.getElementById('seat').innerHTML == "NONE") {
-            document.getElementById('nullSeat').innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> You have not selected a seat!!'
-       
-        } *@
-
-    }
-
-    document.getElementsByName('check').onclick = function () {
-       
-
-    };
-
-    function onlyOne(checkbox) {
-     
-        var checkboxes = document.getElementsByName('check')
-
-        checkboxes.forEach((item) => {
-            checkboxes.forEach((item) => {
-
-             
-                if (item.checked) {
-                    let seatID = item.id;
-                    const seat = seatID.split(".");
-                    document.getElementById('seat').innerHTML = "Row: " + seat[0] + " Seat: " + seat[1];
-                    document.getElementById("btnSelectSeat").disabled = false;
-                   @* document.getElementById('nullSeat').hidden = true; *@
-                    document.getElementById("nullSeat").style.visibility = "hidden";
-                } 
-               
-            })
-
-
-            if (item == checkbox) {
-                document.getElementById('seat').innerHTML = "NONE"
-                document.getElementById('nullSeat').innerHTML = ''
-                document.getElementById("btnSelectSeat").disabled = true;
-             
-            }
-
-            if (item !== checkbox) {
-
-                item.checked = false
-            }
-
-
-        })
-
-    }
-
-</script>
-
 <link rel="stylesheet" href="~/Content/SelectSeats.css">
-@Scripts.Render("~/Scripts/various_scripts.js")
 
 <section class="hero text-white py-4 flex-grow-1">
 
@@ -102,7 +45,7 @@
                     <div>
                         <h6 class="my-0 mt-2 mb-1" style="color:white">Movie </h6>
                     </div>
-                    <span class="rounded-pill mt-2" id="moveName" style="font-family: 'Helvetica Bold'; color: #D83F87 ">Spiderman 4</span>
+                    <span class="rounded-pill mt-2" id="moveName" style="font-family: 'Helvetica Bold'; color: #D83F87 ">@Model.Screening.Movie.Title</span>
 
                 </li>
                 <li class="list-group-item d-flex justify-content-between lh-sm p-2" style="background-color: #44318D; ">
@@ -110,7 +53,7 @@
                     <div>
                         <h6 class="my-0 mt-1" style="color:white">Screening Date </h6>
                     </div>
-                    <span class="rounded-pill mt-2" id="moveDate" style="font-family: 'Helvetica Bold'; color: #D83F87 ">11/2/2022</span>
+                    <span class="rounded-pill mt-2" id="moveDate" style="font-family: 'Helvetica Bold'; color: #D83F87 ">@Html.ValueFor(model => model.Screening.ScreeningStart, "{0:dd-MMM-yyyy}")</span>
 
                 </li>
                 <li class="list-group-item d-flex justify-content-between lh-sm p-2" style="background-color: #44318D; ">
@@ -118,7 +61,7 @@
                     <div>
                         <h6 class="my-0 mt-1" style="color:white">Screening Time</h6>
                     </div>
-                    <span class="rounded-pill mt-2" id="moveTime" style="font-family: 'Helvetica Bold'; color: #D83F87 ">00:00</span>
+                    <span class="rounded-pill mt-2" id="moveTime" style="font-family: 'Helvetica Bold'; color: #D83F87 ">@Model.Screening.ScreeningStart.ToString("HH:mm tt") - @Model.Screening.ScreeningEnd.ToString("HH:mm tt")</span>
 
                 </li>
 
@@ -128,20 +71,33 @@
                         <h6 class="my-0 mt-1" style="color:white">Your seat </h6>
                         <h5 class="rounded-pill mt-1 text-danger" id="nullSeat" style="font-family: 'Helvetica Bold'; "> <i class="fa-solid fa-triangle-exclamation"></i> You have not selected a seat!!</h5>
                     </div>
-                    <span class="rounded-pill mt-1" id="seat" style="font-family: 'Helvetica Bold'; color: #D83F87 ">NONE</span>
+                    <span class="rounded-pill mt-1 text-no-wrap" id="seat" style="font-family: 'Helvetica Bold'; color: #D83F87 ">-</span>
                 </li>
 
                 <li class="list-group-item d-flex justify-content-between lh-sm " style="background-color: #44318D;">
                     <h6 class="my-0 mt-1" style="color:white">Total (EU) </h6>
-                    <span class="rounded-pill mt-1 " id="seat" style="font-family: 'Helvetica Bold'; color: #D83F87 "> &euro; 20</span>
+                    <span class="rounded-pill mt-1 " id="seat" style="font-family: 'Helvetica Bold'; color: #D83F87 "> &euro; 15</span>
 
                 </li>
-
-
-
             </ul>
-            <button id="btnSelectSeat" href='/movies/BuyTicket' disabled class="btn btn-primary btn-lg w-100" onclick="onClickbtnContinue()">Continue </button>
-  
+            <form name="formPaymentType">
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-sm p-2" style="background-color: #44318D; ">
+                        <div>
+                            <input onclick="checkForContinueButton()" class="my-0 mt-2 mb-1" type="radio" id="radioCreditCard" name="radioPayment" value="Credit Card">
+                        </div>
+                        <span class="rounded-pill mt-2" id="radioCreditCardLabel" style="font-family: 'Helvetica Bold'; color: #D83F87 "><i class="fa-solid fa-credit-card"></i> Credit Card</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm p-2" style="background-color: #44318D; ">
+                        <div>
+                            <input onclick="checkForContinueButton()" class="my-0 mt-2 mb-1" type="radio" id="radioCash" name="radioPayment" value="Cash">
+                        </div>
+                        <span class="rounded-pill mt-2" id="radioCashLabel" style="font-family: 'Helvetica Bold'; color: #D83F87 "><i class="fa-solid fa-money-bill"></i> Cash on Arrival</span>
+                    </li>
+                </ul>
+            </form>
+
+            <button id="btnSelectSeat" disabled class="btn btn-primary btn-lg w-100" onclick="createReservation()">Continue </button>
         </div>
 
         <div class="row-md-6">
@@ -151,7 +107,6 @@
 
                 <div class="card-body">
                     <div class="widget-signups__list mb-3">
-                      
                         <label class="selectedSeat"><input type="checkbox" id="1.1" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="1.2" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="1.3" name="check" onclick="onlyOne(this)"></label>
@@ -162,12 +117,10 @@
                         <label class="selectedSeat"><input type="checkbox" id="1.8" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="1.9" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="1.10" name="check" onclick="onlyOne(this)"></label>
-
                     </div>
 
 
                     <div class="widget-signups__list  mb-3">
-
                         <label class="selectedSeat"><input type="checkbox" id="2.1" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="2.2" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="2.3" name="check" onclick="onlyOne(this)"></label>
@@ -178,11 +131,9 @@
                         <label class="selectedSeat"><input type="checkbox" id="2.8" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="2.9" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="2.10" name="check" onclick="onlyOne(this)"></label>
-
                     </div>
 
                     <div class="widget-signups__list  mb-3">
-
                         <label class="selectedSeat"><input type="checkbox" id="3.1" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="3.2" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="3.3" name="check" onclick="onlyOne(this)"></label>
@@ -193,11 +144,9 @@
                         <label class="selectedSeat"><input type="checkbox" id="3.8" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="3.9" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="3.10" name="check" onclick="onlyOne(this)"></label>
-
                     </div>
 
                     <div class="widget-signups__list  mb-3">
-
                         <label class="selectedSeat"><input type="checkbox" id="4.1" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="4.2" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="4.3" name="check" onclick="onlyOne(this)"></label>
@@ -208,11 +157,9 @@
                         <label class="selectedSeat"><input type="checkbox" id="4.8" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="4.9" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="4.10" name="check" onclick="onlyOne(this)"></label>
-
                     </div>
 
                     <div class="widget-signups__list  mb-3">
-
                         <label class="selectedSeat"><input type="checkbox" id="4.1" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="4.2" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="4.3" name="check" onclick="onlyOne(this)"></label>
@@ -223,11 +170,9 @@
                         <label class="selectedSeat"><input type="checkbox" id="4.8" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="4.9" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="4.10" name="check" onclick="onlyOne(this)"></label>
-
                     </div>
 
                     <div class="widget-signups__list  mb-3">
-
                         <label class="selectedSeat"><input type="checkbox" id="5.1" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="5.2" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="5.3" name="check" onclick="onlyOne(this)"></label>
@@ -238,12 +183,9 @@
                         <label class="selectedSeat"><input type="checkbox" id="5.8" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="5.9" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="5.10" name="check" onclick="onlyOne(this)"></label>
-
-
                     </div>
 
                     <div class="widget-signups__list  mb-3">
-
                         <label class="selectedSeat"><input type="checkbox" id="6.1" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="6.2" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="6.3" name="check" onclick="onlyOne(this)"></label>
@@ -258,7 +200,6 @@
                     </div>
 
                     <div class="widget-signups__list mb-3">
-
                         <label class="selectedSeat"><input type="checkbox" id="7.1" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="7.2" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="7.3" name="check" onclick="onlyOne(this)"></label>
@@ -269,11 +210,9 @@
                         <label class="selectedSeat"><input type="checkbox" id="7.8" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="7.9" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="7.10" name="check" onclick="onlyOne(this)"></label>
-
                     </div>
 
                     <div class="widget-signups__list mb-3">
-
                         <label class="selectedSeat"><input type="checkbox" id="8.1" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="8.2" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="8.3" name="check" onclick="onlyOne(this)"></label>
@@ -284,12 +223,9 @@
                         <label class="selectedSeat"><input type="checkbox" id="8.8" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="8.9" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="8.10" name="check" onclick="onlyOne(this)"></label>
-
                     </div>
 
-
                     <div class="widget-signups__list mb-3">
-
                         <label class="selectedSeat"><input type="checkbox" id="9.1" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="9.2" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="9.3" name="check" onclick="onlyOne(this)"></label>
@@ -302,9 +238,7 @@
                         <label class="selectedSeat"><input type="checkbox" id="9.10" name="check" onclick="onlyOne(this)"></label>
                     </div>
 
-
                     <div class="widget-signups__list mb-5">
-
                         <label class="selectedSeat"><input type="checkbox" id="10.1" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="10.2" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="10.3" name="check" onclick="onlyOne(this)"></label>
@@ -315,9 +249,8 @@
                         <label class="selectedSeat"><input type="checkbox" id="10.8" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="10.9" name="check" onclick="onlyOne(this)"></label>
                         <label class="selectedSeat"><input type="checkbox" id="10.10" name="check" onclick="onlyOne(this)"></label>
-                        <label class="selectedSeat "><input type="checkbox"class="hidden" name="check"></label>
+                        <label class="selectedSeat "><input type="checkbox" class="hidden" name="check"></label>
                     </div>
-
                 </div>
             </div>
 
@@ -330,3 +263,111 @@
 <div class="wrapper">
     <div class="push"></div>
 </div>
+
+@section Scripts {
+    <script type="text/javascript">
+        let selectedSeat = null;
+        let paymentType = "";
+
+        $(document).ready(function () {
+            populateSeats();
+        });
+
+        function onlyOne(checkbox) {
+
+            var checkboxes = document.getElementsByName('check')
+
+            checkboxes.forEach((item) => {
+                checkboxes.forEach((item) => {
+
+                    if (item.checked) {
+                        selectedSeat = item.id;
+                        let seatID = item.id;
+                        const seat = seatID.split(".");
+                        document.getElementById('seat').innerHTML = "Row: " + seat[0] + " Seat: " + seat[1];
+                        @*document.getElementById("btnSelectSeat").disabled = false;*@
+                        document.getElementById('nullSeat').hidden = true;
+                        //document.getElementById("nullSeat").style.visibility = "hidden";
+
+                        checkForContinueButton();
+                    }
+
+                })
+
+                if (item == checkbox) {
+                    document.getElementById('seat').innerHTML = "-"
+                    // document.getElementById('nullSeat').innerHTML = ''
+                    document.getElementById("btnSelectSeat").disabled = true;
+                    document.getElementById('nullSeat').hidden = false;
+                    // selectedSeat = null;
+                }
+
+                if (item !== checkbox) {
+                    item.checked = false;
+                    // selectedSeat = null;
+                }
+            })
+        }
+
+        function checkForContinueButton() {
+            paymentType = document.forms.formPaymentType.radioPayment.value;
+
+            if (paymentType != "" && selectedSeat != null) {
+                document.getElementById("btnSelectSeat").disabled = false;
+                return true;
+            }
+            return false;
+        }
+
+        function populateSeats() {
+            // Here we serialize the Model.ArrayDetails into a javascript array
+            var items = @Html.Raw(Json.Encode(Model.Reservations));
+
+            // This here is PURE javascript, it could (AND IT SHOULD) go into
+            // a separate javascript file containing this logic to which you could
+            // simply pass the items variable
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+
+                document.getElementById(item.Row + "." + item.Seat).disabled = true;
+            }
+        }
+
+        function createReservation() {
+            var reservation = new Object();
+            reservation.UserId = @Html.Raw(Json.Encode(User.Identity.GetUserId()));
+            reservation.ScreeningId = @Model.ScreeningId;
+            reservation.Reserved = true;
+            reservation.Paid = true;
+            reservation.PaymentType = paymentType;
+            reservation.Active = true;
+            reservation.Row = selectedSeat.split('.')[0];
+            reservation.Seat = selectedSeat.split('.')[1];
+
+            if (reservation != null) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Movies/CreateReservation",
+                    data: JSON.stringify(reservation),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response != null) {
+                            @*alert(JSON.stringify(reservation));*@
+                            window.location.href = '@Url.Action("ReservationCreated", "Movies")'
+                        } else {
+                            alert("Something went wrong");
+                        }
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        window.location.href = '@Url.Action("ReservationCreated", "Movies")'
+                    }
+                });
+            }
+        }
+
+    </script>
+}

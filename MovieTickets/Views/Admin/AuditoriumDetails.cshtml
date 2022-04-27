@@ -22,7 +22,9 @@
                         <div class="row">
                             <div class="col-lg-6 mb-4">
                                 <p><b>Auditorium Name:</b> @Model.Name</p>
-                                <p><b>Total Seats:</b> @Model.TotalSeats</p>
+                                <p><b>Rows:</b> @Model.Rows</p>
+                                <p><b>Seats Per Row:</b> @Model.SeatsPerRows</p>
+                                <p><b>Total Seats:</b> @((Model.Rows * Model.SeatsPerRows).ToString())</p>
                             </div>
                         </div>
                     </div>

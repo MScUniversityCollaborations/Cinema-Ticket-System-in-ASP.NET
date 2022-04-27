@@ -1,94 +1,30 @@
-﻿
-@{ ViewBag.Title = "Date Time"; }
+﻿@model MovieTickets.ViewModels.SelectDateTimeViewModel
+
+@{ ViewBag.Title = "Select Date Time"; }
 
 
 <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
 <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
 
-
-
-@section Scripts{
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-
-<script>
-
-    function onClickbtnContinue() {
-
-        @* location.href = 'https://code.tutsplus.com';*@
-        location.href = '/movies/SelectSeat'
- 
-    }
-
-
-    </script>
-  
-
-    <script>
-
-
-        $(document).ready(function () {
-                    var elem = $(this);
-                    var events = [];
-            @*    $.ajax({
-                type: "GET",
-                url: "/screenings/GetEvents",
-                success: function (data) {
-                    $.each(data, function (i, v) {
-                        events.push({
-                            title: v.Subject,
-                            description: v.Description,
-                            start: moment(v.Start),
-                            end: v.End != null ? moment(v.End) : null,
-                            color: v.ThemeColor,
-                            allDay: v.IsFullDay
-                        });
-                    })
-
-                    GenerateCalender(events);
-                },
-                error: function (error) {
-                    alert('failed');
-                }
-        }) *@
-
-            var events = [];
-            GenerateCalender(events);
-            function GenerateCalender(events) {
-                $('#calender').fullCalendar('destroy');
-                $('#calender').fullCalendar({
-
-                    contentHeight: 400,
-                    defaultDate: new Date(),
-                    timeFormat: 'h(:mm)a',
-                    header: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'month,basicWeek,basicDay,agenda'
-                    },
-                    eventLimit: true,
-                    eventColor: '#378006',
-                    events: events,
-                    eventClick: function (calEvent, jsEvent, view) {
-                        $('#myModal #eventTitle').text(calEvent.title);
-                        var $description = $('<div/>');
-                        $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
-                        if (calEvent.end != null) {
-                            $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
-                        }
-                        $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
-                        $('#myModal #pDetails').empty().html($description);
-
-                        $('#myModal').modal();
-                    }
-                })
-            }
-        })
-    </script>
-}
+<!-- Modal -->
+<div id="modalScreeningDetails" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color: #44318D; color: white">
+            <div class="modal-header">
+                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+            </div>
+            <div class="modal-body">
+                <p id="pDetails"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="selectScreening()">Select</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <section class="hero text-white py-4 flex-grow-1">
-
 
     <div class="container py-4">
 
@@ -99,25 +35,24 @@
 
         </div>
 
-
         <div class="col-md-5 col-lg-4 pull-right" style="margin-left:40px ">
             <h1 class="display-6 d-flex justify-content-between " style="font-family: 'Helvetica Bold'; text-align: center">Details</h1>
             <ul class="list-group mb-3">
 
-                <li class="list-group-item d-flex justify-content-between lh-sm p-2" style="background-color: #44318D; ">
+                <li class="list-group-item d-flex justify-content-between lh-sm p-2" style="background-color: #44318D;">
 
                     <div>
                         <h6 class="my-0 mt-2 mb-1" style="color:white">Movie </h6>
                     </div>
-                    <span class="rounded-pill mt-2" id="seat" style="font-family: 'Helvetica Bold'; color: #D83F87 ">Spiderman 4</span>
+                    <span class="rounded-pill mt-2" id="movieTitle" style="font-family: 'Helvetica Bold'; color: #D83F87 ">@Model.Movie.Title</span>
 
                 </li>
-                <li class="list-group-item d-flex justify-content-between lh-sm p-2" style="background-color: #44318D; ">
+                <li class="list-group-item d-flex justify-content-between lh-sm p-2" style="background-color: #44318D;">
 
                     <div>
                         <h6 class="my-0 mt-1" style="color:white">Screening Date </h6>
                     </div>
-                    <span class="rounded-pill mt-2" id="seat" style="font-family: 'Helvetica Bold'; color: #D83F87 ">11/2/2022</span>
+                    <span class="rounded-pill mt-2" id="movieScreeningDate" style="font-family: 'Helvetica Bold'; color: #D83F87" />
 
                 </li>
                 <li class="list-group-item d-flex justify-content-between lh-sm p-2" style="background-color: #44318D; ">
@@ -125,17 +60,21 @@
                     <div>
                         <h6 class="my-0 mt-1" style="color:white">Screening Time</h6>
                     </div>
-                    <span class="rounded-pill mt-2" id="seat" style="font-family: 'Helvetica Bold'; color: #D83F87 ">00:00</span>
+                    <span class="rounded-pill mt-2" id="movieScreeningTime" style="font-family: 'Helvetica Bold'; color: #D83F87" />
 
                 </li>
 
-                <li class="list-group-item d-flex justify-content-between lh-sm " style="background-color: #44318D;">
-                    <h6 class="my-0 mt-1" style="color:white">Total (EU) </h6>
-                    <span class="rounded-pill mt-2 " id="seat" style="font-family: 'Helvetica Bold'; color: #D83F87 "> &euro; 20</span>
+                <li class="list-group-item d-flex justify-content-between lh-sm p-2" style="background-color: #44318D; ">
+
+                    <div>
+                        <h6 class="my-0 mt-1" style="color:white">Total (EU):</h6>
+                    </div>
+                    <span class="rounded-pill mt-2" id="moviePrice" style="font-family: 'Helvetica Bold'; color: #D83F87 " />
 
                 </li>
+
             </ul>
-            <button id="btnSelectDateTime" class="btn btn-primary btn-lg w-100" onclick="onClickbtnContinue()"> Continue </button>
+            <button id="btnSelectDateTime" class="btn btn-primary btn-lg w-100" onclick="goToSelectSeat()"> Continue </button>
 
         </div>
 
@@ -158,3 +97,106 @@
 <div class="wrapper">
     <div class="push"></div>
 </div>
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+
+    <script>
+        let selectedScreening = null;
+        let screeningDate = null;
+        let screeningTimeStart = null;
+        let screeningTimeEnd = null;
+        let screeningPayment = null;
+
+        $(document).ready(function () {
+            document.getElementById('movieScreeningDate').innerHTML = "-";
+            document.getElementById('movieScreeningTime').innerHTML = "-";
+            document.getElementById('moviePrice').innerHTML = "-";
+            document.getElementById("btnSelectDateTime").disabled = true;
+
+            var elem = $(this);
+            var events = [];
+            $.ajax({
+                type: "GET",
+                url: "/Movies/GetScreenings",
+                dataType: 'JSON',
+                data: { id: @Model.MovieId },
+                success: function (data) {
+                    $.each(data, function (i, v) {
+                        events.push({
+                            id: v.Id,
+                            title: v.Movie.Title,
+                            description: v.Movie.Description,
+                            start: moment(v.ScreeningStart),
+                            end: v.ScreeningEnd != null ? moment(v.ScreeningEnd) : null,
+                            color: v.ThemeColor,
+                            allDay: v.IsFullDay
+                        });
+                    })
+
+                    GenerateCalender(events);
+                },
+                error: function (error) {
+                    alert('Failed to load screenings');
+                }
+            })
+
+            var events = [];
+            GenerateCalender(events);
+            function GenerateCalender(events) {
+                $('#calender').fullCalendar('destroy');
+                $('#calender').fullCalendar({
+                    contentHeight: 400,
+                    defaultDate: new Date(),
+                    timeFormat: 'h(:mm)a',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay,agenda'
+                    },
+                    eventLimit: true,
+                    eventColor: '#d74185',
+                    events: events,
+                    // EVENT CLICK
+                    eventClick: function (calEvent, jsEvent, view) {
+                        selectedScreening = calEvent.id;
+                        screeningDate = calEvent.start.format("DD-MMM-YYYY");
+                        screeningTimeStart = calEvent.start.format("HH:mm a");
+                        screeningTimeEnd = calEvent.end.format("HH:mm a");
+
+                        $('#modalScreeningDetails #eventTitle').text(calEvent.title);
+
+                        var $description = $('<div/>');
+                        $description.append($('<p/>').html('<b>Date: </b>' + calEvent.end.format("DD-MMM-YYYY")));
+                        $description.append($('<p/>').html('<b>Starting: </b>' + calEvent.start.format("HH:mm a")));
+
+                        if (calEvent.end != null) {
+                            $description.append($('<p/>').html('<b>Ending: </b>' + calEvent.end.format("HH:mm a")));
+                        }
+                        $description.append($('<p/>').html('<b>Duration: </b>' + @Model.Movie.DurationMin + " minutes"));
+
+                        $description.append($('<p/>').html('<b>Storyline: </b>' + calEvent.description));
+
+                        $('#modalScreeningDetails #pDetails').empty().html($description);
+
+                        $('#modalScreeningDetails').modal('show');
+                    }
+                })
+            }
+        })
+
+        function selectScreening() {
+            document.getElementById('movieScreeningDate').innerHTML = screeningDate;
+            document.getElementById('movieScreeningTime').innerHTML = screeningTimeStart + " - " + screeningTimeEnd;
+            document.getElementById('moviePrice').innerHTML = "&euro; 15";
+            document.getElementById("btnSelectDateTime").disabled = false;
+        }
+
+        function goToSelectSeat() {
+            var id = selectedScreening;
+            window.location.href = '@Url.Action("SelectSeat", "Movies")/' + id;
+        }
+
+    </script>
+}

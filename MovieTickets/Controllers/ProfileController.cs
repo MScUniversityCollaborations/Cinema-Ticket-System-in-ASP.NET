@@ -1,7 +1,14 @@
-﻿using MovieTickets.Models;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using MovieTickets.Models;
+using MovieTickets.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -22,10 +29,18 @@ namespace MovieTickets.Controllers
         }
 
         // GET: Profile/Reservations/:id
-        public ActionResult Reservations(string id)
+        [HttpGet]
+        [Authorize]
+        public ActionResult Reservations()
         {
+            var userId = User.Identity.GetUserId();
+
             var reservations = _context.Reservations
-                    .Where(r => r.UserId == id)
+                    .Include(m => m.Screening)
+                    .Include(m => m.Screening.Movie)
+                    .Include(m => m.Screening.Auditorium)
+                    .Include(m => m.User)
+                    .Where(r => r.UserId == userId)
                     .OrderBy(m => m.Screening.ScreeningStart);
 
             return View("UserReservations", reservations);
@@ -33,10 +48,14 @@ namespace MovieTickets.Controllers
 
         // GET: Reservations/:id
         [HttpGet]
-        [Authorize(Roles = RoleName.AdminRole)]
+        [Authorize]
         public ActionResult ReservationDetails(int id)
         {
             var reservation = _context.Reservations
+                .Include(m => m.Screening)
+                .Include(m => m.Screening.Movie)
+                .Include(m => m.Screening.Auditorium)
+                .Include(m => m.User)
                 .SingleOrDefault(m => m.Id == id);
 
             if (reservation == null)

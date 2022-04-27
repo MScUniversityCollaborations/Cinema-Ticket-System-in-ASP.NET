@@ -16,7 +16,7 @@ namespace MovieTickets.ViewModels
 
         [Display(Name = "Auditorium")]
         [Required(ErrorMessage = "Please select an auditorium")]
-        public byte? AuditoriumId { get; set; }
+        public int? AuditoriumId { get; set; }
 
         [Display(Name = "Movie")]
         [Required(ErrorMessage = "Please select a movie")]

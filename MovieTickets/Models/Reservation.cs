@@ -7,6 +7,10 @@ namespace MovieTickets.Models
     {
         public int Id { get; set; }
 
+        public Screening Screening { get; set; }
+
+        public ApplicationUser User { get; set; }
+
         [Required]
         [Display(Name = "Screening ID")]
         public int ScreeningId { get; set; }
@@ -14,10 +18,6 @@ namespace MovieTickets.Models
         [Required]
         [Display(Name = "User ID")]
         public string UserId { get; set; }
-
-        public Screening Screening { get; set; }
-
-        public ApplicationUser User { get; set; }
 
         [Display(Name = "Photo")]
         public string Photo { get; set; }
@@ -38,6 +38,10 @@ namespace MovieTickets.Models
         [Display(Name = "Reserved")]
         [Required]
         public bool Reserved { get; set; }
+
+        [Display(Name = "Row No.")]
+        [Required]
+        public byte Row { get; set; }
 
         [Display(Name = "Seat No.")]
         [Required]

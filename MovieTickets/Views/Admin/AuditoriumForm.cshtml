@@ -27,26 +27,34 @@
                     </div>
 
                     <div class="form-group mt-3">
-                        @Html.LabelFor(m => m.TotalSeats, new { @class = "col-md-2 text-no-wrap control-label" })
+                        @Html.LabelFor(m => m.Rows, new { @class = "col-md-2 text-no-wrap control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.TotalSeats, new { @type = "number", min = "0", @class = "form-control", @placeholder = "Please add the movie duration time in minutes (E.x: 120)." })
+                            @Html.TextBoxFor(m => m.Rows, new { @type = "number", min = "0", @class = "form-control", @placeholder = "Please add the auditorium's rows with seats (E.x: 10)." })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.SeatsPerRows, new { @class = "col-md-2 text-no-wrap control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.SeatsPerRows, new { @type = "number", min = "0", @class = "form-control", @placeholder = "Please add the auditorium's seats per row (E.x: 10)." })
                         </div>
                     </div>
 
                     @Html.HiddenFor(m => m.Id)
                     <div class="form-group">
                         <div class="col-md-offset-2 mt-5 mb-5 col-md-10">
-                            @if (Model.Id == null)
+                            @if (Model.Id == 0)
                             {
                                 <button type="submit" class="btn btn-primary btn-lg w-100"><i class="fa-solid fa-plus"></i> @Model.State</button>
-                            }   
-                            else { 
+                            }
+                            else
+                            {
                                 <button type="submit" class="btn btn-primary btn-lg w-100"><i class="fa-solid fa-floppy-disk"></i> @Model.State</button>
                             }
                         </div>
                     </div>
-                    }
-                </div>
+                }
+            </div>
             </div>
     </div>
 </section>

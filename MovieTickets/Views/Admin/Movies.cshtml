@@ -30,7 +30,7 @@ else
             <a href="@Url.Action("AddMovie", "Admin")" class="btn btn-primary mb-5"><i class="fa-solid fa-plus"></i> Add New Movie</a>
 
             <div class="row row-cols-1 row-cols-md-3 g-4">
-                <table class="table table-striped rounded-4 table-bordered table-dark table-responsive" id="TableMovies" style="border-radius: 5px">
+                <table class="table table-striped rounded-4 table-bordered table-dark table-responsive" id="TableMovies" style="border-radius: 5px; table-layout: fixed; ">
                     <tr>
                         <th>
                             @Html.DisplayNameFor(model => model.Title)
@@ -45,16 +45,10 @@ else
                             @Html.DisplayNameFor(model => model.DurationMin)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Description)
-                        </th>
-                        <th>
                             @Html.DisplayNameFor(model => model.Genre)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.NowShowing)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.DateAdded)
                         </th>
                         <th></th>
                     </tr>
@@ -89,16 +83,6 @@ else
                                 @Html.DisplayFor(modelItem => item.DurationMin)
                             </td>
                             <td>
-                                @if (item.Description == null)
-                                {
-                                    <p>-</p>
-                                }
-                                else
-                                {
-                                    <p class="cut-text">@item.Description</p>
-                                }
-                            </td>
-                            <td>
                                 @Html.DisplayFor(modelItem => item.Genre.Name)
                             </td>
                             <td>
@@ -110,9 +94,6 @@ else
                                 {
                                     <p>No</p>
                                 }
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DateAdded)
                             </td>
                             <td>
                                 <a href="@Url.Action("MovieUpdate", "Admin", new { Id = item.Id })" class="btn btn-primary">

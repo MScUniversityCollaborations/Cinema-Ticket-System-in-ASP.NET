@@ -39,7 +39,10 @@ else
                             @Html.DisplayNameFor(model => model.Name)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.TotalSeats)
+                            @Html.DisplayNameFor(model => model.Rows)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SeatsPerRows)
                         </th>
                         <th></th>
                     </tr>
@@ -54,7 +57,10 @@ else
                                 @Html.DisplayFor(modelItem => item.Name)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.TotalSeats)
+                                @Html.DisplayFor(modelItem => item.Rows)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SeatsPerRows)
                             </td>
                             <td>
                                 <a href="@Url.Action("AuditoriumUpdate", "Admin", new { Id = item.Id })" class="btn btn-primary">

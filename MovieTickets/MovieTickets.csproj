@@ -289,6 +289,58 @@
     <Compile Include="Migrations\202204202044403_AddGenres.designer.cs">
       <DependentUpon>202204202044403_AddGenres.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204231416084_changeAudIdToInt.cs" />
+    <Compile Include="Migrations\202204231416084_changeAudIdToInt.designer.cs">
+      <DependentUpon>202204231416084_changeAudIdToInt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204231422071_changeAudIdToInt1.cs" />
+    <Compile Include="Migrations\202204231422071_changeAudIdToInt1.designer.cs">
+      <DependentUpon>202204231422071_changeAudIdToInt1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204231431229_audFix.cs" />
+    <Compile Include="Migrations\202204231431229_audFix.designer.cs">
+      <DependentUpon>202204231431229_audFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204231433099_audFix2.cs" />
+    <Compile Include="Migrations\202204231433099_audFix2.designer.cs">
+      <DependentUpon>202204231433099_audFix2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204231437499_audFix3.cs" />
+    <Compile Include="Migrations\202204231437499_audFix3.designer.cs">
+      <DependentUpon>202204231437499_audFix3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204231452012_audFix4.cs" />
+    <Compile Include="Migrations\202204231452012_audFix4.designer.cs">
+      <DependentUpon>202204231452012_audFix4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204261741480_changeSeats.cs" />
+    <Compile Include="Migrations\202204261741480_changeSeats.designer.cs">
+      <DependentUpon>202204261741480_changeSeats.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204261848228_changeSeats2.cs" />
+    <Compile Include="Migrations\202204261848228_changeSeats2.designer.cs">
+      <DependentUpon>202204261848228_changeSeats2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204261850452_changeSeats3.cs" />
+    <Compile Include="Migrations\202204261850452_changeSeats3.designer.cs">
+      <DependentUpon>202204261850452_changeSeats3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204261853384_changeSeats4.cs" />
+    <Compile Include="Migrations\202204261853384_changeSeats4.designer.cs">
+      <DependentUpon>202204261853384_changeSeats4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204261859027_changeSeats5.cs" />
+    <Compile Include="Migrations\202204261859027_changeSeats5.designer.cs">
+      <DependentUpon>202204261859027_changeSeats5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204261903099_changeSeats6.cs" />
+    <Compile Include="Migrations\202204261903099_changeSeats6.designer.cs">
+      <DependentUpon>202204261903099_changeSeats6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204261906251_changeSeats7.cs" />
+    <Compile Include="Migrations\202204261906251_changeSeats7.designer.cs">
+      <DependentUpon>202204261906251_changeSeats7.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Genre.cs" />
@@ -304,6 +356,8 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AuditoriumFormViewModel.cs" />
     <Compile Include="ViewModels\ReservationFormViewModel.cs" />
+    <Compile Include="ViewModels\SelectDateTimeViewModel.cs" />
+    <Compile Include="ViewModels\SelectSeatViewModel.cs" />
     <Compile Include="ViewModels\ScreeningFormViewModel.cs" />
     <Compile Include="ViewModels\RoleFormViewModel.cs" />
     <Compile Include="ViewModels\UserRolesFormViewModel.cs" />
@@ -597,7 +651,6 @@
     <Content Include="Views\Movies\ComingSoon.cshtml" />
     <Content Include="Views\Movies\Details.cshtml" />
     <Content Include="Views\Movies\SelectSeat.cshtml" />
-    <Content Include="Views\Movies\BuyTicket.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Admin\MovieForm.cshtml" />
     <Content Include="Views\Errors\404.cshtml" />
@@ -610,7 +663,7 @@
     <Content Include="Views\Admin\Reservations.cshtml" />
     <Content Include="Views\Admin\UserRolesForm.cshtml" />
     <Content Include="Views\Admin\UserForm.cshtml" />
-    <Content Include="Views\Admin\AuditoriumsForm.cshtml" />
+    <Content Include="Views\Admin\AuditoriumForm.cshtml" />
     <Content Include="Views\Admin\UserDetails.cshtml" />
     <Content Include="Views\Admin\AuditoriumDelete.cshtml" />
     <Content Include="Views\Admin\AuditoriumDetails.cshtml" />
@@ -670,6 +723,45 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204202044403_AddGenres.resx">
       <DependentUpon>202204202044403_AddGenres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204231416084_changeAudIdToInt.resx">
+      <DependentUpon>202204231416084_changeAudIdToInt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204231422071_changeAudIdToInt1.resx">
+      <DependentUpon>202204231422071_changeAudIdToInt1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204231431229_audFix.resx">
+      <DependentUpon>202204231431229_audFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204231433099_audFix2.resx">
+      <DependentUpon>202204231433099_audFix2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204231437499_audFix3.resx">
+      <DependentUpon>202204231437499_audFix3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204231452012_audFix4.resx">
+      <DependentUpon>202204231452012_audFix4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204261741480_changeSeats.resx">
+      <DependentUpon>202204261741480_changeSeats.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204261848228_changeSeats2.resx">
+      <DependentUpon>202204261848228_changeSeats2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204261850452_changeSeats3.resx">
+      <DependentUpon>202204261850452_changeSeats3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204261853384_changeSeats4.resx">
+      <DependentUpon>202204261853384_changeSeats4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204261859027_changeSeats5.resx">
+      <DependentUpon>202204261859027_changeSeats5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204261903099_changeSeats6.resx">
+      <DependentUpon>202204261903099_changeSeats6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204261906251_changeSeats7.resx">
+      <DependentUpon>202204261906251_changeSeats7.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

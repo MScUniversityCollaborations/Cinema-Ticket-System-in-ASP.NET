@@ -9,7 +9,7 @@ namespace MovieTickets.Models
 
         [Required]
         [Display(Name = "Auditorium Id")]
-        public byte AuditoriumId { get; set; }
+        public int AuditoriumId { get; set; }
 
         [Required]
         public int MovieId { get; set; }

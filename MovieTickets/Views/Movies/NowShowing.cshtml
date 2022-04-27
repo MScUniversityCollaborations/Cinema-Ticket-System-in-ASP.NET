@@ -32,12 +32,18 @@ else
                 {
                     <div class="col mb-5">
                         <div class="card h-100">
-                            <img src="data:image;base64,@movie.ImagePoster" class="card-img-top mb-5" onerror="this.src='~/Images/no_image_found.jpg'">
+                            @if (movie.ImagePoster.IsEmpty()) { 
+                                <img src="~/Images/no_image_found.jpg" class="card-img-top mb-5">
+                            }
+                            else { 
+                                <img src="data:image;base64,@movie.ImagePoster" class="card-img-top mb-5">
+                            }
+                            
                             <div class="card-body">
                                 <h4 class="card-title" style="font-family: 'Helvetica Bold';">@movie.Title</h4>
                                 <p class="card-text mb-5">@movie.Genre.Name</p>
                                 <a href="@Url.Action("Details", "Movies", new { id = movie.Id })" class="btn btn-primary"> Details</a>
-                                <a href="/movies/SelectDateTime" class="btn btn-primary pull-right"><i class="fa-solid fa-ticket"></i> Buy Ticket</a>
+                                <a href="@Url.Action("SelectDateTime", "Movies", new { id = movie.Id })" class="btn btn-primary pull-right"><i class="fa-solid fa-ticket"></i> Buy Ticket</a>
                             </div>
                         </div>
                     </div>

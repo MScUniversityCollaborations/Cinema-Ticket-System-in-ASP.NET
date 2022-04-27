@@ -92,6 +92,8 @@ namespace MovieTickets.Controllers
         {
             var reservations = _context.Reservations
                 .Include(m => m.Screening)
+                .Include(m => m.Screening.Movie)
+                .Include(m => m.Screening.Auditorium)
                 .Include(m => m.User)
                 .OrderBy(m => m.Screening.ScreeningStart);
 
@@ -109,7 +111,7 @@ namespace MovieTickets.Controllers
 
             var viewModel = new MovieFormViewModel(movie)
             {
-                Genres = _context.Genres.ToList()
+                Genres = _context.Genres.OrderBy(m => m.Name).ToList()
             };
 
             return View("MovieForm", viewModel);
@@ -117,7 +119,7 @@ namespace MovieTickets.Controllers
 
         // GET: Auditoriums/Update/:id
         [Authorize(Roles = RoleName.AdminRole)]
-        public ActionResult AuditoriumUpdate(byte id)
+        public ActionResult AuditoriumUpdate(int id)
         {
             var auditorium = _context.Auditoriums
                                     .SingleOrDefault(c => c.Id == id);
@@ -127,7 +129,7 @@ namespace MovieTickets.Controllers
 
             var viewModel = new AuditoriumFormViewModel(auditorium);
 
-            return View("AuditoriumsForm", viewModel);
+            return View("AuditoriumForm", viewModel);
         }
 
         // GET: Screenings/
@@ -290,7 +292,7 @@ namespace MovieTickets.Controllers
         {
             var viewModel = new AuditoriumFormViewModel();
 
-            return View("AuditoriumsForm", viewModel);
+            return View("AuditoriumForm", viewModel);
         }
 
         // GET: Movies/Create/
@@ -298,7 +300,7 @@ namespace MovieTickets.Controllers
         [Authorize(Roles = RoleName.AdminRole)]
         public ViewResult AddMovie()
         {
-            var genres = _context.Genres.ToList();
+            var genres = _context.Genres.OrderBy(m => m.Name).ToList();
 
             var viewModel = new MovieFormViewModel
             {
@@ -355,7 +357,7 @@ namespace MovieTickets.Controllers
         // GET: Auditoriums/:id
         [HttpGet]
         [Authorize(Roles = RoleName.AdminRole)]
-        public ActionResult AuditoriumDetails(byte id)
+        public ActionResult AuditoriumDetails(int id)
         {
             var auditorium = _context.Auditoriums
                 .SingleOrDefault(m => m.Id == id);
@@ -386,6 +388,10 @@ namespace MovieTickets.Controllers
         public ActionResult ReservationDetails(int id)
         {
             var reservation = _context.Reservations
+                .Include(m => m.Screening)
+                .Include(m => m.Screening.Movie)
+                .Include(m => m.Screening.Auditorium)
+                .Include(m => m.User)
                 .SingleOrDefault(m => m.Id == id);
 
             if (reservation == null)
@@ -397,7 +403,7 @@ namespace MovieTickets.Controllers
         // GET: Auditoriums/Delete/:id
         [HttpGet]
         [Authorize(Roles = RoleName.AdminRole)]
-        public ActionResult AuditoriumDelete(byte? id)
+        public ActionResult AuditoriumDelete(int? id)
         {
             if (id == null)
             {
@@ -418,7 +424,7 @@ namespace MovieTickets.Controllers
         [HttpPost, ActionName("AuditoriumDelete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = RoleName.AdminRole)]
-        public ActionResult AuditoriumDelete(byte id)
+        public ActionResult AuditoriumDelete(int id)
         {
             Auditorium auditorium = _context.Auditoriums
                                             .SingleOrDefault(m => m.Id == id);
@@ -517,7 +523,7 @@ namespace MovieTickets.Controllers
                 return View("AuditoriumForm", viewModel);
             }
 
-            if (auditorium.Id.Equals(null))
+            if (auditorium.Id == 0)
             {
                 // Add the auditorium
                 _context.Auditoriums.Add(auditorium);
@@ -527,7 +533,8 @@ namespace MovieTickets.Controllers
                 var auditoriumInDb = _context.Auditoriums.Single(m => m.Id == auditorium.Id);
 
                 auditoriumInDb.Name = auditorium.Name;
-                auditoriumInDb.TotalSeats = auditorium.TotalSeats;
+                auditoriumInDb.Rows = auditorium.Rows;
+                auditoriumInDb.SeatsPerRows = auditorium.SeatsPerRows;
             }
 
             _context.SaveChanges();
@@ -619,6 +626,7 @@ namespace MovieTickets.Controllers
                     reservationInDb.Paid = reservation.Paid;
                     reservationInDb.PaymentType = reservation.PaymentType;
                     reservationInDb.Reserved = reservation.Reserved;
+                    reservationInDb.Row = reservation.Row;
                     reservationInDb.Seat = reservation.Seat;
                 }
             }
@@ -639,7 +647,7 @@ namespace MovieTickets.Controllers
             {
                 var viewModel = new MovieFormViewModel(movie)
                 {
-                    Genres = _context.Genres.ToList()
+                    Genres = _context.Genres.OrderBy(m => m.Name).ToList()
                 };
 
                 return View("MovieForm", viewModel);

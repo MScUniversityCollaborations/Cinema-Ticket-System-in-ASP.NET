@@ -1,7 +1,7 @@
 ﻿@model MovieTickets.Models.Reservation
 
 @{
-    ViewBag.Title = "Reservation Details";
+    ViewBag.Title = "Details";
 }
 
 <section class="hero text-white py-4 flex-grow-1">
@@ -12,28 +12,39 @@
         <hr class="style1 mb-5">
 
         <div class="container p-0 my-4">
-            <div class="row p-3 py-5 rounded-4">    
+            <div class="row p-3 py-5 rounded-4">
+
+                <p><b>Photo:</b></p>
+                @if (Model.Photo.IsEmpty())
+                {
+                    <div class="col-sm p-2 text-center mb-3">
+                        <img src="~/Images/no_image_found.png" class="rounded-4 card-img-bottom">
+                    </div>
+                }
+                else
+                {
+                    <div class="col-sm p-2 text-center mb-3">
+                        <img src="data:image;base64,@Model.Photo" class="rounded-4 card-img-bottom">
+                    </div>
+                }
 
                 <div class="ms-5 col-sm p-1">
                     <div class="information">
 
-                        <img src="data:image;base64,@Model.Photo" class="card-img-top mb-5" onerror="this.src='~/Images/no_image_found.jpg'">
+                        <p><b>ID:</b> @Model.Id</p>
+                        <p><b>User:</b> @Model.User.Email</p>
 
-                        <div class="row">
-                            <div class="col-lg-6 mb-4">
-                                <p><b>ID:</b> @Model.Id</p>
-                                <p><b>User Email:</b> @Model.User.Email</p>
-                                <p><b>Movie:</b> @Model.Screening.Movie.Title</p>
-                                <p><b>Starting Date:</b> @Model.Screening.ScreeningStart</p>
-                                <p><b>Ending Date:</b> @Model.Screening.ScreeningEnd</p>
-                                <p><b>Reserved:</b> @Model.Reserved</p>
-                                <p><b>Paid:</b> @Model</p>
-                                <p><b>Payment Type:</b> @Model</p>
-                                <p><b>Auditorium Name:</b> @Model.Screening.Auditorium.Name</p>
-                                <p><b>Seat:</b> @Model.Seat</p>
-                                <p><b>Active:</b> @Model.Active</p>
-                            </div>
-                        </div>
+                        <p><b>Movie:</b> @Model.Screening.Movie.Title</p>
+                        <p><b>Starting Date:</b> @Model.Screening.ScreeningStart</p>
+                        <p><b>Ending Date:</b> @Model.Screening.ScreeningEnd</p>
+                        <p><b>Reserved:</b> @Model.Reserved</p>
+                        <p><b>Paid:</b> @Model.Paid</p>
+                        <p><b>Payment Type:</b> @Model.PaymentType</p>
+                        <p><b>Auditorium Name:</b> @Model.Screening.Auditorium.Name</p>
+                        <p><b>Row:</b> @Model.Row</p>
+                        <p><b>Seat:</b> @Model.Seat</p>
+                        <p><b>Active:</b> @Model.Active</p>
+
                     </div>
                 </div>
             </div>

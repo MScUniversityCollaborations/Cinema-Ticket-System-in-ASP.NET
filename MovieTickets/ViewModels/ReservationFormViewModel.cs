@@ -40,6 +40,11 @@ namespace MovieTickets.ViewModels
         [Required]
         public bool Active { get; set; }
 
+        [Display(Name = "Row No.")]
+        [Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
+        [Required]
+        public byte Row { get; set; }
+
         [Display(Name = "Seat No.")]
         [Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
         [Required]

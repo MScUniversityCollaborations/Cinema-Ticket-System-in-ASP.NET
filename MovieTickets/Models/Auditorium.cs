@@ -4,7 +4,7 @@ namespace MovieTickets.Models
 {
     public class Auditorium
     {
-        public byte Id { get; set; }
+        public int Id { get; set; }
 
         [Display(Name = "Name")]
         [Required]
@@ -12,8 +12,12 @@ namespace MovieTickets.Models
         public string Name { get; set; }
 
         [Required]
-        [Display(Name = "Total Seats")]
-        public int TotalSeats { get; set; }
+        [Display(Name = "Rows")]
+        public byte Rows { get; set; }
+
+        [Required]
+        [Display(Name = "Seats Per Row")]
+        public byte SeatsPerRows { get; set; }
 
     }
 }

@@ -382,6 +382,24 @@ namespace MovieTickets.Controllers
             return View(screening);
         }
 
+        [HttpGet]
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult ScreeningUpdate(int id)
+        {
+            var screening = _context.Screenings.SingleOrDefault(c => c.Id == id);
+
+            if (screening == null)
+                return HttpNotFound();
+
+            var viewModel = new ScreeningFormViewModel(screening)
+            {
+                Movies = _context.Movies.ToList(),
+                Auditoriums = _context.Auditoriums.ToList()
+            };
+
+            return View("ScreeningForm", viewModel);
+        }
+
         // GET: Reservations/:id
         [HttpGet]
         [Authorize(Roles = RoleName.AdminRole)]
@@ -577,6 +595,21 @@ namespace MovieTickets.Controllers
 
             _context.SaveChanges();
 
+            if (screening.Id != 0)
+            {
+                var allReservationsForScreening = _context.Reservations
+                    .Include(m => m.Screening)
+                    .Include(m => m.Screening.Movie)
+                    .Include(m => m.Screening.Auditorium)
+                    .Where(m => m.ScreeningId == screening.Id).ToList();
+
+                foreach (var reservation in allReservationsForScreening)
+                {
+                    var user = UserManager.FindById(reservation.UserId);
+                    _ = SendEmailScreeningChangeAsync(user, reservation.Screening, "Screening Details Changed!");
+                }
+            }
+
             ViewBag.Message = "Screening has been added successfully!";
 
             return View("Info");
@@ -757,6 +790,17 @@ namespace MovieTickets.Controllers
 
                 return View("Error");
             }
+        }
+
+        private async Task SendEmailScreeningChangeAsync(ApplicationUser user, Screening screening, string subject)
+        {
+            await UserManager.SendEmailAsync(user.Id, subject,
+               "<h1>Screening Details Changed!</h1><br>Hello, " + user.FirstName + " " + user.LastName 
+               + ",<br><br>There was a change in the screening you have booked for. The new details are:<br>- Movie: "
+               + screening.Movie.Title + "<br>- Auditorium Name: "
+               + screening.Auditorium.Name + "<br>- Starting: "
+               + screening.ScreeningStart + "<br>- Ending: "
+               + screening.ScreeningEnd + "<br>"); ;
         }
     }
 }

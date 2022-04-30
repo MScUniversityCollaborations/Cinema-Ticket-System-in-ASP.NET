@@ -1,0 +1,48 @@
+﻿@model MovieTickets.ViewModels.FindReservationFormViewModel
+
+@{
+    ViewBag.Title = "Find Reservation";
+}
+
+<section class="hero text-white py-4 flex-grow-1">
+    <div class="container">
+
+        <h1 class="display-4 text-uppercase mt-5 mb-xxl-4" style="font-family: 'Helvetica Bold'; text-align:center "> Find Reservation</h1>
+        <hr class="style1 mb-5">
+
+            <div class="row height d-flex justify-content-center align-items-center">
+                @using (Html.BeginForm("SearchForReservation", "Find", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <h4>Please enter the reservation email or phone number that it was registered to.</h4>
+                    <hr />
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Please enter the reservation's email (Ex: random@gmail.com)" })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @placeholder = "Please enter the reservation's phone number (Ex: 691232132)" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 mt-5 mb-5 col-md-10">
+                            <button type="submit" class="btn btn-primary btn-lg w-100"><i class="fa fa-search"></i> Search</button>
+                        </div>
+                    </div>
+                }
+            </div>
+    </div>
+</section>
+
+
+<div class="wrapper">
+    <div class="push"></div>
+</div>

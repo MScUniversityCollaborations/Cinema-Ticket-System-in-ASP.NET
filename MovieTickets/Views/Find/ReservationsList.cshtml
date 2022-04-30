@@ -1,17 +1,17 @@
-﻿@model IEnumerable<MovieTickets.Models.Reservation>
+﻿@model MovieTickets.ViewModels.ReservationsListFormViewModel
 
 @{
-    ViewBag.Title = "My Reservations";
+    ViewBag.Title = "Reservations Found";
 }
 
-@if (!Model.Any())
+@if (!Model.Reservations.Any())
 {
     <div class="page-wrap d-flex mt-5 flex-row align-items-center">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12 text-center">
                     <img src="~/Images/empty_state.png" class="img-fluid" alt="Empty State Image">
-                    <h1 class="display-4 text-uppercase text-white mt-4" style="font-family: 'Helvetica Bold'; text-align: center">You have no reservations!</h1>
+                    <h1 class="display-4 text-uppercase text-white mt-4" style="font-family: 'Helvetica Bold'; text-align: center">There are no reservations!</h1>
                 </div>
             </div>
         </div>
@@ -23,11 +23,11 @@ else
 
         <div class="container" py-4">
 
-            <h1 class="display-4 text-uppercase" style="font-family: 'Helvetica Bold'; text-align: center">My Reservations</h1>
+            <h1 class="display-4 text-uppercase" style="font-family: 'Helvetica Bold'; text-align: center">Reservations Found</h1>
             <hr class="style1 mb-5">
 
             <div class="row row-cols-1 row-cols-md-3 g-4">
-                <table class="table table-striped rounded-4 table-bordered table-dark table-responsive" id="TableMyReservations" style="border-radius: 5px">
+                <table class="table table-striped rounded-4 table-bordered table-dark table-responsive" id="TableReservations" style="border-radius: 5px">
                     <tr>
                         <th>
                             Movie
@@ -36,27 +36,27 @@ else
                             Auditorium
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Screening.ScreeningStart)
+                            Starting
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Screening.ScreeningEnd)
+                            Ending
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Reserved)
+                            Reserved?
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Paid)
+                            Paid?
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.PaymentType)
+                            Payment Type
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Active)
+                            Active?
                         </th>
                         <th></th>
                     </tr>
 
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.Reservations)
                     {
                         <tr>
                             <td>
@@ -106,8 +106,8 @@ else
                             </td>
 
                             <td>
-                                <a href="@Url.Action("ReservationDetails", "Profile", new { Id = item.Id })" class="btn btn-primary ml-2">
-                                    <i class="fa-solid fa-circle-info"></i>
+                                <a href="@Url.Action("ConfirmReservation", "Find", new { Id = item.Id })" class="btn btn-primary ml-2">
+                                    <i class="fa-solid fa-circle-check"></i>
                                 </a>
                             </td>
                         </tr>
@@ -125,8 +125,12 @@ else
 
 @section scripts{
     <script>
+        @*$(document).ready(function () {
+            alert(@Html.Raw(Json.Encode(@Model.Email)))
+        });*@
+
         $(function () {
-            $('#TableMyReservations').DataTable({
+            $('#TableReservations').DataTable({
                 "paging": true,
                 "lengthChange": true,
                 "searching": true,

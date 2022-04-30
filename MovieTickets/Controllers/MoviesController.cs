@@ -1,20 +1,43 @@
-﻿using MovieTickets.Models;
+﻿using Microsoft.AspNet.Identity.Owin;
+using MovieTickets.Models;
 using MovieTickets.ViewModels;
 using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 
 namespace MovieTickets.Controllers
 {
     public class MoviesController : Controller
     {
         private ApplicationDbContext _context;
-
+        private ApplicationUserManager _userManager;
         public MoviesController()
         {
             _context = new ApplicationDbContext();
+        }
+
+        public MoviesController(ApplicationUserManager userManager)
+        {
+            UserManager = userManager;
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
         }
 
         protected override void Dispose(bool disposing)
@@ -127,6 +150,10 @@ namespace MovieTickets.Controllers
             _context.Reservations.Add(reservationData);
             _context.SaveChanges();
 
+            reservationData.User = UserManager.FindById(reservationData.UserId);
+
+            _ = SendEmailReservationConfirmationAsync(reservationData.User.Id, reservationData.User.UserName, reservationData.Id, "Reservation Confirmation!");
+
             ViewBag.Message = "Reservation has been created successfully!";
 
             return View("Info");
@@ -139,6 +166,17 @@ namespace MovieTickets.Controllers
             ViewBag.Message = "Reservation has been created successfully!";
 
             return View("Info");
+        }
+
+        private async Task<string> SendEmailReservationConfirmationAsync(string userID, string userName, int reservationId, string subject)
+        {
+            var callbackUrl = Url.Action("ReservationDetails", "Profile",
+               new { id = reservationId }, protocol: Request.Url.Scheme);
+
+            await UserManager.SendEmailAsync(userID, subject,
+               "<h1>Reservation Confirmation!</h1><br>Hello, " + userName + ". You can view your reservation by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+            return callbackUrl;
         }
     }
 }

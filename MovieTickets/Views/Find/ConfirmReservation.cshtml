@@ -1,0 +1,72 @@
+﻿@model MovieTickets.ViewModels.ConfirmReservationFormViewModel
+
+@{
+    ViewBag.Title = "Confirm Reservation";
+}
+
+<h2>Confirm Reservation</h2>
+
+<section class="hero text-white py-4 flex-grow-1">
+    <div class="container py-4">
+        <div class="row">
+            <h2 class="display-4 mb-5">@ViewBag.Title</h2>
+
+            <div class="col-lg-6">
+                @using (Html.BeginForm("ConfirmReservation", "Find", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h4>Confirm your reservation by entering your details below.</h4>
+                    <hr />
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "Please add the movie's title (Ex: Lord of The Rings)" })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "Please add the movie's director (Ex: Steven Spielberg)" })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 text-no-wrap control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @placeholder = "Please add your phone number." })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.Reservation.Photo, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Reservation.Photo, new { @type = "file", @class = "form-control" })
+                        </div>
+                    </div>
+
+                    @Html.HiddenFor(m => m.Id)
+                    <div class="form-group">
+                        <div class="col-md-offset-2 mt-5 mb-5 col-md-10">
+                            <button type="submit" class="btn btn-primary btn-lg w-100"><i class="fa-solid fa-circle-check"></i> Confirm</button>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+    </div>
+</section>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

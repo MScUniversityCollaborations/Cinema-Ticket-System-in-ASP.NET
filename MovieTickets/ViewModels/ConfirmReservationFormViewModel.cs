@@ -30,7 +30,6 @@ namespace MovieTickets.ViewModels
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
 
-        [Required]
         [Display(Name = "Photo")]
         public string Photo { get; set; }
 

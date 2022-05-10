@@ -1,0 +1,146 @@
+﻿@model MovieTickets.ViewModels.UserReservationsListViewModel
+
+@{
+    ViewBag.Title = "Reservations Found";
+}
+
+@if (!Model.Reservations.Any())
+{
+    <div class="page-wrap d-flex mt-5 flex-row align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12 text-center">
+                    <img src="~/Images/empty_state.png" class="img-fluid" alt="Empty State Image">
+                    <h1 class="display-4 text-uppercase text-white mt-4" style="font-family: 'Helvetica Bold'; text-align: center">There are no reservations!</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <section class="hero text-white py-4 flex-grow-1">
+
+        <div class="container" py-4">
+
+            <h1 class="display-4 text-uppercase" style="font-family: 'Helvetica Bold'; text-align: center">Reservations of @Model.UserName</h1>
+            <hr class="style1 mb-5">
+
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <table class="table table-striped rounded-4 table-bordered table-dark table-responsive" id="TableReservations" style="border-radius: 5px">
+                    <tr>
+                        <th>
+                            Movie
+                        </th>
+                        <th>
+                            Auditorium
+                        </th>
+                        <th>
+                            Starting
+                        </th>
+                        <th>
+                            Ending
+                        </th>
+                        <th>
+                            Reserved?
+                        </th>
+                        <th>
+                            Paid?
+                        </th>
+                        <th>
+                            Payment Type
+                        </th>
+                        <th>
+                            Active?
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model.Reservations)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Screening.Movie.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Screening.Auditorium.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Screening.ScreeningStart)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Screening.ScreeningEnd)
+                            </td>
+                            <td>
+                                @if (item.Reserved)
+                                {
+                                    <p>Yes</p>
+                                }
+                                else
+                                {
+                                    <p>No</p>
+                                }
+                            </td>
+                            <td>
+                                @if (item.Paid)
+                                {
+                                    <p>Yes</p>
+                                }
+                                else
+                                {
+                                    <p>No</p>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PaymentType)
+                            </td>
+                            <td>
+                                @if (item.Active)
+                                {
+                                    <p>Yes</p>
+                                }
+                                else
+                                {
+                                    <p>No</p>
+                                }
+                            </td>
+
+                            <td>
+                                <a href="@Url.Action("ReservationDetails", "Admin", new { Id = item.Id })" class="btn btn-primary ml-2">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </a>
+                                <a href="@Url.Action("ReservationDelete", "Admin", new { Id = item.Id })" class="btn btn-danger ml-2">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </section>
+}
+
+<div class="wrapper">
+    <div class="push"></div>
+</div>
+
+@section scripts{
+    <script>
+        @*$(document).ready(function () {
+            alert(@Html.Raw(Json.Encode(@Model.Email)))
+        });*@
+
+        $(function () {
+            $('#TableReservations').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true
+            });
+        });
+    </script>
+}  

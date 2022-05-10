@@ -1,0 +1,119 @@
+﻿@model MovieTickets.Models.Movie
+
+@{
+    ViewBag.Title = "Delete Movie Confirmation";
+}
+
+<section class="hero text-white py-4 flex-grow-1">
+    <div class="container py-4">
+        <div class="row">
+            <h2 class="display-4 mb-5">@ViewBag.Title</h2>
+
+            <div class="col-lg-6">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <h4>Are you sure you want to delete this movie?</h4>
+                    <hr />
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.DisplayFor(m => m.Title, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.Director, new { @class = "col-md-2 text-no-wrap control-label" })
+                        <div class="col-md-10">
+                            @if (Model.Director.IsEmpty())
+                            {
+                                <p>Not given.</p>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(m => m.Director, new { @class = "form-control" })
+                            }
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.Cast, new { @class = "col-md-2 text-no-wrap control-label" })
+                        <div class="col-md-10">
+                            @if (Model.Cast.IsEmpty())
+                            {
+                                <p>Not given.</p>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(m => m.Cast, new { @class = "form-control" })
+                            }
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.DurationMin, new { @class = "col-md-2 text-no-wrap control-label" })
+                        <div class="col-md-10">
+                            @Html.DisplayFor(m => m.DurationMin, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 text-no-wrap control-label" })
+                        <div class="col-md-10">
+                            @if (Model.Description.IsEmpty())
+                            {
+                                <p>Not given.</p>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(m => m.Description, new { @class = "form-control" })
+                            }
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.Genre, new { @class = "col-md-2 text-no-wrap control-label" })
+                        <div class="col-md-10">
+                            @Html.DisplayFor(m => m.Genre.Name, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.NowShowing, new { @class = "col-md-2 text-no-wrap control-label" })
+                        <div class="col-md-10">
+                            @if (Model.NowShowing)
+                            {
+                                <p>Yes</p>
+                            }
+                            else
+                            {
+                                <p>No</p>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.LabelFor(m => m.DateAdded, new { @class = "col-md-2 text-no-wrap control-label" })
+                        <div class="col-md-10">
+                            @Html.DisplayFor(m => m.DateAdded, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    @Html.HiddenFor(m => m.Id)
+                    <div class="form-group">
+                        <div class="col-md-offset-2 mt-5 mb-5 col-md-10">
+                            <button type="submit" class="btn btn-primary btn-lg w-100"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

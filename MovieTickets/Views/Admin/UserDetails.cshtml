@@ -1,4 +1,5 @@
 ﻿@model MovieTickets.Models.ApplicationUser
+@using Microsoft.Owin.Host.SystemWeb
 
 @{
     ViewBag.Title = "User Details";
@@ -23,24 +24,33 @@
                             <div class="col-lg-6 mb-4">
                                 <p><b>First Name:</b> @Model.FirstName</p>
                                 <p><b>Last Name:</b> @Model.LastName</p>
-                                <p><b>Email:</b> @Model.FirstName</p>
-                                <p><b>Phone Number:</b> @Model.FirstName</p>
+                                <p><b>Email:</b> @Model.Email</p>
+                                @if (Model.PhoneNumber.IsEmpty())
+                                {
+                                    <p><b>Phone Number:</b> Not given.</p>
+                                }
+                                else
+                                {
+                                    <p><b>Phone Number: @Model.PhoneNumber</b></p>
+                                }
                             </div>
 
                             <div class="col-lg-6 mb-4">
 
-                                <p><b>Roles:</b></p>
+                                @*<p><b>Roles:</b></p>
                                 @if (Model.Roles.Any())
                                 {
-                                    foreach (var role in Model.Roles)
+                                    // var userManager = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+                                    foreach (var role in Model.Roles.FirstOrDefault())
                                     {
-                                        <p>• @role</p>
+                                        <p>• @role.ToString()</p>
                                     }
                                 }
                                 else
                                 {
                                     <p>None at the moment</p>
-                                }
+                                }*@
                             </div>
 
                             <a href="@Url.Action("UserReservations", "Admin", new { Id = Model.Id })" style="width:auto" class="btn btn-primary">

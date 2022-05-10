@@ -39,6 +39,13 @@
                     </div>
 
                     <div class="form-group mt-3">
+                        <p class="col-md-2 text-no-wrap control-label">Auditorium Name</p>
+                        <div class="col-md-10">
+                            @Html.DisplayFor(m => m.Screening.Auditorium.Name, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
                         @Html.LabelFor(m => m.Screening.ScreeningStart, new { @class = "col-md-2 text-no-wrap control-label" })
                         <div class="col-md-10">
                             @Html.DisplayFor(m => m.Screening.ScreeningStart, new { @class = "form-control" })
@@ -55,14 +62,28 @@
                     <div class="form-group mt-3">
                         @Html.LabelFor(m => m.Reserved, new { @class = "col-md-2 text-no-wrap control-label" })
                         <div class="col-md-10">
-                            @Html.DisplayFor(m => m.Reserved, new { @class = "form-control" })
+                            @if (Model.Reserved)
+                            {
+                                <p>Yes</p>
+                            }
+                            else
+                            {
+                                <p>No</p>
+                            }
                         </div>
                     </div>
 
                     <div class="form-group mt-3">
                         @Html.LabelFor(m => m.Paid, new { @class = "col-md-2 text-no-wrap control-label" })
                         <div class="col-md-10">
-                            @Html.DisplayFor(m => m.Paid, new { @class = "form-control" })
+                            @if (Model.Paid)
+                            {
+                                <p>Yes</p>
+                            }
+                            else
+                            {
+                                <p>No</p>
+                            }
                         </div>
                     </div>
 
@@ -76,14 +97,14 @@
                     <div class="form-group mt-3">
                         @Html.LabelFor(m => m.Active, new { @class = "col-md-2 text-no-wrap control-label" })
                         <div class="col-md-10">
-                            @Html.DisplayFor(m => m.Active, new { @class = "form-control" })
-                        </div>
-                    </div>
-
-                    <div class="form-group mt-3">
-                        @Html.LabelFor(m => m.Screening.Auditorium.Name, new { @class = "col-md-2 text-no-wrap control-label" })
-                        <div class="col-md-10">
-                            @Html.DisplayFor(m => m.Screening.Auditorium.Name, new { @class = "form-control" })
+                            @if (Model.Active)
+                            {
+                                <p>Yes</p>
+                            }
+                            else
+                            {
+                                <p>No</p>
+                            }
                         </div>
                     </div>
 

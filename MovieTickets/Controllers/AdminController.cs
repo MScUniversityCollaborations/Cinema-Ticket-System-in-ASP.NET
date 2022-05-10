@@ -102,6 +102,37 @@ namespace MovieTickets.Controllers
 
         [HttpGet]
         [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult UserReservations(string id)
+        {
+            var reservationsInDb = _context.Reservations
+                    .Include(m => m.Screening)
+                    .Include(m => m.Screening.Movie)
+                    .Include(m => m.Screening.Auditorium)
+                    .Include(m => m.User)
+                    .Where(r => r.User.Id == id)
+                    .OrderBy(m => m.Screening.ScreeningStart);
+
+            var user = UserManager.FindById(id);
+
+            if (!reservationsInDb.Any())
+            {
+                ViewBag.ErrorMessage = "No reservations were found for " + user.UserName;
+
+                return View("Error");
+            }
+
+            var viewModel = new UserReservationsListViewModel()
+            {
+                UserId = id,
+                UserName = user.UserName,
+                Reservations = reservationsInDb
+            };
+
+            return View("UserReservations", viewModel);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = RoleName.AdminRole)]
         public ActionResult MovieUpdate(int id)
         {
             var movie = _context.Movies.SingleOrDefault(c => c.Id == id);
@@ -115,6 +146,46 @@ namespace MovieTickets.Controllers
             };
 
             return View("MovieForm", viewModel);
+        }
+
+        // GET: Movies/Delete/:id
+        [HttpGet]
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult MovieDelete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Movie movie = _context.Movies
+                .Include(m => m.Genre)
+                .SingleOrDefault(m => m.Id == id);
+
+            if (movie == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View("MovieDelete", movie);
+        }
+
+        // POST: Movies/Delete/:id
+        [HttpPost, ActionName("MovieDelete")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.AdminRole)]
+        public ActionResult MovieDelete(int id)
+        {
+            Movie movie = _context.Movies
+                .Include(m => m.Genre)
+                .SingleOrDefault(m => m.Id == id);
+
+            _context.Movies.Remove(movie);
+            _context.SaveChanges();
+
+            ViewBag.Message = "Movie has been removed successfully!";
+
+            return View("Info");
         }
 
         // GET: Auditoriums/Update/:id
@@ -374,6 +445,8 @@ namespace MovieTickets.Controllers
         public ActionResult ScreeningDetails(int id)
         {
             var screening = _context.Screenings
+                .Include(m => m.Auditorium)
+                .Include(m => m.Movie)
                 .SingleOrDefault(m => m.Id == id);
 
             if (screening == null)
@@ -466,7 +539,12 @@ namespace MovieTickets.Controllers
             }
 
             Reservation reservation = _context.Reservations
-                                              .SingleOrDefault(m => m.Id == id);
+                .Include(m => m.Screening)
+                .Include(m => m.Screening.Movie)
+                .Include(m => m.Screening.Auditorium)
+                .Include(m => m.User)
+                .SingleOrDefault(m => m.Id == id);
+            
             if (reservation == null)
             {
                 return HttpNotFound();
@@ -479,7 +557,7 @@ namespace MovieTickets.Controllers
         [HttpPost, ActionName("ReservationDelete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = RoleName.AdminRole)]
-        public ActionResult ReservationDelete(byte id)
+        public ActionResult ReservationDelete(int id)
         {
             Reservation reservation = _context.Reservations
                                               .SingleOrDefault(m => m.Id == id);
@@ -503,7 +581,9 @@ namespace MovieTickets.Controllers
             }
 
             Screening screening = _context.Screenings
-                                          .SingleOrDefault(m => m.Id == id);
+                .Include(m => m.Auditorium)
+                .Include(m => m.Movie)
+                .SingleOrDefault(m => m.Id == id);
             if (screening == null)
             {
                 return HttpNotFound();
